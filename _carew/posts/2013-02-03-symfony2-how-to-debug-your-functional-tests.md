@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  How to debug your functionals test with symfony2
+title:  Symfony2: How to debug your functionals tests
 tags:
     - Symfony2
 ---
