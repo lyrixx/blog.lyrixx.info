@@ -7,6 +7,7 @@ site:
     gh_url:           https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew
     url_absolute:     http://blog.lyrixx.info
     google_analytics: UA-4212683-8
+    disqus_shortname: lyrixxblog
 
 engine:
     themes:

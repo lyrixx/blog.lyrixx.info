@@ -106,7 +106,12 @@ underline;">application/layout/scripts/main.phtml</span>), entre les balises
             </div>
           </div>
         
-                      <footer>
+                  <div class="row comments">
+          <div class="span10 offset1 content">
+              <div id="disqus_thread"></div>
+          </div>
+      </div>
+                  <footer>
             <p>
               &copy;
                               <a href="http://gregoirepineau.fr">
@@ -122,7 +127,7 @@ underline;">application/layout/scripts/main.phtml</span>), entre les balises
       </div>
     
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
                     var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-4212683-8']);
                         _gaq.push(['_trackPageview']);
@@ -131,5 +136,14 @@ underline;">application/layout/scripts/main.phtml</span>), entre les balises
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
-            </script>  </body>
+            </script>
+            <script type="text/javascript">
+            var disqus_shortname = 'lyrixxblog';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+      </body>
 </html>

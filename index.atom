@@ -5,7 +5,7 @@
     <link href="http://blog.lyrixx.info/index.atom" rel="self" />
     <link href="http://blog.lyrixx.info/" />
         <id>http://blog.lyrixx.info/</id>
-            <updated>2013-02-03T16:58:35+01:00</updated>
+            <updated>2013-02-03T17:17:27+01:00</updated>
             <entry>
         <title>Symfony2: Snippet to render all form errors</title>
         <content><![CDATA[With symfony 2, you can render all errors from a form with a little macro. You
