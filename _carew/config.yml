@@ -5,6 +5,7 @@ site:
     author_email:     lyrixx@lyrixx.info
     author_url:       http://gregoirepineau.fr
     gh_url:           https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew
+    gh_edit:          https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew
     url_absolute:     http://blog.lyrixx.info
     google_analytics: UA-4212683-8
     disqus_shortname: lyrixxblog
