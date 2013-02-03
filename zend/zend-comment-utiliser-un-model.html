@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Zend : Comment utiliser un model ?</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Zend : Comment utiliser un model ?</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Jun 27th, 2009
+    </div>
+
+    <div class="body">
+      <p>On va voir comment se servir d’un <code>model</code> dans <strong>Zend framework</strong>. Un <code>model</code>
+est en fait un objet que vous allez pouvoir utiliser. Il est bien sur possible
+d’en utiliser plusieurs, et d’appeler un <code>model</code> depuis un autre <code>model</code>. Il est
+possible d’utiliser dans les <code>models</code> des <code>models</code> du framework zend comme
+<code>Zend_Registry</code>, <code>Zend_ProgressBar</code>, les <code>Zend_Service_</code> etc. Il est aussi
+possible d’étendre une <code>class</code> du framework, comme la class <code>Zend_DB</code>. On peut
+se reférer a la <a href="http://framework.zend.com/manual/fr/index.html"
+target="_blank">documentation de Zend</a>.</p>
+
+<p>Cependant, les <code>models</code> doivent respecter une certaine syntaxe pour le nom du
+fichier, et aussi pour le nom de la <code>class</code>. Si un <code>model</code> est directement dans
+la dossier <code>models</code>, le nom de fichier devra etre :<span style="text-decoration:
+underline;"> Nom.php</span> et le nom de <code>class</code> devra etre <span style="text-
+decoration: underline;">Nom</span>. En gros il faut que le nom de <code>class</code> et le
+nom de fichier soient les memes. Par contre, si la <code>class</code> est dans un sous
+dossier du dossier <code>model</code>, la il faudra que le nom du fichier soit <span style
+="text-decoration: underline;">NomDeFichier.php </span>et que le nom de la
+<code>class</code> soit <span style="text-decoration:
+underline;">NomDeDossier_NomDeFichier</span>. En gros, il faut mettre devant le
+nom de la <code>class</code> toute l’arborescense du fichier jusqu’au dossier <code>models</code>.
+Enfin il y a une convention qui veut qu’on commence tous les nom de class par
+des majuscules, ce n’est pas obligatoire, mais en général cela permet de s’y
+retrouver plus facilement.</p>
+
+<p>Un petit exemple pour comprendre comment instanciser un nouvel objet, et
+l’utiliser :</p>
+
+<p>Fichier directement dans le dossier models:</p>
+
+<pre><code>class Test1 {
+
+    private $nom;
+
+    public function __construct($nom){
+        $this-&gt;setNom($nom);
+    }
+
+    /**
+     * @param $nom the $nom to set
+     */
+    public function setNom($nom) {
+        $this-&gt;nom = $nom;
+    }
+
+    /**
+     * @return the $nom
+     */
+    public function getNom() {
+        return $this-&gt;nom;
+    }
+}
+</code></pre>
+
+<p>Fichier dans le dossier "dossier1" qui est fans le dossier models:</p>
+
+<pre><code>class dossier1_Test2 {
+
+    private $nom;
+
+    public function __construct($nom){
+        $this-&gt;setNom($nom);
+    }
+
+    /**
+     * @param $nom the $nom to set
+     */
+    public function setNom($nom) {
+        $this-&gt;nom = $nom;
+    }
+
+    /**
+     * @return the $nom
+     */
+    public function getNom() {
+        return $this-&gt;nom;
+    }
+}
+</code></pre>
+
+<p>FactureController</p>
+
+<pre><code>/**
+ * FactureController
+ *
+ * @author
+ * @version
+ */
+
+require_once 'Zend/Controller/Action.php';
+
+class FactureController extends Zend_Controller_Action {
+    /**
+     * The default action - show the home page
+     */
+    public function indexAction() {
+        // TODO Auto-generated FactureController::indexAction()
+        default action
+    }
+
+    public function ajouterAction(){
+        $obj1 = new Test1('http://blog.lyrixx.info');
+        $this-&gt;view-&gt;obj1 = $obj1;
+        $obj2 = new dossier1_Test2('http://www.lyrixx.info');
+        $this-&gt;view-&gt;obj2 = $obj2-&gt;getNom();
+    }
+
+    public function editerAction(){
+
+    }
+
+    public function supprimerAction(){
+
+    }
+}
+</code></pre>
+
+<p>vue:</p>
+
+<pre><code>/**
+ * Default home page view
+ *
+ * @author
+ * @version
+ */
+
+$this-&gt;headTitle('Ajouter une facure');
+$this-&gt;placeholder('title')-&gt;set('Ajouter une facture');
+
+echo $this-&gt;obj1-&gt;getNom();
+echo '&lt;br /&gt;';
+echo $this-&gt;obj2;
+</code></pre>
+
+<p>On voit bien qu’on peut passer a la vue toute sorte d’objet : un objet, ou le
+résultat d’une de ses méthodes.</p>
+
+<p>La suite : on avance dans le projet <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html" title="Tuto : Zend Framework 1.8 et son bootstrap">le bootstrap, la connection a la base de
+donnée</a>.</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Comment gérer la navigation de son site avec le Zend Framework</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Comment gérer la navigation de son site avec le Zend Framework</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Oct 8th, 2009
+    </div>
+
+    <div class="body">
+      <p>Dans ce tuto on va voir comment
+mettre en place un système automatique de <strong>navigation</strong> dans le <strong>Zend
+Framework</strong>. C’est a dire que notre <strong>menu de navigation soit dynamique et
+flexible</strong>. On pourra par exemple avoir notre <strong>chemin de navigation ou fil de
+navigation</strong>. On va donc utiliser le composant <strong>Zend_Navigation</strong>. On a
+plusieurs possibilité pour la gestion et le stockage de l’arbre (ou graphe) de
+navigation. Moi j’ai choisit le <code>XML</code> pour le stockage, et la gestion par
+<code>module</code>, <code>controller</code> et <code>action</code>. Enfin on utilise aussi la traduction
+automatique ;)</p>
+
+<h2 id="sommaire">Sommaire</h2>
+
+<ul>
+<li><a href="#sommaire">Sommaire</a></li>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#bootstrap">Bootstrap</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#hierarchie">Hiérarchie de pages</a></li>
+<li><a href="#css">Classe css de la page en cours</a></li>
+<li><a href="#fil">Fil de Navigation ou breadcrumbs</a></li>
+</ul>
+
+<h2 id="intro">Introduction</h2>
+
+<p>On commence par un aperçu de notre fichier de navigation :</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configdata&gt;
+&lt;nav&gt;
+    &lt;home&gt;
+        &lt;label&gt;nav_home&lt;/label&gt;
+        &lt;controller&gt;index&lt;/controller&gt;
+    &lt;/home&gt;
+&lt;/nav&gt;
+&lt;/configdata&gt;
+</code></pre>
+
+<p>Petite explication : la balise <code>configdata</code> ne sert que de nœud racine, la
+balise <code>nav</code> sert a repérer notre section de la gestion de la <span style="font-
+style: normal;">navigation</span>. Dans mon cas je n’utilise le fichier
+<code>navigation.xml</code> que pour gérer la navigation, pour on pourrait envisager de
+n’avoir qu’un seul gros fichier xml pour gérer toutes nos données et variables
+de l’application. Ensuite on a une balise <code>home</code>, elle représente un lien du
+<strong>menu</strong>, on lui donne le nom qu’on veut, elle va représenter dans notre cas la
+page <code>d’accueil</code>. Elle a pour classe fille une balise <code>label</code> qui définit le nom
+du lien. J’utilise <code>nav_home</code> car dans mon fichier de traduction j’ai une clé
+<code>nav_home</code> qui fait référence a <code>home</code>. Enfin il y a une balise <code>controller</code> qui
+définit sur quel <code>controller</code> pointe le futur lien. Il est bien sur possible de
+sélectionner une <code>action</code> avec la balise <code>action</code> et un <code>module</code> avec la balise
+<code>module</code>. C’est bien fait non ? Sinon il est possible aussi d’avoir un liens
+direct grâce a la balise <code>uri</code>. Un petit exemple qui regroupe tout les cas :</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configdata&gt;
+    &lt;nav&gt;
+        &lt;home&gt;
+            &lt;label&gt;nav_home&lt;/label&gt;
+            &lt;controller&gt;index&lt;/controller&gt;
+        &lt;/home&gt;
+        &lt;page2&gt;
+            &lt;label&gt;Page 2&lt;/label&gt;
+            &lt;module&gt;mon_module&lt;/module&gt;
+            &lt;controller&gt;mon_controller&lt;/controller&gt;
+            &lt;action&gt;mon_action&lt;/action&gt;
+        &lt;/home&gt;
+        &lt;home&gt;
+            &lt;label&gt;nav_home&lt;/label&gt;
+            &lt;uri&gt;/foo/bar/&lt;/uri&gt;
+        &lt;/home&gt;
+    &lt;/nav&gt;
+&lt;/configdata&gt;
+</code></pre>
+
+<h2 id="bootstrap">Bootstrap</h2>
+
+<p>Il faut rajouter une méthode a notre <strong>bootstrap</strong> :</p>
+
+<pre><code>/**
+ * @return Zend_Navigation
+ */
+protected function _initNavigation() {
+    $view =
+    $this-&gt;bootstrap('layout')-&gt;getResource('layout')-&gt;getView();
+    $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
+    $view-&gt;navigation(new Zend_Navigation($config));
+}
+</code></pre>
+
+<p>La seule chose a retenir ici est le premier argument de la méthode
+<strong>Zend_Config_Xml</strong> : c’est le chemin de notre <strong>fichier de navigation</strong> et le
+deuxième argument représente la balise mère de notre <code>section de navigation</code>
+dans le fichier <code>xml</code>. Voilà, on a notre fonction de navigation disponible dans
+notre application. Il suffit maintenant de l’utiliser.</p>
+
+<h2 id="layout">Layout</h2>
+
+<p>Histoire de faire le plus simple possible, on va ajouter notre barre de
+navigation directement dans le <code>layout</code>, histoire de le retrouver sur toutes les
+pages. Il suffit de rajouter ce bout de code dans le fichier <code>layout.phtml</code> à
+l’endroit ou vous voulez que le menu s’affiche :</p>
+
+<pre><code>&lt;?php echo $this-&gt;navigation()-&gt;menu(); ?&gt;
+</code></pre>
+
+<h2 id="hierarchie">Hiérarchie de pages</h2>
+
+<p>On va voir maintenant un exemple de fichier xml ou il y a plusieurs pages et
+sous pages <img class="alignright size-full wp-image-735" title="navigation-
+Menu" src="../../wp-content/uploads/2009/10/navigation-Menu.png"
+alt="navigation-Menu" width="208" height="156" /></p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configdata&gt;
+&lt;nav&gt;
+    &lt;home&gt;
+        &lt;label&gt;nav_home&lt;/label&gt;
+        &lt;controller&gt;index&lt;/controller&gt;
+        &lt;pages&gt;
+            &lt;add&gt;
+                &lt;label&gt;nav_fact_add&lt;/label&gt;
+                &lt;controller&gt;fact&lt;/controller&gt;
+                &lt;action&gt;add&lt;/action&gt;
+            &lt;/add&gt;
+            &lt;list&gt;
+                &lt;label&gt;nav_fact_list&lt;/label&gt;
+                &lt;controller&gt;fact&lt;/controller&gt;
+            &lt;/list&gt;
+            &lt;calc&gt;
+                &lt;label&gt;nav_calc&lt;/label&gt;
+                &lt;controller&gt;calc&lt;/controller&gt;
+            &lt;/calc&gt;
+            &lt;user&gt;
+                &lt;label&gt;nav_user&lt;/label&gt;
+                &lt;controller&gt;user&lt;/controller&gt;
+            &lt;/user&gt;
+            &lt;stats&gt;
+                &lt;label&gt;nav_sats&lt;/label&gt;
+                &lt;controller&gt;stats&lt;/controller&gt;
+            &lt;/stats&gt;
+        &lt;/pages&gt;
+    &lt;/home&gt;
+&lt;/nav&gt;
+&lt;/configdata&gt;
+</code></pre>
+
+<p>Voilà, **la balise a retenir **est la balise <code>pages</code> qui permet de définir des
+sous pages ou sous menu. Et bien sur on peut en imbriquer autant qu’on veut.
+Enfin il faut savoir que le code <code>html</code> des liens sur la page suit une
+hiérarchie de balise <code>ul/li</code>.</p>
+
+<h2 id="css">Classe css de la page en cours</h2>
+
+<p>Comment ajouter une classe au <code>lien</code> qui pointe vers <strong>la page en cours</strong> ? Et
+bien il suffit de rajouter ce bout de code en haut de chaque <code>controller</code> (dans
+la méthode <code>init</code>) :</p>
+
+<pre><code>public function init()
+{
+    /` Initialize action controller here `/
+    $activeNav =
+    $this-&gt;view-&gt;navigation()-&gt;findByController('index');
+    $activeNav-&gt;active = true;
+    $activeNav-&gt;setClass("active");
+}
+</code></pre>
+
+<p>Et voilà maintenant quand on est sur une page du <code>controller</code> <code>index</code> (dans ce
+cas la) et bien le lien aura (entre autre) la classe <code>active</code>. Il suffit après
+de toucher au <code>css</code> pour ajouter un petit effet ;)</p>
+
+<p>Vous en voulez encore plus ?</p>
+
+<h2 id="fil">Fil de Navigation ou <strong>breadcrumbs</strong></h2>
+
+<p><img class="alignright size-full wp-image-736" title="navigation-fil" src="../../wp-content/uploads/2009/10/navigation-fil.png" alt="navigation-
+fil" width="296" height="41" /></p>
+
+<p>Et bien avec <code>Zend_Navigation</code>on peut retracer notre <strong>chemin de navigation</strong>,
+qui soit dit en passant est très bon en terme d’ergonomie, mais aussi en terme
+de référencement. Donc je vous invite vraiment à le mettre en place. Encore une
+fois, il suffit de rajouter une ligne de <code>php</code> dans le fichier <code>layout.phtml</code> :</p>
+
+<pre><code>&lt;?php echo $this-&gt;navigation()-&gt;breadcrumbs()-&gt;setMinDepth(0)-&gt;setLinkLast(true)-&gt;setSeparator(" &gt;&gt; "); ?&gt;
+</code></pre>
+
+<p>Alors on décortique le bousin :</p>
+
+<ul>
+<li><code>$this-&gt;navigation()-&gt;breadcrumbs()</code> va afficher le <strong>fil de navigation</strong>.</li>
+<li><code>-&gt;setMinDepth(0)</code> va définir si il faut ou pas afficher ce fil ; il est
+en accord direct avec la profondeur du <code>xml</code>.</li>
+<li><code>-&gt;setLinkLast(true)</code> définit si il faut ou pas mettre un liens sur le
+dernier fils du fil de navigation qui correspond à la page en cours</li>
+<li><code>-&gt;setSeparator( » &gt;&gt; « )</code> définit par quelle chaine de caractère
+est séparer notre liste de liens.</li>
+</ul>
+
+<p>Voilà, comme on a pu voir, le plus dur est de faire le fichier <code>xml</code> ainsi que
+le <code>css</code> des menus. Après c’est un jeux d’enfant pour avoir de beau menu ;)</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

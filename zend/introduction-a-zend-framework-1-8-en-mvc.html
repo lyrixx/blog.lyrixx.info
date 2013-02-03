@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Introduction a Zend Framework 1.8 en MVC</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Introduction a Zend Framework 1.8 en MVC</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Jul 13th, 2009
+    </div>
+
+    <div class="body">
+      <p>On va voir comment transformer un script php qui n’utilise pas Zend en une
+application utilisant le <strong>Framework Zend</strong>. Pour se faire on va utiliser la
+version 1.8 (ou supérieur) de <strong>Zend Framework</strong>, et on va l’utiliser en mode
+<strong>MVC (Model View Controller</strong>).</p>
+
+<p>Il va d’abord falloir faire les bases : <a href="../../zend/initialisation-dun-projet-zend.html">création de project</a>,
+<a href="../../zend/architecture-de-zend-framework-1-8-en-mvc.html">structure</a>, <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap</a>.</p>
+
+<p>Voila une fois que le début de l’application est préparer on part sur une base
+solide. On va donc voir comment marche les <a href="../../zend/zend-quest-ce-quun-controller.html">Controleurs</a>, les <a href="../../zend/zend-comment-faire-une-vue.html">Vues</a>, et
+les <a href="../../zend/zend-comment-utiliser-un-model.html">Models</a>, on pourra aussi voir comment se servir<a href="../../zend/css-javascript-et-zend-framework.html" title="Tuto avec Zend Framework 1.7"> des css et du
+javascript avec zend</a> (pour Zend Framework 1.7).</p>
+
+<p>On va donc partir des sources de l’application que j’ai deja faite pour la
+gestion du budget commun dans une colocation, et on va essayé de l’adapté à
+Zend.</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

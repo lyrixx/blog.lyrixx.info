@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Gerer l&#039;authentification avec Zend_Auth du Zend Framework</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Gerer l&#039;authentification avec Zend_Auth du Zend Framework</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Dec 23rd, 2009
+    </div>
+
+    <div class="body">
+      <p><strong>Comment faire un système de login sur son application</strong> ? On va voir comment
+mettre en place un système de connexion d’utilisateur dans son application avec
+le <strong>Zend Framework</strong>. Pour ce faire on va utiliser le composant <strong>Zend_Auth</strong>.
+Il va falloir commencer par faire le <strong>formulaire de login</strong> qui n’est pas très
+compliqué. Faire la validation de ce formulaire puis si il est valide s’occuper
+de la partie <strong>Zend_Auth ou authentification</strong>. Enfin nous verrons comment faire
+un petit <strong>Zend_View_Helper</strong> (aide de vue) pour créer automatiquement des liens
+(<strong>« login» ou « logout »</strong>)</p>
+
+<h2 id="sommaire">Sommaire :</h2>
+
+<ul>
+<li><a href="#sommaire">Sommaire</a></li>
+<li><a href="#formulaire">Mise en place du formulaire</a></li>
+<li><a href="#controller">Le controller</a></li>
+<li><a href="#deconnexion">Déconnexion</a></li>
+<li><a href="#verif">Vérification</a></li>
+<li><a href="#zend-view-helper">Le controller de vue</a></li>
+</ul>
+
+<h2 id="formulaire">Création du formulaire de login :</h2>
+
+<p>On va allé assez vite sur la création du formulaire dans la mesure ou j’explique
+dans un autre tutoriel <a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire" title="Zend Framework, Formulaire et Base de donnée, partie 1"><strong>comment faire un formulaire</strong></a>.</p>
+
+<pre><code>class Model_Form_User_Login extends Zend_Form {
+
+public function init(){
+    $this-&gt;setName('add_user');
+
+    $email = new Model_Form_EText('email','Adresse Email : ');
+
+    $password = new Zend_Form_Element_Password('password');
+    $password-&gt;setLabel('Mot de pase : ')
+        -&gt;setRequired(true)
+        -&gt;addFilter('StripTags')
+        -&gt;addFilter('StringTrim');
+
+    $submit = new Zend_Form_Element_Submit('submit');
+    $submit-&gt;setAttrib('id', 'submitbutton')
+        -&gt;setLabel('Se connecter');
+
+    $elements = array($email,$password, $submit);
+    $this-&gt;addElements($elements);
+
+    $this-&gt;setDecorators(array(
+        'FormElements',
+        array('HtmlTag', array('tag' =&gt; 'dl', 'class' =&gt; 'zend_form')),
+        array('Errors', array('placement' =&gt; 'apend')),
+        'Form'
+    ));
+}
+</code></pre>
+
+<p>}</p>
+
+<p>On voit qu’on utilise un champ <code>email</code> et un champ <code>password</code> et bien sur un
+bouton valider. Si la classe de l’email vous parait bizarre je vous conseil de
+lire le tutoriel sur les formulaires. Enfin les dernières lignes concernent la
+mise en forme du formulaire ainsi que la position des messages d’erreurs qui
+seront envoyés (ajoutés) par <strong>le modèle pour la vérification du couple Email /
+Password</strong>.</p>
+
+<h2 id="controller">Le controller</h2>
+
+<p>Le <code>controller</code> est dans la classe <code>LoginController</code> et l’action que nous allons
+utiliser est <code>loginAction</code>. On commence par donner une instance de notre
+formulaire à la vue pour qu’elle puisse l’afficher.</p>
+
+<pre><code>$form = new
+Model_Form_User_Login();
+$this-&gt;view-&gt;formLogin = $form;
+</code></pre>
+
+<p>Ensuite on vérifie qu’il y ai des données postées, on les récupère
+et on les valide.</p>
+
+<pre><code>if ($this-&gt;_request-&gt;isPost ()) {
+    $formData = $this-&gt;_request-&gt;getPost ();
+    if ($form-&gt;isValid ( $formData )) {
+    }
+}
+</code></pre>
+
+<p>Si elles sont valides, on récupère les données :</p>
+
+<pre><code>$email = $form-&gt;getValue ( 'email' );
+$password = $form-&gt;getValue ( 'password' );
+</code></pre>
+
+<p>Enfin on arrive à la <strong>partie qui concerne Zend_Auth</strong>. Il faut commencer par
+créer ce qu’on appel un <code>Zend_Auth_Adapter_DbTable</code>, c’est un composant de
+<code>Zend_Auth</code> qui va pouvoir se connecter à la <code>BDD</code>. Cet nouvel objet va prendre
+en paramètre un <code>Zend_Db_Adapter_Abstract</code>, c’est à dire un connecteur à la base
+de donnée. Dans notre cas nous allons prendre le connecteur principal, celui qui
+est définit dans les paramètres globaux de Zend (application.ini)</p>
+
+<pre><code>$authAdapter = new Zend_Auth_Adapter_DbTable ( Zend_Db_Table::getDefaultAdapter () );
+</code></pre>
+
+<p>Enfin il faut donner quelques informations à cet adaptateur :</p>
+
+<ul>
+<li>Le nom de la table qui contient les utilisateurs (ici users)</li>
+<li>Le nom de la colonne qui contient les identifiants (ici email)</li>
+<li>Le nom de la colonne qui contient les mots de passe (ici password)</li>
+<li>Le type de hashage dans la base (ici MD5)</li>
+<li>La valeur de l’email</li>
+<li>La valeur du mot de passe</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<pre><code>$authAdapter-&gt;setTableName ( 'users' )
+    -&gt;setIdentityColumn ( 'email' )
+    -&gt;setCredentialColumn ( 'password' )
+    -&gt;setCredentialTreatment ( 'MD5(?)' )
+    -&gt;setIdentity ( $email )
+    -&gt;setCredential ( $password );
+</code></pre>
+
+<p>Enfin on essaye d’identifier l’utilisateur :</p>
+
+<pre><code>$authAuthenticate = $authAdapter-&gt;authenticate ();
+</code></pre>
+
+<p>Maintenant il faut regarder si cette authentification à réussi ou échoué.</p>
+
+<pre><code>if ($authAuthenticate-&gt;isValid ()) {
+}
+</code></pre>
+
+<p>Si elle est valide, on va mettre en <strong>variable de session les informations de
+l’utilisateur</strong>. À ce moment vous pouvez mettre toutes les informations
+relatives à l’utilisateur. On peu même envisager de créer une classe pour
+stocker toutes ces informations. Dans le cas présent, seule les informations
+issu de la table users sont utiles. On commence donc par <strong>récupérer l’espace de
+stockage (storage) par défaut de l’application</strong></p>
+
+<pre><code>$storage = Zend_Auth::getInstance ()-&gt;getStorage ();
+</code></pre>
+
+<p>Puis on y ajoute les informations de l’utilisateur, on y enlève bien sur le mot
+de passe :</p>
+
+<pre><code>write ( $authAdapter-&gt;getResultRowObject ( null, 'password' ) );
+</code></pre>
+
+<p>Et enfin on redirige l’utilisateur sur la page principale de l’application</p>
+
+<pre><code>$this-&gt;_helper-&gt;redirector ( 'index', 'index' );
+</code></pre>
+
+<p>Et pour finir si le couple login / password n’était pas bon, on ajoute
+une description au formulaire :</p>
+
+<pre><code>} else {
+    $form-&gt;addError ( 'Il n'existe pas d'utilisateur avec ce mot de passe' );
+}
+</code></pre>
+
+<p>Voilà l’action du controller est faite on peu passer à la suite.</p>
+
+<h2 id="deconnexion">Déconnexion</h2>
+
+<p>Si l’utilisateur veut se déconnecter, il doit cliquer sur un lien qui map
+l’action suivante :</p>
+
+<pre><code>public function logoutAction() {
+    Zend_Auth::getInstance()-&gt;clearIdentity ();
+    $this-&gt;_helper-&gt;redirector ( 'index', 'index' );
+}
+</code></pre>
+
+<p>Grâce à la ligne <code>Zend_Auth::getInstance ()-&gt;clearIdentity ();</code> on supprime
+l’identification de l’utilisateur.</p>
+
+<h2 id="verif">Vérification de connexion</h2>
+
+<p>Il faut bien entendu vérifier (si l’on code proprement) si l’utilisateur est
+déjà connecté si il veut se déconnecter, et il faut aussi vérifier que
+l’utilisateur connecté puisse seulement se déconnecter dans <strong>ce</strong> controller.
+On va utiliser la méthode <code>preDispatch</code> du controller, cette méthode est
+systématiquement appelé à l’exécution d’une action du controller. Je vous donne
+le code et je l’explique après :</p>
+
+<pre><code>public function preDispatch() {
+    if (Zend_Auth::getInstance ()-&gt;hasIdentity ()) {
+        if ('logout' != $this-&gt;getRequest ()-&gt;getActionName ()) {
+            $this-&gt;_helper-&gt;redirector ( 'index', 'index' );
+        }
+    } else {
+        if ('logout' == $this-&gt;getRequest ()-&gt;getActionName ()) {
+            $this-&gt;_helper-&gt;redirector ( 'index' );
+        }
+    }
+}
+</code></pre>
+
+<p>On commence par vérifier si l’utilisateur est connecté, si il l’est et que
+l’action sur laquelle il veut aller est différente de <code>‘logout’</code> on le renvoi
+sur la page d’accueil du site. Sinon, si il n’est pas connecté et qu’il veut se
+déconnecter, on l’envoi sur l’action qui permet de se connecter.</p>
+
+<h2 id="zend-view-helper">Zend_View_Helper</h2>
+
+<p><strong>Comment faire automatiquement un lien qui permet de se connecter si on ne
+l’est pas, ou alors de se deconnecter si on l’est ?</strong> Et bien on utilise ce
+qu’on appel un <strong>Zend_View_Helper</strong>, c’est un bout de code qui va être
+utilisable dans le layout.</p>
+
+<pre><code>class Zend_View_Helper_ProfileLink extends Zend_View_Helper_Abstract {
+    public function profileLink() {
+        $helperUrl = new Zend_View_Helper_Url ( );
+        $auth = Zend_Auth::getInstance ();
+        if ($auth-&gt;hasIdentity ()) {
+            $username = $auth-&gt;getIdentity ()-&gt;prenom . ' ' . strtoupper ( substr ( $auth-&gt;getIdentity ()-&gt;nom, 0, 1 ) ) . '.';
+            $logoutLink = $helperUrl-&gt;url ( array ('action' =&gt; 'logout', 'controller' =&gt; 'login' ) );
+
+            return 'Salut ' . $username . ' (&lt;a href="' . $logoutLink . '"&gt;Logout&lt;/a&gt;)';
+        }
+        $loginLink = $helperUrl-&gt;url ( array ('action' =&gt; 'login', 'controller' =&gt; 'login' ) );
+
+        return '&lt;a href="' . $loginLink . '"&gt;Login&lt;/a&gt;';
+    }
+}
+</code></pre>
+
+<p>On commence par créer un nouveau <code>Zend_View_Helper_Url</code> pour nous aider à
+construire les URL, puis on récupère une instance de Zend_Auth. Donc si il y a
+un utilisateur de connecté, on récupère son identité. Puis on construit l’URL de
+déconnexion, et enfin on retourne la chaine de caractère (message + lien). Si
+l’utilisateur n’est pas connecté, on construit le lien de connexion, et on
+retourne la chaine de caractère. Si on veut utiliser ce script dans la vue, il
+va falloir faire :</p>
+
+<pre><code>echo $this-&gt;profileLink();
+</code></pre>
+
+<p>Et voila le code du controller en entier :</p>
+
+<pre><code>class LoginController extends Zend_Controller_Action {
+
+    public function init() {
+        /** Initialize action controller here */
+        Zend_Auth::getInstance ()-&gt;clearIdentity ();
+
+    }
+
+    public function preDispatch() {
+        if (Zend_Auth::getInstance ()-&gt;hasIdentity ()) {
+            if ('logout' != $this-&gt;getRequest ()-&gt;getActionName ()) {
+                $this-&gt;_helper-&gt;redirector ( 'index','index' );
+            }
+        } else {
+            if ('logout' == $this-&gt;getRequest()-&gt;getActionName ()) {
+                $this-&gt;_helper-&gt;redirector ( 'index' );
+            }
+        }
+    }
+
+    public function indexAction() {
+        $this-&gt;_forward ( 'login' );
+    }
+
+    public function loginAction() {
+
+        $form = new Model_Form_User_Login ( );
+        $this-&gt;view-&gt;formLogin = $form;
+
+        if ($this-&gt;_request-&gt;isPost ()) {
+            $formData = $this-&gt;_request-&gt;getPost ();
+            if ($form-&gt;isValid ( $formData )) {
+                $email = $form-&gt;getValue ( 'email' );
+                $password = $form-&gt;getValue ( 'password' );
+                $authAdapter = new Zend_Auth_Adapter_DbTable ( Zend_Db_Table::getDefaultAdapter () );
+                $authAdapter-&gt;setTableName ( 'users' )
+                    -&gt;setIdentityColumn ( 'email' )
+                    -&gt;setCredentialColumn ( 'password' )
+                    -&gt;setCredentialTreatment ( 'MD5(?)' )
+                    -&gt;setIdentity ( $email )
+                    -&gt;setCredential ( $password );
+                $authAuthenticate = $authAdapter-&gt;authenticate ();
+                if ($authAuthenticate-&gt;isValid ()) {
+                    $storage = Zend_Auth::getInstance ()-&gt;getStorage ();
+                    $storage-&gt;write ( $authAdapter-&gt;getResultRowObject ( null, 'password' ) );
+                    $this-&gt;_helper-&gt;redirector ( 'index', 'index' );
+                } else {
+                    $form-&gt;addError ( 'Il n'existe pas d'utilisateur avec ce mot de passe' );
+                }
+            }
+        }
+        $this-&gt;render ( 'index' );
+    }
+
+    public function logoutAction() {
+        Zend_Auth::getInstance ()-&gt;clearIdentity ();
+        $this-&gt;_helper-&gt;redirector ( 'index', 'index' );
+    }
+
+}
+</code></pre>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

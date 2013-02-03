@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Télécharger automatiquement des .torrent sur un PC Ubuntu distant</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Télécharger automatiquement des .torrent sur un PC Ubuntu distant</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Sep 27th, 2009
+    </div>
+
+    <div class="body">
+      <p>Il m’arrive souvent de vouloir télécharger quelque chose alors que je suis en
+cours ou au boulot, mais c’est souvent difficile pour diverses raisons. Une
+solution est d’utiliser un serveur @home et de le configurer pour qu’il
+télécharge automatiquement des fichiers .torrent. Voici une façon de bidouiller
+ça ;)</p>
+
+<p>Pour commencez nous allons utiliser le client BitTorrent
+<a title="Deluge" href="http://deluge-torrent.org/" target="_blank">Deluge</a>.</p>
+
+<p>Pour l’installer :</p>
+
+<ul>
+<li>vistez le <a title="doc ubuntu fr sur deluge" href="http://doc.ubuntu-
+fr.org/deluge" target="_blank">site de la doc ubuntu fr</a></li>
+<li>ou si vous avez accès au dépot Universe : <a title="Installer Déluge"
+href="apt://deluge-torrent" target="_blank">deluge-torrent</a></li>
+</ul>
+
+<p>Une fois installé, il faut lancer deluge</p>
+
+<p><strong>Application > Internet > Deluge BitTorrent Client</strong></p>
+
+<p>Aller dans</p>
+
+<p><strong>Editer > Préférences</strong></p>
+
+<p>Puis cocher la checkox correspondant à :</p>
+
+<p><strong>Ajouter automatiquement les .torrent provenant de</strong></p>
+
+<p>Enfin, choisir le dossier dans lequel seront ajoutés les fichiers .torrent que
+l’on souhaite  télécharger (par exemple :  <code>/home/user/torrent</code>)</p>
+
+<p>A partir de là il ne reste plus qu’à trouver un moyen d’envoyer  à distance nos
+fichiers torrents dans le bon répertoire.  les moyens sont nombreux….On peut par
+exemple  :</p>
+
+<p>utilisez un <strong>serveur FTP</strong></p>
+
+<p><strong>Ou</strong> utilisez le script suivant, puis éditer afin de changer la variable
+<strong>$destination_folder</strong> en lui donnant le chemin absolu vers le répertoire de
+deluge que l’on a choisi précedemment.</p>
+
+<pre><code>&lt;?php
+    ini_set('display_errors', 1);
+    error_reporting(-1);
+
+    $destination_folder = '/home/arnaud/Torrent'; // A CHANGER
+
+    $destination_folder = trim($destination_folder);
+    while (strcasecmp(substr($destination_folder, strlen($destination_folder)-1,1),'/') == 0) {
+        $destination_folder = substr($destination_folder,0,strlen($destination_folder)-1);
+    }
+    $extension = '.torrent';
+    $file_tmp_name = 'tmp';
+
+    $url = isset($_GET['url']) ? $_GET['url'] : null;
+
+    $form = &lt;&lt;&lt;EOL
+&lt;div id="form"&gt;
+    &lt;form action="index.php" method="GET"&gt;
+        &lt;label&gt;Entrez une URL : &lt;/label&gt;
+        &lt;input type="text" name="url" value="'.$_['url'].'"/&gt;&lt;br/&gt;
+        &lt;input type="submit" name ="submit" value="Get it ! "/&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+EOL;
+?&gt;
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+            &lt;title&gt;Remote Download Section&lt;/title&gt;
+            &lt;style&gt;
+                .spacer {width:100%; height:30px;}
+                #form {width:600px; border:1px solid black;}
+                form {padding-top:10px}
+            &lt;/style&gt;
+        &lt;/head&gt;
+    &lt;body&gt;
+        &lt;center&gt;
+            &lt;?php if (isset($url)) : ?&gt;
+                &lt;?php
+                    while (file_exists($destination_folder.'/'.$file_tmp_name.$extension)) {
+                        $file_tmp_name .= ''.rand(0,9);
+                    }
+                    $file_name = $file_tmp_name.$extension;
+                    $result = copy($post,$destination_folder.'/'.$file_name);
+                    if ($result === true) {
+                        echo '&lt;h1&gt;Téléchargement du fichier réussi&lt;/h1&gt;';
+                    } else {
+                         echo '&lt;h1&gt;Téléchargement du fichier échoué&lt;/h1&gt;&lt;p&gt;L\'url fournie n\'est peut être pas correcte&lt;/p&gt;';
+                         &lt;?php echo $form ?&gt;
+                         echo '&lt;p&gt;Vous pouvez également utiliser une URL de la forme : http://monserveur/index.php?trt=lien_vers_le_fichier&lt;/p&gt;';
+                    }
+                ?&gt;
+            &lt;?php else: ?&gt;
+                &lt;h1&gt;Remote Download Section&lt;/h1&gt;
+                    &lt;div class="spacer"&gt;&lt;/div&gt;
+                    &lt;?php echo $form ?&gt;
+            &lt;?php endif ?&gt;
+        &lt;/center&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Il faut que le script est le droit d’écrire dans le répertoire :</p>
+
+<pre><code>chmod a+w mon_repertoire
+</code></pre>
+
+<p>Puis copier dans <strong>/var/www/mondossier/</strong>.</p>
+
+<p>Et enfin ce script vous permettra de copier  les .torrent dans le bon répertoire
+en tapant l’url dans votre navigateur favori :
+<code>http://localhost/index.php?trt=url_du_.torrent</code> et de lancer ainsi le
+téléchargement du torrent dans deluge !</p>
+
+<p>La meilleur solution aurait été à mon avis un petit plugin qui permettrai
+d’envoyer directement le .torrent depuis son navigateur internet.</p>
+
+<p>Pensez également à  lancer automatiquement Déluge au démarrage du PC. Pour ce
+faire allez dans <strong>Système > Préférences > Applications au démarrage</strong> , cliquez
+sur ajouter et saisissez <strong>/usr/bin/deluge</strong> dans le champs « Commande » .</p>
+
+<p>Voila, on peut maintenant télécharger son film du soir quand on y pense au
+boulot :p</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

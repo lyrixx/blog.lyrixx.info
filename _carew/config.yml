@@ -1,0 +1,20 @@
+site:
+    title:            LyRiXx Blog
+    description:      Web Dev, PHP, Symfony, Open Source
+    author_name:      Grégoire Pineau
+    author_email:     lyrixx@lyrixx.info
+    author_url:       http://gregoirepineau.fr
+    gh_url:           https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew
+    url_absolute:     http://blog.lyrixx.info
+    google_analytics: UA-4212683-8
+
+engine:
+    themes:
+        - %dir%/vendor/lyrixx/my-theme-bootstrap
+        - %dir%/vendor/carew/theme-bootstrap
+    extensions:
+        # - Carew\Plugin\Highlight\HighlightExtension
+        - Carew\Plugin\Pagination\PaginationExtension
+
+pagination:
+    max_per_page: 10

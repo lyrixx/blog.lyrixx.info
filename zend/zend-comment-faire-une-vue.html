@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Zend : Comment faire une vue ?</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Zend : Comment faire une vue ?</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Jun 26th, 2009
+    </div>
+
+    <div class="body">
+      <p>Et bien on continue sur notre lancé avec les <code>vues</code> ou <code>View</code> dans le <strong>Zend
+Framework</strong>. Après les <a href="../../zend/zend-quest-ce-quun-controller.html"><code>controller</code></a>, maintenant les <code>vues</code>. <strong>La vue c’est
+la partie qui va s’occuper d’afficher vos résultats, vos variables, votre code
+html</strong>. Donc pour re-résumer les design pattern <code>MVC</code> :</p>
+
+<ol>
+<li>Le <code>controller</code> est appelé et exécuté</li>
+<li>Le <code>controller</code> crée et exécute des <code>models</code> (des objets)</li>
+<li>le <code>controller</code> passe à la <code>vue</code> les variables dont la vue a besoin</li>
+<li>la <code>vue</code> met en page ces variables et les donne au <code>layout</code></li>
+</ol>
+
+<p>Il faut savoir que par défaut il faut respecter une certaine syntaxe pour les
+nom de <code>controller</code> et de <code>vue</code>. Si notre <code>controller</code> s’appelle <span style
+="text-decoration: underline;">facture</span>, il faudra que dans le dossier
+<code>script</code>, il y est un dossier <span style="text-decoration:
+underline;">facture</span>. Puis si notre action s’appelle <span style="text-
+decoration: underline;">ajouter</span>, il faudra que dans le dossier
+<code>script</code>/<span style="text-decoration: underline;">facture</span>, il y est un
+fichier <span style="text-decoration: underline;">ajouter.phtml</span>. Dans ce
+cas la, l’application exécutera la <code>vues</code> <span style="text-decoration:
+underline;">ajouter.phtml</span> dans le dossier <span style="text-decoration:
+underline;">facture</span> quand l’action <span style="text-decoration:
+underline;">ajouter</span> du controller <span style="text-decoration:
+underline;">facture</span> s’exécutera.</p>
+
+<p>Tips : Comment faire une vues avec Zend Studio 7:</p>
+
+<p><a href="../../wp-content/uploads/2009/06/Zend-New-View.png"
+rel="lightbox[375]"><img class="size-medium wp-image-404" title="Zend-New View"
+src="../../wp-content/uploads/2009/06/Zend-New-View-300x273.png"
+alt="Comment faire une vue avec Zend Studio" width="300" height="273" /></a></p>
+
+<p><a href="../../wp-content/uploads/2009/06/Capture-New-Zend-
+View2.png" rel="lightbox[375]"><img class="size-medium wp-image-405" title="New
+Zend View (2)" src="../../wp-content/uploads/2009/06/Capture-New-
+Zend-View2-300x241.png" alt="Comment faire une vue avec Zend Studio" width="300"
+height="241" /></a></p>
+
+<p>Enfin dans la <code>vue</code>, on aura pas besoin de mettre tout le code html de la page.
+Le <a href="../../zend/zend-comment-utiliser-un-layout.html"><code>layout</code></a> le fait deja. Donc on a juste besoin de mettre le code html
+spécifique a cet <code>action</code> (l’<code>action</code> de ce <code>controller</code>).</p>
+
+<h2>Comment on fait pour récupérer nos variable du controller dans la vue?</h2>
+
+<p>et bien c’est vraiment pas compliqué : dans le <code>controller</code> il suffit de
+faire :</p>
+
+<pre><code>/**
+ * FactureController
+ *
+ * @author
+ * @version
+ */
+
+class FactureController extends Zend_Controller_Action {
+    /**
+     * The default action - show the home page
+     */
+    public function indexAction() {
+        // TODO Auto-generated FactureController::indexAction()
+        default action
+    }
+
+    public function ajouterAction(){
+        $this-&gt;view-&gt;VariableString = "une varible";
+        $this-&gt;view-&gt;VariableInt = 10;
+        $this-&gt;view-&gt;VariableArray =
+        array("n1"=&gt;"a","n2"=&gt;"b");
+    }
+
+    public function editerAction(){
+
+    }
+
+    public function supprimerAction(){
+
+    }
+}
+</code></pre>
+
+<p>Donc on passe une variable du <code>controller</code> a la <code>vue</code> grâce a la syntaxe
+suivante :</p>
+
+<pre><code>$this-&gt;view-&gt;Un_Nom_De_Varible
+</code></pre>
+
+<p>Ensuite on récupère les variables dans la vue grave à la syntaxe suivante :</p>
+
+<pre><code>$this-&gt;Un_Nom_De_Varible
+</code></pre>
+
+<p>Ex:</p>
+
+<pre><code>/**
+ * Default home page view
+ *
+ * @author
+ * @version
+ */
+
+$this-&gt;headTitle('Ajouter une facure');
+$this-&gt;placeholder('title')-&gt;set('Ajouter une facture');
+
+echo $this-&gt;VariableString;
+echo '&lt;br /&gt;';
+echo $this-&gt;VariableInt;
+echo '&lt;br /&gt;';
+echo print_r($this-&gt;VariableArray,true);
+</code></pre>
+
+<p>Voila. Il faut aussi savoir que les vues et les <code>layouts</code> sont étroitements
+liés. Qu’on peut faire passer des variables et toutes sortes de choses entre la
+<code>vue</code> et le <code>layout</code>.C’est le cas des <code>placeholders</code> que l’on peut voir au début
+du fichier <code>ajouter.phtml</code></p>
+
+<p>Et il faut aussi savoir qu’on peut changer dans le <code>controller</code> la <code>vue</code> qu’on
+veut appelé. C’est très pratique lorsqu’on a plein d’actions, mais qu’on a pas
+besoin de <code>vues</code> différentes a chaque <code>action</code>.</p>
+
+<p><a href="../../wp-content/uploads/2009/06/Zend-vues.png"
+rel="lightbox[375]"><img class="size-medium wp-image-406" title="Zend : vues"
+src="../../wp-content/uploads/2009/06/Zend-vues-300x187.png"
+alt="Zend : vues" width="300" height="187" /></a></p>
+
+<p>La suite : <a href="../../zend/zend-comment-utiliser-un-model.html">Comment utiliser un model avec Zend framework</a></p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

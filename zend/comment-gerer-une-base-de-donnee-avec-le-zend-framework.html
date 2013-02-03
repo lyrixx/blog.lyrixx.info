@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Comment gérer une base de donnée avec le Zend Framework</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Comment gérer une base de donnée avec le Zend Framework</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Oct 19th, 2009
+    </div>
+
+    <div class="body">
+      <p>Alors la on va aborder un chapitre très important. <strong>Les bases de données sont
+bien sur très importantes</strong> pour un site web ou un service web. On va voir
+ensemble comment <strong>ajouter, modifier, supprimer des enregistrements (ou tuples)
+dans un table, dans une base de donnée</strong>. On va donc utiliser la gestion <strong>CRUD
+du Zend Framework 1.9</strong>.</p>
+
+<h2 id="sommaire">Sommaire</h2>
+
+<ul>
+<li><a href="#sommaire">Sommaire</a></li>
+<li><a href="#connection">Connexion a la base de donnée</a></li>
+<li><a href="#schemas">Schémas de la table</a></li>
+<li><a href="#metier">Préparation de la classe métier</a></li>
+<li><a href="#read">Obtenir et récupérer des enregistrements</a></li>
+<li><a href="#create">Ajouter des enregistrements</a></li>
+<li><a href="#update">Modifier des enregistrements</a></li>
+<li><a href="#delete">Supprimer des enregistrement</a></li>
+<li><a href="#extend">Etendre la classe métier</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="connection">Connexion a la base de donnée.</h2>
+
+<p><strong>La connexion à la base de donnée principale se fait toute seule</strong>. Je
+m’explique, c’est le <strong>bootstrap qui va
+initialiser notre connexion à la base de donnée.</strong> En fait le <code>bootstrap</code>
+va charger le fichier de <strong>configuration
+de l’application</strong> et c’est dans ce fichier que l’on va définir les
+paramètres de connexion a la <code>BDD</code>. Il
+faut donc éditer le fichier <code>application/configs/application.ini</code></p>
+
+<pre><code>; DATABASE
+resources.db.adapter = "MYSQLI"
+resources.db.params.host = "localhost"
+resources.db.params.username = "budget"
+resources.db.params.password = "budget"
+resources.db.params.dbname = "budget"
+resources.db.params.date_format = "YYYY-MM-ddTHH:mm:ss"
+resources.db.isDefaultTableAdapter = true
+</code></pre>
+
+<p>Si on veut que notre connexion à la <code>BDD</code> soit géré automatiquement, le schémas
+(ci dessus) est très rigide. En effet <strong>zend</strong> va chercher automatiquement si
+dans le <code>fichier de configuration</code> il y a des constantes «<code>ressources.db.**</code> »
+de défini, et si oui il va essayé de se connecter à la base de donnée. Il est
+bien sur possible d’avoir plusieurs connexions à différente <code>SGBD</code> (<strong>mysql,
+orable, DB2</strong> …). Si vous utiliser <strong>mysql</strong>, il suffit de copier / coller le
+schémas ci dessus, et de bien remplacer les lignes : <code>host</code>, <code>username</code>,
+<code>password</code>et <code>dbname</code> qui signifie respectivement : hôte, nom d’utilisateur,
+mot de passe, nom de la BDD. Sinon l’<code>adpater</code> est le <code>driver</code> à utiliser pour
+se connecter (<code>mysql</code>, <code>orable</code>, <code>DB2</code>… ; se référer a la doc) ; <code>date_format</code>
+est le format de la date ; et <code>isDefaultTableAdapter</code> est pour savoir si cette
+connexion est la principale.</p>
+
+<h2 id="schemas">Schémas de la table</h2>
+
+<p>On va utiliser un exemple pour bien mettre en place ce tuto. On va utiliser une
+table d’utilisateur. Voilà le schémas :</p>
+
+<pre><code>CREATE TABLE IF NOT
+EXISTS `users` (
+  id int(50) NOT NULL auto_increment,
+  *name` varchar(50) NOT NULL,
+  firstname varchar(50) NOT NULL,
+  email varchar(255) NOT NULL,
+  *password` varchar(255) NOT NULL,
+  phonenumber varchar(20) NOT NULL,
+  *enable` int(1) NOT NULL,
+  *level` int(1) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY email (email)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+</code></pre>
+
+<p>On a donc :</p>
+
+<ul>
+<li>Un id en auto-increment</li>
+<li>Un nom</li>
+<li>Un prénom</li>
+<li>Une adresse email</li>
+<li>Un mot de passe</li>
+<li>Un numéro de téléphone</li>
+<li>Un booléen pour savoir si l’utilisateur est activé</li>
+<li>Un entier pour avoir le niveau d’administration</li>
+<li>Une clé primaire et un index sur l’id</li>
+<li>Une clé unique et un index sur l’email</li>
+</ul>
+
+<h2 id="metier">Préparation de la classe métier.</h2>
+
+<p><code>Zend</code> commence à gérer de façon assez <strong>autonome et automatique les BDD</strong>. Il y
+a maintenant un gestionnaire <strong>CRUD</strong> (<code>Create</code>, <code>Read</code>, <code>Update</code>, <code>Delete</code>=>
+Ajouter, Lire, Mettre a jour, Supprimer des enregistrements). Pour se faire il
+faut créer une <code>class</code> php. On est assez libre pour le nom des <code>class</code> et pour
+leurs emplacements, mais je vous recommanderai d’être assez <strong>logique et
+rigoureux</strong>. En fait il va falloir <strong>faire une **class</strong> par table de
+votre base de donnée**. Pour ma part, je mets presque toujours un « s » a la fin
+du nom de mes tables, car elles contiennent plusieurs enregistrements. Par
+exemple la table <code>users</code> contient plusieurs utilisateurs. Il faut maintenant
+créer une class qui représente cette table. On peut organiser ses <code>class</code> comme
+on veut, mais en général sur le petits projets je mets toutes mes <code>class</code> dans
+le dossier <code>application/models/DbTable/</code>. De plus je nomme toujours ma class
+avec le même nom que la table. A quoi doit ressembler la <code>class</code> (<a href="../../zend/zend-comment-utiliser-un-model.html" title="Zend : Comment utiliser un model ?">Voir la
+convention de nommage des <code>models</code></a>) :</p>
+
+<pre><code>&lt;?php
+class Model_DbTable_Users extends Zend_Db_Table {
+    protected $_name = 'users';
+}
+</code></pre>
+
+<p>Pour le nom de la <code>class</code>, il faut se référer au model dans le Zend Framework.
+Il faut étendre la <strong>class Zend_Db_Table</strong>. Enfin il faut ajouter l’attribut
+<strong>protected $_name</strong> qui a pour valeur le <strong>nom de la table dans la base de
+donnée</strong>. Et voilà, le plus dur est fait. On a maintenant une <code>class</code> qui
+possède un bon nombre de méthode <code>CRUD</code>.</p>
+
+<h2 id="read">Obtenir et récupérer des enregistrements</h2>
+
+<p><strong>Comment obtenir tous les tuples d’une table ?</strong> Si il n’y a pas de close
+particulières, c’est super simple , on exécute le petit bout de code suivant :</p>
+
+<pre><code>private function getUsersAll()
+{
+    $dbUser = new Model_DbTable_Users();
+    return $dbUser-&gt;fetchAll()-&gt;toArray();
+}
+</code></pre>
+
+<p>Donc on instancie un nouveau <code>Model_DbTable_Users</code>, et on lui demande la
+retourner tous les enregistrements
+grâce a la méthode <code>fetchAll</code>, et enfin on convertit le résultats en
+tableau. Voilà le tours est joué !
+<strong>Comment obtenir que certains enregistrements ?</strong></p>
+
+<pre><code>private function getUsersByName($name = '')
+{
+    $dbUser = new Model_DbTable_Users();
+    return $dbUser-&gt;fetchAll()-&gt;toArray(array('name = ?'=&gt;
+    $name));
+}
+</code></pre>
+
+<p>Voilà, la méthode <code>fetchAll</code> possède 4 arguments:
+<code>$where</code>, <code>$order</code>,<code>$count</code>,<code>$offset</code> qui représente respectivement la clause
+<code>where</code>, le clause <code>order by</code> , et la clause <code>limit</code> (combien d’enregistrement
+et à partir de l’enregistrement numéro n ). Pour une utilisation plus poussé, je
+vous recommande de lire la doc du Zend Framework.</p>
+
+<h2 id="create">Ajouter un enregistrement</h2>
+
+<p><strong>Comment ajouter un enregistrement dans la base de donnée ?</strong> Comme dans
+l’exemple précédant, on va ajouter un nouvel utilisateur.</p>
+
+<pre><code>$users = new
+Model_DbTable_Users();
+$row = $users-&gt;createRow();
+$row-&gt;name = 'Nom';
+$row-&gt;firstname = 'Prenom';
+$row-&gt;email = 'email';
+$row-&gt;password = md5('password');
+$row-&gt;phonenumber = '0102030405';
+$row-&gt;enable = 1;
+$row-&gt;level = 9;
+$result = $row-&gt;save();
+</code></pre>
+
+<p>On commence par instanciée un nouveau <code>Model_DbTable_Users</code>. Ensuite on crée
+une ligne, puis on ajoute a cette ligne les différents attributs, et enfin on
+sauvegarde cette ligne en table. On peut aussi faire la même chose en donnant a
+la méthode <code>createRow</code> un tableau en argument. :</p>
+
+<pre><code>$users = new Model_DbTable_Users();
+$datas = array(
+    'name'=&gt;'Nom',
+    'firstname'=&gt;'Prenom',
+    'email'=&gt;'email2',
+    'password'=&gt;md5('password'),
+    'phonenumber'=&gt;'0102030405',
+    'enable'=&gt;1,
+    'level'=&gt;9,
+);
+$row = $users-&gt;createRow($datas);
+$row-&gt;save();
+</code></pre>
+
+<p><strong>Enfin on peut faire beaucoup plus simple</strong>. Je ne connais pas bien la
+différence entre les deux méthodes (la précédente et la suivante), si quelqu’un
+peut m’éclairer, je suis preneur.</p>
+
+<pre><code>$users = new Model_DbTable_Users();
+$datas = array(
+    'name'=&gt;'Nom',
+    'firstname'=&gt;'Prenom',
+    'email'=&gt;'email3',
+    'password'=&gt;md5('password'),
+    'phonenumber'=&gt;'0102030405',
+    'enable'=&gt;1,
+    'level'=&gt;9,
+);
+$row = $users-&gt;insert($datas);
+</code></pre>
+
+<p>Bon, c’est assez simple d’ajouter un enregistrement en table ? On va un peu plus
+loin. Comment <strong>protéger ses enregistrements en table grâce a une
+**transaction SQL</strong> :</p>
+
+<pre><code>$users = new Model_DbTable_Users();
+$datas = array(
+    'name'=&gt;'Nom',
+    'firstname'=&gt;'Prenom',
+    'email'=&gt;'email3',
+    'password'=&gt;md5('password'),
+    'phonenumber'=&gt;'0102030405',
+    'enable'=&gt;1,
+    'level'=&gt;9,
+);
+$defaultAdaptateur = Zend_Db_Table::getDefaultAdapter();
+$defaultAdaptateur-&gt;beginTransaction();
+try {
+    $defaultAdaptateur-&gt;insert('users', $datas);
+    $defaultAdaptateur-&gt;commit();
+} catch (Exception $e) {
+    $defaultAdaptateur-&gt;rollBack();
+    echo $e-&gt;getMessage();
+}
+</code></pre>
+
+<p>On commence de la même façon que pour la dernière méthode. Ensuite on récupère
+l’<code>adaptateur</code> de la base de donnée principale puis on commence une
+<code>transaction</code>. Il faut ensuite en-capsuler notre ajout à la base dans un bloque
+<code>try-catch</code>. On essaye d’insérer notre enregistrement puis si ça fonctionne on
+<code>commit</code>. Si ça ne fonctionne pas on fait un <code>rollback</code>et on affiche les
+messages. <strong>Bien sur il est possible de n’utiliser qu’un bloque try-catch</strong>.</p>
+
+<h2 id="update">Mettre a jour un enregistrement</h2>
+
+<p>La méthode ici est très similaire à l’ajout d’un enregistrement. On peut mettre
+a jour uniquement qu’une seule ligne ou tout un groupes de ligne. Dans cet
+exemple on remplace tous les enregistrements ou l’attribut name est « Nom » par
+« Nom2 ».</p>
+
+<pre><code>$users = new Model_DbTable_Users();
+$datas = array('name'=&gt;'Nom2');
+$users-&gt;update($datas,array('name = ?'=&gt;'Nom'));
+$this-&gt;render('index');
+</code></pre>
+
+<p>Ici les <code>$datas</code> sont les données qu’on va mettre a jour. La méthode <code>updates</code>va tout faire. Le premier arguments est le <strong>tableau de donnée</strong>, le second
+argument correspond aux <strong>conditions de la clause **where</strong>. Dans ce cas la
+on explicite que l’attribut name doit correspondre a Nom.</p>
+
+<h2 id="delete">Supprimer un enregistrement</h2>
+
+<p>Cette dernier action est la plus simple, il suffit de <strong>bien formuler la
+clause **where</strong>.</p>
+
+<pre><code>$users = new Model_DbTable_Users();
+$users-&gt;delete(array('name = ?'=&gt;'Nom2'));
+</code></pre>
+
+<p>Ici on supprimer tous les utilisateurs qui ont pour valeur d’attribut name :
+Nom2.</p>
+
+<h2 id="extend">Extension de la class métier</h2>
+
+<p>Bien entendu, on peut ajouter des méthodes particulières a notre <code>class</code> métier.
+Comme par exemple pour avoir le nombre d’enregistrement :</p>
+
+<pre><code>public function getUserCount()
+{
+    $sql = 'select count(1) cnt from users';
+    $stmt = $this-&gt;_db-&gt;query($sql);
+    $results = $stmt-&gt;fetchAll();
+    if ((sizeof($results) &gt; 0) &amp;&amp; (isset($results[0]['cnt']))) {
+        return $results[0]['cnt'];
+    }
+    throw new Exception("Erreur : impossible d'obtenir le nombre
+    d'utilisateur");
+}
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>On peut bien sur en-capsuler un update, une suppression dans un block try-catch
+et de plus on est pas obligé d’utiliser les transaction sql qui sont quand même
+plus lourde. On verra dans un prochain tuto comme utiliser les clés étrangères.</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

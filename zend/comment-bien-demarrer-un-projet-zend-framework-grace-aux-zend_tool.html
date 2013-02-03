@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Comment bien démarrer un projet Zend Framework grâce aux Zend_Tool</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Comment bien démarrer un projet Zend Framework grâce aux Zend_Tool</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Mar 18th, 2010
+    </div>
+
+    <div class="body">
+      <p>Cet article est une mise à jour du tutoriel sur <strong>l’outil Zend_Tool</strong>. Donc
+depuis quelque temps dans le Zend Framework, il y a de nouvelles
+fonctionnalités. Mais pour bien faire les choses, on va reprendre Zend_Tool
+depuis le début.</p>
+
+<h2>Qu’est-ce que Zend_Tool ?</h2>
+
+<p><strong>Zend Tool est un outils qui s’utilise en ligne de commande</strong> (depuis une
+console) et qui <strong>permet de mettre en place la structure de son projet</strong>,
+d’ajouter des controllers, actions, vues, modules… D’après la roadmap de Zend,
+cet outils à pour objectif de devenir très puissant.</p>
+
+<h2>Introduction</h2>
+
+<p>Alors il va falloir commencer par <a
+href="http://framework.zend.com/download/latest" target="_blank">télécharger le
+Zend Framework</a>. On l’extrait, chez moi c’est dans le répertoire : «
+/home/lyrix/prog/php/Lib/Zend_librairie/ZendFramework-1.10.2/ ». On va donc
+créer un alias pour nous faciliter la vie.  Si vous avez la chance d’être sur un
+système linux (ou mac) une ligne de commande suffit :</p>
+
+<pre><code>alias zf="/home/lyrix/prog/php/Lib/Zend_librairie/ZendFramework-1.10.2/bin/zf.sh"
+</code></pre>
+
+<p>Vous pouvez aussi ajouter cette commande a votre fichier de configuration du
+bash (~/.bashrc), pour que l’alias soit toujours actif. On va ensuite aller dans
+le dossier où l’on veut que notre projet soit crée.</p>
+
+<pre><code>cd /home/lyrix/prog/php/2010/
+</code></pre>
+
+<p>On nommera ce projet « zftuto ». Création de projet avec Zend_Tool on commence
+par créer notre projet :</p>
+
+<pre><code>zf create project
+./zftuto/ zftuto
+</code></pre>
+
+<p>./zftuto/ représente le PATH de la racine de l’application.
+zftuto représente le nom de l’application.
+Il faut maintenant se déplacer dans le dossier contenant l’application.</p>
+
+<pre><code>cd zftuto/
+</code></pre>
+
+<h2>Base de donnée</h2>
+
+<p>Zend_Tool peut se connecter à une base de donnée, pour ensuite nous créer les
+classes métiers représentant les tables de notre bases de données (ORM). On
+commence par configurer notre application pour qu’elle se connecte à la BDD.
+Puis ensuite on génère nos classes :</p>
+
+<pre><code>zf configure db-adapter "adapter=pdo_mysql&amp;username=ecommerce&amp;password=ecommerce&amp;dbname=ecommerce"
+zf create db-table.fromdatabase
+</code></pre>
+
+<p>Le nom des variables est assez explicite pour que je ne les détail pas.</p>
+
+<h2>Layout</h2>
+
+<p>On peut maintenant activer la gestion d’un layout depuis zend tool.</p>
+
+<pre><code>zf enable layout
+</code></pre>
+
+<h2>Formulaire</h2>
+
+<p>On peut créer un formulaire en ligne de commande :</p>
+
+<pre><code>zf create form UserCU
+</code></pre>
+
+<h2>Model</h2>
+
+<p>Pour créer un nouveau model (ou classe métier) :</p>
+
+<pre><code>zf create model TestModel
+</code></pre>
+
+<h2>Controller, Action, Vue :</h2>
+
+<p>Et bien sur on peut toujours ajouter un controller (avec la vue associé)</p>
+
+<pre><code>zf create controller Users
+zf create action read Users
+zf create view read2 Users
+</code></pre>
+
+<h2>Module :</h2>
+
+<p>On peut aussi créer des modules :</p>
+
+<pre><code>zf create module Moduletest
+</code></pre>
+
+<h2>Aide :</h2>
+
+<p>Pour de l’aide, vous pouvez directement depuis votre console exécuter la
+commande suivante :</p>
+
+<pre><code>zf ?
+</code></pre>
+
+<h2>Conclusion</h2>
+
+<p>Si on fait attention, le nommage des classes a changé. <strong>Il y a maintenant
+un namespace « application »</strong>. Ce
+qui a mon goût est plus propre, et anticipe peut être les changements
+qu’il va y avoir avec php 5.3 puis php 6</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

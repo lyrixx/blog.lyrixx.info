@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>LyRiXx Blog</title>
+    <subtitle>Web Dev, PHP, Symfony, Open Source</subtitle>
+    <link href="http://blog.lyrixx.info/index.atom" rel="self" />
+    <link href="http://blog.lyrixx.info/" />
+        <id>http://blog.lyrixx.info/</id>
+            <updated>2013-02-03T16:58:35+01:00</updated>
+            <entry>
+        <title>Symfony2: Snippet to render all form errors</title>
+        <content><![CDATA[With symfony 2, you can render all errors from a form with a little macro. You
+c]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html"/>
+                <id>http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html</id>
+                <updated>2013-01-31T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Sublime text 2 et xdebug : liens cliquables sur les fichiers</title>
+        <content><![CDATA[Salut,
+
+Si comme moi vous utilisez sublime text 2 pour développer, vous allez ap]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html"/>
+                <id>http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html</id>
+                <updated>2012-02-23T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Mysql + export + csv + groupy en gardant les colonnes groupées</title>
+        <content><![CDATA[Petit tips avec MySQL. Admettons que vous voulez faire un export en csv d’une
+ta]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html"/>
+                <id>http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html</id>
+                <updated>2012-02-01T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Silex Kitchen Edition</title>
+        <content><![CDATA[
+    
+
+
+Silex est un micro-framework (en php) basé sur les composants symfony2.
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/silex/silex-kitchen-edition.html"/>
+                <id>http://blog.lyrixx.info/silex/silex-kitchen-edition.html</id>
+                <updated>2011-10-24T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Lister ses films</title>
+        <content><![CDATA[Un petit script bash (donc pour linux/mac) pour lister tous les films qui
+peuven]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/lister-ses-films.html"/>
+                <id>http://blog.lyrixx.info/ubuntu/lister-ses-films.html</id>
+                <updated>2011-06-05T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Symfony2 en vidéo</title>
+        <content><![CDATA[Voici l’évolution du code source de symfony2 réalisé grâce à gource, ffmpef,
+pit]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/symfony/symfony2-en-video.html"/>
+                <id>http://blog.lyrixx.info/symfony/symfony2-en-video.html</id>
+                <updated>2011-01-03T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment utiliser le Routeur du Zend Framework</title>
+        <content><![CDATA[Je suppose que vous connaissez déjà tous l’url rewriting. Il est assez
+simple de]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html</id>
+                <updated>2010-08-09T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>ZFDebug : Un plugin pour Zend Framework</title>
+        <content><![CDATA[ZFDebug est un outils très utile lorsqu’on développe avec Zend. En effet ce
+plug]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zfdebug-un-plugin-pour-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/zfdebug-un-plugin-pour-zend-framework.html</id>
+                <updated>2010-08-05T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Qu&#039;est-ce que PECL ?</title>
+        <content><![CDATA[Il y a quelques semaines un rapport sur l’utilisation de PHP sur les serveurs
+de]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/quest-ce-que-pecl.html"/>
+                <id>http://blog.lyrixx.info/web-dev/quest-ce-que-pecl.html</id>
+                <updated>2010-05-10T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Application de site E-Commerce [Code-Source]</title>
+        <content><![CDATA[Comme vous l’avez peut être vu passer sur twitter, j’ai du faire pour les cours ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/application-de-site-e-commerce.html"/>
+                <id>http://blog.lyrixx.info/zend/application-de-site-e-commerce.html</id>
+                <updated>2010-03-18T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment bien démarrer un projet Zend Framework grâce aux Zend_Tool</title>
+        <content><![CDATA[Cet article est une mise à jour du tutoriel sur l’outil Zend_Tool. Donc
+depuis q]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html</id>
+                <updated>2010-03-18T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Architecture du Zend Framework 1.10 en MVC</title>
+        <content><![CDATA[Depuis quelques versions du Zend Framework, l’architecture de celui-ci en
+mode M]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html"/>
+                <id>http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html</id>
+                <updated>2010-03-18T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Gerer l&#039;authentification avec Zend_Auth du Zend Framework</title>
+        <content><![CDATA[Comment faire un système de login sur son application ? On va voir comment
+mettr]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html</id>
+                <updated>2009-12-23T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend Framework, Formulaire et Base de donnée, partie 2</title>
+        <content><![CDATA[On continue avec la deuxième partie de la gestion d’un formulaire, de la
+créatio]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html</id>
+                <updated>2009-11-20T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend Framework, Formulaire et Base de donnée, partie 1</title>
+        <content><![CDATA[Hello, On va voir aujourd’hui comment construire et gérer un formulaire,
+ajouter]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html</id>
+                <updated>2009-11-19T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment gérer une base de donnée avec le Zend Framework</title>
+        <content><![CDATA[Alors la on va aborder un chapitre très important. Les bases de données sont
+bie]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html</id>
+                <updated>2009-10-19T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment mettre en place un systeme de traduction dans Zend Framework</title>
+        <content><![CDATA[Avoir un site, c’est bien, mais c’est encore mieux si on peut le traduire
+facile]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html</id>
+                <updated>2009-10-15T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment gérer la navigation de son site avec le Zend Framework</title>
+        <content><![CDATA[Dans ce tuto on va voir comment
+mettre en place un système automatique de naviga]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html</id>
+                <updated>2009-10-08T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Télécharger automatiquement des .torrent sur un PC Ubuntu distant</title>
+        <content><![CDATA[Il m’arrive souvent de vouloir télécharger quelque chose alors que je suis en
+co]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html"/>
+                <id>http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html</id>
+                <updated>2009-09-27T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend Framework 1.9 : Comment lier une feuille de style css ou un js au layout</title>
+        <content><![CDATA[Comment lier un css et un js dans un projet zend framework (a partir
+de la 1.9) ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html</id>
+                <updated>2009-09-24T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment mettre en place un backup sur son serveur dedié ?</title>
+        <content><![CDATA[Comment mettre en place un système de backup automatique sur son serveur
+dédié q]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html"/>
+                <id>http://blog.lyrixx.info/ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html</id>
+                <updated>2009-07-24T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Sortie de la beta 1.9 de Zend Framework</title>
+        <content><![CDATA[Zend Framework 1.9.0 vient de sortir en beta. Youpi. On peut la trouver
+la : htt]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/sortie-de-la-beta-1-9-de-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/sortie-de-la-beta-1-9-de-zend-framework.html</id>
+                <updated>2009-07-23T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Comment mettre en place un Layout avec le Zend-Framework 1.8</title>
+        <content><![CDATA[On va voir ensemble comment utiliser les Layouts, placeholder,
+helper dans le** ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html</id>
+                <updated>2009-07-23T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</title>
+        <content><![CDATA[On a deja vu pas mal de chose sur le Zend Framework, mais depuis la version
+1.8.]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html"/>
+                <id>http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html</id>
+                <updated>2009-07-13T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Tuto : Zend Framework 1.8 et son bootstrap</title>
+        <content><![CDATA[Voila, on va voir comment fonctionne le Boostrap de la version 1.8 de Zend
+Frame]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-1-8-et-son-bootstrap.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-1-8-et-son-bootstrap.html</id>
+                <updated>2009-07-13T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Architecture de Zend Framework 1.8 en MVC</title>
+        <content><![CDATA[Voila, on vient de voir comment faire un nouveau projet avec le
+Zend_Tool. Comme]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html"/>
+                <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html</id>
+                <updated>2009-07-13T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Introduction a Zend Framework 1.8 en MVC</title>
+        <content><![CDATA[On va voir comment transformer un script php qui n’utilise pas Zend en une
+appli]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html"/>
+                <id>http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html</id>
+                <updated>2009-07-13T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend framework : Initializer et boot strap</title>
+        <content><![CDATA[
+    
+        
+            UPDATE du 22/07/2009 :
+        
+    
+
+
+
+    
+        ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-initializer-et-boot-strap.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-initializer-et-boot-strap.html</id>
+                <updated>2009-06-30T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend : Comment utiliser un model ?</title>
+        <content><![CDATA[On va voir comment se servir d’un model dans Zend framework. Un model
+est en fai]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html</id>
+                <updated>2009-06-27T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend : Comment faire une vue ?</title>
+        <content><![CDATA[Et bien on continue sur notre lancé avec les vues ou View dans le Zend
+Framework]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html</id>
+                <updated>2009-06-26T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend : Qu&#039;est ce qu&#039;un controller ?</title>
+        <content><![CDATA[Comment utiliser les controllers dans Zend ?
+
+En fait, le controller du Zend Fra]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-quest-ce-quun-controller.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-quest-ce-quun-controller.html</id>
+                <updated>2009-06-19T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Zend : Comment utiliser un layout ?</title>
+        <content><![CDATA[Comment utiliser un seul layout dans le Zend Framework ?
+
+On va continuer d’util]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-layout.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-comment-utiliser-un-layout.html</id>
+                <updated>2009-06-19T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Architecture de Zend Framework en MCV</title>
+        <content><![CDATA[Vous êtes nouveaux sur le Zend Framework, et vous êtes un peu perdu avec
+l’archi]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-en-mcv.html"/>
+                <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-en-mcv.html</id>
+                <updated>2009-06-17T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Css, JavaScript et Zend Framework</title>
+        <content><![CDATA[Comment lier une feuille  de style CSS ou un fichier javascript proprement dans
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/css-javascript-et-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/css-javascript-et-zend-framework.html</id>
+                <updated>2009-06-17T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+    </feed>

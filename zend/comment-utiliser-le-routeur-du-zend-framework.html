@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Comment utiliser le Routeur du Zend Framework</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Comment utiliser le Routeur du Zend Framework</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Aug 9th, 2010
+    </div>
+
+    <div class="body">
+      <p>Je suppose que vous connaissez déjà tous l’<strong>url rewriting</strong>. Il est assez
+simple de mettre en place des formats d’URL (user firendly) prédéfinis avec
+<strong>Zend</strong>. On va voir ensemble comment faire.</p>
+
+<p>Comme souvent avec le <strong>Zend Framework</strong>, il y a plusieurs façons de faire. Je
+vais vous en montrer deux. <strong>Une première en PHP</strong>, puis une <strong>deuxième avec le
+fichier de configuration application.ini</strong>. Quelque que soit la méthode, tout le
+code PHP sera à mettre dans le fichier <code>bootstrap.php</code>. Pourquoi ? Car il faut
+bien que le routage s’effectue avant le premier <code>dispatch</code>.</p>
+
+<h2>Préparation du bootstrap</h2>
+
+<p>On peut commencer par préparer notre <code>bootstrap</code> : il faut ajouter une nouvelle
+méthode :</p>
+
+<pre><code>protected function _initRouter() {
+    $front = $this-&gt;bootstrap('FrontController')-&gt;getResource('FrontController');
+    $router = $front-&gt;getRouter();
+}
+</code></pre>
+
+<p>On ajoute la méthode <code>_initRouter()</code>. Pour l’instant cette méthode est un peu
+vide. La première ligne de code sert à démarrer le <code>bootstrap</code>si cela n’avait
+pas encore été fait puis a récupérer le <code>FrontController</code> depuis le <code>registre</code>
+du <code>bootstrap</code>. La deuxième ligne sert à récupérer le <code>router</code>.</p>
+
+<h2>Configuration en php depuis le bootstrap</h2>
+
+<h3>Syntaxe d’ajout</h3>
+
+<p>Il existe différent type de route possible. Des routes statiques,  dynamiques,
+basés sur des expressions régulières, basés sur le domaine et sous-domaines …
+Mais quelque soit le type de route choisi, la syntaxe reste la même. Il faut
+commencer par créer une route, puis ensuite l’ajouter au routeur.</p>
+
+<pre><code>$uneRoute = new Zend_Controller_Router_Route($route, $defaults, $reqs);
+$router-&gt;addRoute('uneRoute', $uneRoute);
+</code></pre>
+
+<ul>
+<li><code>$route</code> correspond a l’Uri de la ressource. C’est le bout de l’URL
+qui se trouve après le nom de domaine. Par
+exemple l’Uri peut être ‘a-propos’ ou alors ‘contactez-nous’.</li>
+<li><code>$default</code> doit être un tableau contenant les informations de redirection
+(module, controller, action, …)</li>
+<li><code>$reqs</code> est optionnels, il permet d’ajouter des contraintes.</li>
+<li><code>$uneRoute</code> est la route au format Zend_Controller_Router_Route</li>
+</ul>
+
+<p>enfin la pseudo-constante <code>uneRoute</code> est la clé identifiant la route. En effet
+il est possible de retrouver une route enregistrée dans le routeur grâce et
+uniquement grâce à cette clé.</p>
+
+<p><span style="text-decoration: underline;">Note :</span> il est très fortement
+déconseillé de mettre des accents ou des caractères « bizarres » dans le nom de
+la route ou dans la clé de la route.</p>
+
+<h3>Routage Statique</h3>
+
+<p>On va commencer avec le routage statique. Avec le routage statique, il n’est pas
+vraiment possible de transmettre des variables en GET. On utilise par exemple le
+routage statique pour la page a-propos, contact etc … Voici un exemple :</p>
+
+<pre><code>protected function _initRouter() {
+    $front = $this-&gt;bootstrap('FrontController')-&gt;getResource('FrontController');
+    $router = $front-&gt;getRouter();
+    $route = new Zend_Controller_Router_Route('accueil', array('controller' =&gt; 'index', 'action' =&gt; 'index')));
+    $router-&gt;addRoute('accueil', $route);
+}
+</code></pre>
+
+<p><span style="text-decoration: underline;">Note :</span> Ici j’ai remis tous le
+code à mettre dans le <code>bootstrap</code>. Dans la suite du tutoriel, je ne mettrais que
+les lignes de code intéressantes (i.e. les deux dernières lignes).</p>
+
+<p>Dans cette exemple, le fait de se rendre sur la page
+<code>http://exemple.com/accueil</code> aura le même effet que d’aller sur la page
+<code>http://exemple.com/index/index</code>. Bien entendu, ce n’est pas une redirection
+(l’url ne change pas), mais bien un vrai routage ou ré-écriture d’Url. Dans cet
+exemple, la route ‘accueil’ porte le même nom que la clé. C’est en général plus
+simple de mettre les même valeurs, ou alors des valeurs proches.</p>
+
+<h3>Routage Dynamique</h3>
+
+<p>Qu’est-ce que le routage dynamique ?  Par exemple vous voulez qu’une partie de
+l’url soit dynamique : un id, un nom de fonction, un message … Il faut donc,
+dans le routeur, nommé cette variable. Pour ce faire il faut utiliser les « : »
+devant le nom de votre variable. Voici un exemple ou l’on veut faire passer une
+message en paramètre (GET) de notre URL :</p>
+
+<pre><code>$route = new Zend_Controller_Router_Route('contact/:topic', array('controller' =&gt; 'index', 'action' =&gt; 'contact','topic' =&gt; 'Topic par defaut'));
+$router-&gt;addRoute('contact', $route);
+</code></pre>
+
+<p>Ici nous faisons passer dans les paramètres GET un sujet (<code>topic</code>). Ainsi si
+l’on se rend à l’adresse suivante : <code>http://exemple.com/contact/Mon Topic</code>, le
+controller exécuter sera le controller <code>indexController</code>, et l’action exécuter
+sera l’action <code>contactAction</code>. On pourra récupérer la valeur de <code>topic</code>grâce à
+:</p>
+
+<pre><code>$this-&gt;getRequest()-&gt;getParam('topic');
+</code></pre>
+
+<p>Il faut placer ce code dans la méthode <code>contactAction</code> du fichier
+<code>indexController.php</code>. C’est transparent pour l’utilisateur, mais il y a bien eu
+une ré-écriture d’url. Sans celle ci l’URL aurai pu être :
+<code>http://exemple.com/contact/?topic=Mon Topic</code>.</p>
+
+<p>On peut aussi attribuer une valeur par défaut à notre variable <code>topic</code>. C’est un
+des arguments du tableau <code>$default</code> : <code>topic =&gt; Topic par defaut</code>. Donc  si
+l’utilisateur se rend à cette adresse : <code>http://exemple.com/contact</code> la valeur
+de <code>topic</code> sera :  <code>Topic par defaut</code>.</p>
+
+<p>Vous pouvez aussi remarquer qu’ici la route est différente de la clé de celle-ci
+(<code>contact/:topic</code> VS <code>contact</code>).</p>
+
+<h3>Routage Dynamique avec des contraintes</h3>
+
+<p>On peut ajouter des contraintes aux routages dynamique. Comme par exemple forcer
+que la variable x ou y soit un entier ou un string. On utilise pour ca la
+variable <code>$reqs</code> :</p>
+
+<pre><code>$route = new Zend_Controller_Router_Route(
+    'membres/:id/`',
+    array(
+        'controller' =&gt; 'index', 'action' =&gt; 'membres'
+    ),
+    array('id' =&gt; 'd+')
+);
+$router-&gt;addRoute('membres', $route);
+</code></pre>
+
+<p>Ici on force la route à utiliser un id de type nombre. Si ce n’est pas un
+nombre, l’URL ne passera pas dans la route, et il y aura une erreur.</p>
+
+<p>Vous pouvez remarquer aussi qu’il est possible d’utiliser des caractères joker
+(wildcard). Le caractère ` symbolise tout type de caractère. Grâce a ce
+caractère, il est possible de mettre a peu près tout ce que l’on veut dans
+l’url. Il est donc possible de faire passer des informations dans l’URL même
+avec un routages statiques.</p>
+
+<h3>Routage avec les expressions régulières.</h3>
+
+<p>On à déjà vu le routage statique et le routage dynamique. Mais juste avec ces
+deux routages, il n’est pas encore possible de réaliser toutes les routes
+inimaginables. Par exemple, il n’est pas encore possible de faire une route qui
+ressemblerai a ca : <code>http://exemple.com/team/25-aka</code> ou alors
+<code>http://exemple.com/blogpost/9-Comment-faire-cuire-une-pizza.html</code>.</p>
+
+<p>Voila le code d’une route :</p>
+
+<pre><code>$routeRegex = new Zend_Controller_Router_Route_Regex(
+    'teams/(d+)-(w+)',
+    array('controller' =&gt;'index', 'action' =&gt; 'teams'),
+    array(1 =&gt; 'id',2=&gt;'name'),
+    'teams/%d-%s'
+);
+$router-&gt;addRoute('teams', $routeRegex);
+</code></pre>
+
+<p>Il faut noter que la route n’est plus de type <code>Zend_Controller_Router_Route</code>
+mais de type <code>Zend_Controller_Router_Route_Regex</code>.</p>
+
+<dl>
+<dt>La route en elle-même est à peu près la même que pour le routage dynamique. Il</dt>
+<dt>faut utiliser des expressions régulières. Ici les routes acceptées sont du type</dt>
+<dd><code>http://exemple.com/teams/NOMBRE-STRING</code>.</dd>
+</dl>
+
+<p>Le troisième argument du constructeur est un peu différent. Il permet de mapper
+(i.e. binder, associé) les ‘variables’ capturées par la regxp (grâce aux
+parenthèse) à des noms de variables. Par exemple, ici le nombre <code>capturé</code> sera
+mapper à la variable <code>id</code> et le <code>string</code> sera mappé à la variable <code>name</code>.</p>
+
+<p>Enfin le dernier paramètre du constructeur sert au reverse. Il est possible
+(comme pour tous les autres types de route) d’utiliser un ViewHelper pour
+construire notre url (dans le cas où l’on veut faire un lien par exemple).
+Cependant avec une expression régulière en entré, il n’est pas très facile de
+pouvoir deviner le pattern en sortie. C’est pourquoi il y a ce dernier argument
+qui est facultatif. En effet il est facultatif, car tant qu’on n’utilise pas le
+ViewHelper, on n »en a pas besoin.</p>
+
+<p><span style="text-decoration: underline;">Note :</span> on verre plus tard
+comment utiliser le ViewHelper url() avec les routes.</p>
+
+<h2>Configuration avec un fichier de configuration .ini</h2>
+
+<p><span style="text-decoration: underline;">Note :</span> pour cette partie, je ne
+vais pas trop détaillé le code. Il reste assez similaire pour le bootstrap. Le
+fichier .ini reprend le même fonctionnement qu’en php.</p>
+
+<h3>Configuration du Bootstrap</h3>
+
+<p>Il faut commencer par créet une nouvelle méthode dans le fichier bootstrap.php</p>
+
+<p>protected function _initRouter() {</p>
+
+<pre><code>$front = $this-&gt;bootstrap('FrontController')-&gt;getResource('FrontController');
+$router = $front-&gt;getRouter();
+$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+$routing = new Zend_Controller_Router_Rewrite();
+$routing-&gt;addConfig($config, 'routes');
+ $front-&gt;setRouter($routing);}
+</code></pre>
+
+<h3>Application.ini</h3>
+
+<p>Et maintenant, il faut coller ce code dans le fichier application.ini, dans la
+section production</p>
+
+<pre><code>; Routage
+
+routes.accueil.route = "accueil"
+routes.accueil.defaults.controller = "index"
+routes.accueil.defaults.action = "index"
+
+routes.apropos.type = "Zend_Controller_Router_Route"
+routes.apropos.route = "a-propos"
+routes.apropos.defaults.controller = "index"
+routes.apropos.defaults.action = "apropos"
+
+routes.contact.type = "Zend_Controller_Router_Route"
+routes.contact.route = "contact/:topic"
+routes.contact.defaults.controller = "index"
+routes.contact.defaults.action = "contact"
+routes.contact.defaults.topic = "Topic par defaut"
+
+routes.membres.type = "Zend_Controller_Router_Route"
+routes.membres.route = "membres/:id/`"
+routes.membres.defaults.controller = "index"
+routes.membres.defaults.action = "membres"
+routes.membres.reqs.id = "d+"
+
+routes.teams.type = "Zend_Controller_Router_Route_Regex"
+routes.teams.route = "teams/(d+)-(w+)"
+routes.teams.defaults.controller = "index"
+routes.teams.defaults.action = "teams"
+routes.teams.map.1 = "id"
+routes.teams.map.2 = "name"
+routes.teams.reverse ="teams/%d-%s"
+</code></pre>
+
+<p>On peut voir que pour un routage statique simple, 3 lignes suffisent (cf
+accueil). Cependant on peur forcer le type de la route (cf apropos).</p>
+
+<p>Comme en PHP, il est aussi possible de définir une route dynamique (cf contact).
+Et on peut aussi faire une validation par expressions régulières (cf membres).</p>
+
+<p>Enfin pour utiliser un route de type expression régulière, il faut utilise le
+type « <code>Zend_Controller_Router_Route_Regex</code> » (cf teams).</p>
+
+<h2>Utilisation de l’aide de Vue url()</h2>
+
+<p>L’aide de vue url() est très utile. Il est possible de l’utiliser avec le
+système de route du Framework. On peut l’utiliser depuis une vue ou depuis le
+layout. En accord avec la définition des routes vu précédemment, on peut
+l’appeler de la façon suivante :</p>
+
+<pre><code>echo $this-&gt;url(array(),'accueil').'&lt;br /&gt;';
+echo $this-&gt;url(array(),'apropos').'&lt;br /&gt;';
+echo $this-&gt;url(array('topic'=&gt;'Sujet du message'),'contact').'&lt;br /&gt;';
+echo $this-&gt;url(array('id'=&gt;'78'),'membres').'&lt;br /&gt;';
+echo $this-&gt;url(array('id'=&gt;'25','name'=&gt;'aka'),'teams').'&lt;br /&gt;';
+</code></pre>
+
+<p>Le première argument doit etre un tableau (<code>array</code>). Il représente les arguments
+(ou paramètres) de la route. C’est un tableau associatif. La clé représente le
+nom de la variable, et la valeur représente la valeur de cette variable. Le
+deuxième argument représente la nom de la route.</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

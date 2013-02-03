@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Jul 13th, 2009
+    </div>
+
+    <div class="body">
+      <p>On a deja vu pas mal de chose sur le <strong>Zend Framework</strong>, mais depuis la version
+1.8.`, il y a quelques petites choses qui ont changées, comme l’architecture, et
+l’arrivée de <strong>Zend_Tool</strong>.</p>
+
+<p>C’est quoi <strong>Zend_Tool</strong> ? c’est un script <code>php</code> qui s’exécute en mode console
+(<code>CLI</code>) et qui nous <strong>permet de créer une base pour notre application</strong> :</p>
+
+<ul>
+<li>L’architecture du projet</li>
+<li>Un nouveau controller</li>
+<li>Une nouvelle action</li>
+<li>Une nouvelle vue</li>
+<li>Un nouveau module</li>
+<li>etc …</li>
+</ul>
+
+<p>On va donc recréer notre application de gestion de budget grâce aux
+<strong>Zend_Tools</strong>. Pour faire les choses proprement, on va commencer par
+télécharger la <a href="http://framework.zend.com/download"
+target="_blank">dernière version de Zend Framework </a>(1.8.4). Vous la dé-
+zipper ou vous voulez sur votre disque dur. Dans mon cas, c’est <span style
+="text-decoration:
+underline;">/home/lyrix/Prog/php/2009/ZendFramework-1.8.4</span>. Maintenant il
+va falloir inclure ce path dans notre include path. c’est a dire qu’il nous sera
+possible d’appeler zf.sh (ou zf.bat pour les windowsiens) depuis n’importe quels
+répertoires depuis notre console favorites. <strong>Sinon sous Linux on peut faire
+plus simple</strong>, on va tout simplement faire un alias :</p>
+
+<pre><code>alias zf.sh=/home/lyrix/Prog/php/2009/ZendFramework-1.8.4/bin/zf.sh
+</code></pre>
+
+<p>Note : Si vous faites ce code directement depuis la console, l’alias sera
+temporaire (juste pour cette console), si vous le faite dans le fichier
+~/.bashrc, l’alias sera permanent.</p>
+
+<p>Voila maintenant il nous faut créer ce projet dans le dossier qui va bien. Moi
+je veux le mettre la : /home/lyrix/Prog/php/2009/Budget/ donc je me place dans
+ma console dans le dossier /home/lyrix/Prog/php/2009/ puis je crée mon projet :</p>
+
+<pre><code>cd /home/lyrix/Prog/php/2009/ zf.sh create project Budget
+</code></pre>
+
+<p>Voila notre projet est crée. On peut aussi faire des modules, pour ce faire il
+faut aller se placer dans le projet en question, et créer un module :</p>
+
+<pre><code>cd /home/lyrix/Prog/php/2009/Budget zf.sh create module Frontend
+</code></pre>
+
+<p>Voila, notre structure du projet est crée. Il faut maintenant coller la
+librairie librairie dans /home/lyrix/Prog/php/2009/Budget/library. (On doit
+copier tout le dossier Zend). Sous linux on peut aussi faire un lien symbolique
+directement vers un autre dossier de son disque dur. :</p>
+
+<pre><code>cd /home/lyrix/Prog/php/2009/Budget/library
+ln -s /home/lyrix/Prog/php/2009/ZendFramework-1.8.4/library/Zend/ Zend
+</code></pre>
+
+<p>Voila notre projet fonctionne, on peut se rendre a la page suivante pour voir le
+résultat :</p>
+
+<pre><code>http://127.0.0.1/monwww/2009/Budget/public/
+</code></pre>
+
+<p><a href="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit.png" rel="lightbox[449]"><img class="size-medium wp-image-455" title="Installation de Zend Framework 1.8 - finit" src="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit-300x187.png" alt="Installation de Zend Framework 1.8 - finit" width="300" height="187" /></a></p>
+
+<p>Enfin, je rappel qu’il est quand meme possible de creer l’architecture d’un
+projet directement dans Zend Studio. Il suffit de faire un nouveau projet et se
+laisser guider.</p>
+
+<p>On peut passer a <a href="../../zend/architecture-du-zend-framework-1-10.html" title="Architecture du Zend Framework 1.10 en MVC">l’architecture de Zend Framework</a></p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

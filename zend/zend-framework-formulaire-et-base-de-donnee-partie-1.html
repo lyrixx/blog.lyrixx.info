@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Zend Framework, Formulaire et Base de donnée, partie 1</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Zend Framework, Formulaire et Base de donnée, partie 1</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Nov 19th, 2009
+    </div>
+
+    <div class="body">
+      <p>Hello, On va voir aujourd’hui <strong>comment construire et gérer un formulaire</strong>,
+<strong>ajouter les données récupéré dans une base de données</strong>, <strong>afficher ces
+données</strong>, et enfin <strong>modifier</strong> et <strong>supprimer</strong> celles-ci. En gros, on va
+utiliser les propriétés <strong><acronym title="Create Read Update
+Delete">CRUD</acronym></strong> de <strong>Zend Framework</strong> en y associant une <strong>base de
+donnée</strong> et un <strong>formulaire</strong>. P.S. : Pendant la rédaction de ce <strong>tuto</strong>, je me
+suis rendu compte qu’il allait être beaucoup trop gros, du coup j’ai décidé de
+<strong>le couper en deux parties</strong>, une première sur la création du formulaire et
+l’ajout en base, une deuxième sur la l’affichage, la modification et la
+suppression.</p>
+
+<h2 id="sommaire">Sommaire</h2>
+
+<ul>
+<li>Partie 1
+
+<ul>
+<li><a href="#sommaire">Sommaire</a></li>
+<li><a href="#bdd">Préparation de la BDD</a></li>
+<li><a href="#formulaire">Préparation du formulaire</a></li>
+<li><a href="#affichage">Affichage du formulaire</a></li>
+<li><a href="#controller">Le Controller du formulaire</a></li>
+<li><a href="#validateur">Gérer d’autres validateurs</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul></li>
+<li>Partie 2
+
+<ul>
+<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#sommaire">Sommaire</a></li>
+<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#read">Afficher des enregistrement</a></li>
+<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#update">Mettre a jour des enregistrement</a></li>
+<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#delete">Supprimer des enregistrement</a></li>
+<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#conclusion">Conclusion</a></li>
+</ul></li>
+</ul>
+
+<h2 id="bdd">Préparation de la base de donnée :</h2>
+
+<p style="text-align: center;">   <a href="../../wp-
+content/uploads/2009/11/database.png"   rel="lightbox[929]"><img
+class="aligncenter   size-full wp-image-931" title="database user" src="../../wp-content/uploads/2009/11/database.png"   alt="database user"
+width="136" height="178" /></a> </p>
+
+<pre><code>CREATE TABLE IF NOT
+EXISTS `Budget`.`users` (
+*idUser` INT NOT NULL AUTO_INCREMENT ,
+*nom` VARCHAR(20) NULL ,
+*prenom` VARCHAR(20) NULL ,
+*email` VARCHAR(30) NULL ,
+*active` INT NULL ,
+*level` INT NULL ,
+*password` BIGINT NOT NULL ,
+PRIMARY KEY (`idUser`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+PACK_KEYS = DEFAULT
+</code></pre>
+
+<p>Comme <a href="../../zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html" title="Comment gérer une base de donnée avec le Zend Framework">on a vu dans un précédant tutoriel</a>, il faut créer une <strong>classe qui
+va nous mapper les informations de la table</strong> (<strong><acronym title="Object Relation
+Mapper">ORM</acronym></strong> du <code>Zend Framework</code>).</p>
+
+<pre><code>class Model_DbTable_Users extends Zend_Db_Table_Abstract {
+    protected $_name = 'users';
+    protected $_primary = array('idUser');
+}
+</code></pre>
+
+<h2 id="formulaire">Préparation du formulaire</h2>
+
+<p>Il existe plusieurs façons de faire un formulaire : soit en utilisant des
+<code>tableaux php</code>, des <code>objets php</code>, un <code>fichier xml</code> etc… Pour ma part j’utilise
+des <code>objets php</code> et j’implémente pour chaque formulaire la classe <strong>Zend_Form</strong>
+(je vais y revenir). Pour plus de clarté dans mon arborescence de fichiers, je
+place tous mes formulaires, dans le dossier : <code>application/models/Form/</code> et
+comme ce formulaire ci concerne l’<code>ajout et/ou la modification d’un
+utilisateur</code>, mon fichier <code>User.php</code> est dans le dossier :
+<code>application/models/Form/User</code>. Donc le fichier de base doit ressembler à ça :</p>
+
+<pre><code>class Model_Form_User_User extends Zend_Form {
+    public function init() {
+    }
+}
+</code></pre>
+
+<p>Comme on peut le voir, il faut étendre la classe <code>Zend_Form</code>, et mettre tout
+notre code qui ajoute des éléments dans la méthode <code>init()</code>. Ce code sera
+<strong>directement exécuter lors de la création d’un nouveau formulaire</strong>. Mais on va
+très vite ajouter des éléments à notre formulaire, sinon il ne va pas servir à
+grand chose. On peut, par exemple, <strong>ajouter un champ input texte</strong> grâce a
+ce code (le principe reste le même pour tous les types d’éléments) :</p>
+
+<pre><code>$champText = new Zend_Form_Element_Text('champText');
+$champText-&gt;setLabel('un champ texte')
+    -&gt;setRequired(true)
+    -&gt;addValidator('notEmpty')
+    -&gt;addFilter('StripTags')
+    -&gt;addFilter('StringTrim');
+</code></pre>
+
+<p>On commence par créer un nouvel élément de type input texte, puis on ajoute un
+<code>label</code>, on ajoute ensuite un <code>validateur</code> qui (dans ce cas) oblige la valeur à
+être rempli, puis on ajoute deux <code>filtres</code>. Il existe un grand nombre de
+<code>validateurs</code> et de <code>filtres</code>. On en verra quelques un ici. Mais comme on peut
+se douter, on va très souvent répéter le même code. Donc on peut se <strong>créer une
+petite classe</strong> qui ne va servir qu’a ajouter un champ de type input texte :
+(<code>application/models/Form/EText.php</code>)</p>
+
+<pre><code>class Model_Form_EText extends Zend_Form_Element_Text {
+
+    public function __construct($options = null,$label) {
+        parent::__construct($options);
+        $this-&gt;setLabel($label)
+            -&gt;setRequired(true)
+            -&gt;addFilter('StripTags')
+            -&gt;addFilter('StringTrim');
+    }
+}
+</code></pre>
+
+<p><strong>Voilà, je vous donne maintenant une partie du code du formulaire et j’explique
+les points nouveaux.</strong></p>
+
+<pre><code>class Model_Form_User_User extends Zend_Form {
+
+    public function init() {
+        $this-&gt;setName ( 'add_user' );
+
+        $id = new Zend_Form_Element_Hidden ( 'idUser' );
+
+        $nom = new Model_Form_EText ( 'nom', 'form_user_add_name' );
+
+        $prenom = new Model_Form_EText ( 'prenom', 'form_user_add_firstname' );
+
+        $email = new Model_Form_EText ( 'email', 'form_user_add_mail' );
+        $email-&gt;addValidator ( 'EmailAddress' )-&gt;addValidator( new Zend_Validate_Db_NoRecordExists ('users', 'email' ) );
+
+        $password = new Zend_Form_Element_Password ( 'password' );
+        $password-&gt;setLabel ( 'form_user_add_password' )-&gt;addFilter ( 'StripTags' )-&gt;addFilter ( 'StringTrim' )-&gt;setRequired ( true );
+
+        $password2 = new Zend_Form_Element_Password ( 'password2' );
+        $password2-&gt;setLabel ( 'form_user_add_password2' )-&gt;addFilter ( 'StripTags' )-&gt;addFilter ( 'StringTrim' );
+
+        $active = new Zend_Form_Element_Checkbox ( 'active' );
+        $active-&gt;setLabel ( 'form_user_add_enable' )-&gt;addFilter ( 'StripTags' )-&gt;addFilter ( 'StringTrim' )-&gt;setValue ( 1 );
+
+        $level = new Zend_Form_Element_Select ( 'level' );
+        $level-&gt;setLabel ( 'form_user_add_level' )-&gt;addFilter ( 'StripTags' )-&gt;addFilter ( 'StringTrim' );
+
+        $levelOptions = array ();
+        for($i = 0; $i &lt;= 9; $i ++) {
+            $levelOptions [$i] = array ('key' =&gt; $i, 'value' =&gt; $i );
+        }
+        $level-&gt;addMultiOptions ( $levelOptions );
+
+        $submit = new Zend_Form_Element_Submit ( 'submit' );
+        $submit-&gt;setAttrib ( 'id', 'submitbutton' )-&gt;setLabel ( 'form_user_add_submit' );
+
+        $elements = array ($id, $nom, $prenom, $email, $password, $password2, $active, $level, $submit );
+        $this-&gt;addElements ( $elements );
+    }
+}
+</code></pre>
+
+<p>Pour commencer je donne un <code>nom</code> a mon formulaire, ce qui peut être pratique
+pour le retrouver, en effet le nom du formulaire correspond a son <code>id</code> dans le
+<code>code html et css</code>. On peut aussi ajouter d’autre options, comme l’<code>action du
+controller</code>, mais dans notre cas, le formulaire et sa page de destination
+(<code>l’action</code>) sont les mêmes, donc on pas besoin de le définir. Ensuite, comme on
+peut le voir, on crée plusieurs éléments :</p>
+
+<ul>
+<li>l’<code>id</code> qui est un <code>élément de type hidden</code>, qui nous servira lors des
+mises à jour d’un utilisateur.</li>
+<li><code>nom</code>, <code>prenom</code> qui sont des éléments de type <code>Etext</code>, les éléments
+qu’on a crée un peu plus haut.</li>
+<li><code>email</code>
+
+<ul>
+<li>Le champ <code>email</code> est aussi un champs de type <code>Etext</code>,</li>
+<li>On a ajouter un <code>validateur d’adresse mail</code>, pratique, le boulot est
+déjà fait ! <code>-&gt;addValidator('EmailAddress')</code></li>
+<li>On ajoute un second <code>validateur</code> qui vérifie que l’adresse mail n’est
+pas déjà dans la base de donnée:  *addValidator (new Zend_Validate_Db_NoRecordExists('users','email'))<code>.
+Le premier paramètre est le</code>nom de la table`. Le second est
+l’attribut qui doit être unique.</li>
+</ul></li>
+<li><code>password</code> et <code>password2</code> sont des <code>champs de type password</code>.</li>
+<li><code>active</code> sert a savoir si l’utilisateur est actif. C’est un élément <code>de type Checkbox</code>,
+avec comme valeurpar défaut 1 (case coché)</li>
+<li><p><code>level</code> sert a niveau d’administration du site. <code>De type Select</code> On ajoute
+dans un tableau des correspondances <code>key =&gt; value</code> qui représentent les
+*options du select`</p></li>
+<li><p><code>submit</code> qui est notre bouton envoyer.</p></li>
+</ul>
+
+<p><strong>Les **labels</strong> ne sont pas très significatifs ou user-friendly, c’est normale,
+j’utilise la traduction du zend framework**. Enfin il ne reste plus qu’a ajouter
+tous ces éléments dans le formulaire lui même et le tours est joué, on a notre
+formulaire. Je tiens a rappelé qu’<strong>il existe vraiment un grand nombre de façon
+de fabriquer un formulaire</strong>, <strong>d’ajouter des filtres</strong>, <strong>des validateurs</strong>. Il
+y a quelques exemples ici, mais je ne peux pas faire un exemple pour chaque cas.
+Je vous recommande donc d’aller faire un tour sur sur le doc du <strong>zf</strong>.</p>
+
+<h2 id="affichage">Affichage du formulaire</h2>
+
+<p><strong>Je ne vais pas m’occuper ici de styler le formulaire</strong>. Juste de l’afficher
+comme il vient. Par défaut <strong>zf</strong> utilise ce qu’on appel des <strong>décorateurs</strong>, il
+est possible de les personnaliser, mais ce n’est pas le but ici. Vous pouvez
+aller faire un tours <a href="http://www.dator.fr/tutorial-creer-une-application-avec-le-zend-framework-%E2%80%93-8-le-formulaire-dinscription-de-watchmydesk/">sur le site de dator pour avoir un exemple</a> de ce
+qu’on peut faire (même si je ne suis pas fan de sa technique, mais elle reste
+valide à 100% … huhu). Pour les <code>décorateurs</code>, le code a <code>ajouter / modifier</code>
+doit se trouver dans la classe qui fabrique notre formulaire. Donc il va falloir
+<strong>éditer la vu qui affichera le formulaire.</strong> Chez moi c’est
+<code>application/modules/Frontend/views/scripts/user/index.phtml</code> car c’est le
+<strong>controller</strong> <code>userController.php</code> qui va être appelé ici. Voilà a quoi doit
+ressembler la vues <strong>au minimum</strong> :</p>
+
+<pre><code>&lt;?php if (isset($this-&gt;formUser)) : ?&gt;
+    &lt;h2&gt;
+        &lt;?php echo $this-&gt;translate('view_user_add')?&gt; ?
+    &lt;/h2&gt;
+    &lt;?php echo $this-&gt;formUser ?&gt;
+&lt;?php endif ?&gt;
+</code></pre>
+
+<p>On fait une simple vérification pour voir sur le formulaire a bien était envoyé
+par le <code>controller</code> à la vue et on l’affiche.</p>
+
+<h2 id="controller">Le controller du formulaire</h2>
+
+<p>Bon on arrive la <strong>gestion du controller</strong> de notre formulaire. Je vous <strong>livre
+le code et je l’explique ensuite</strong> :
+(<code>application/modules/Frontend/controllers/UserController.php</code>)</p>
+
+<pre><code>class UserController extends Zend_Controller_Action
+{
+    public function indexAction(){
+    $form = new Model_Form_User_User();
+    $this-&gt;view-&gt;formUser = $form;
+    if ($this-&gt;_request-&gt;isPost()) {
+        $formData = $this-&gt;_request-&gt;getPost();
+        if ($form-&gt;isValid($formData)) {
+            $users = new Model_DbTable_Users();
+            $row = $users-&gt;createRow();
+            $row-&gt;nom = $form-&gt;getValue('nom');
+            $row-&gt;prenom = $form-&gt;getValue('prenom');
+            $row-&gt;email = $form-&gt;getValue('email');
+            $row-&gt;password = md5($form-&gt;getValue('password'));
+            $row-&gt;active = $form-&gt;getValue('active');
+            $row-&gt;level = $form-&gt;getValue('level');
+            $result = $row-&gt;save();
+            //On gere le resultat et l'action qui s'en suit.
+            $form-&gt;reset();
+        }
+    }
+}
+</code></pre>
+
+<p>Petit apercu avant de continuer</p>
+
+<p style="text-align: center;">   <a href="../../wp-
+content/uploads/2009/11/Form-User-Add.png"   rel="lightbox[929]"><img
+class="aligncenter size-full wp-image-938" style="border: 1px solid black;"
+title="Form User Add" src="../../wp-content/uploads/2009/11/Form-
+User-Add.png" alt="Form   User Add" width="370" height="571" /></a> </p>
+
+<pre><code>$form = new
+Model_Form_User_User();
+$this&gt;view-&gt;formUser = $form;
+</code></pre>
+
+<p>On commence par <code>instancier</code> la classe du formulaire et on le donne à la vue. A
+partir de ce moment on peut <strong>déjà tester si notre formulaire s’affiche bien</strong>.
+Bien entendu ça ne sert a rien de cliquer sur envoyer, ça ne fonctionnera pas !
+Comme on a pu le voir plus haut, la page de destination du formulaire est elle
+même. Donc le <code>controller</code> est le même. C’est donc dans la même <code>méthode</code> du
+même <code>controller</code> qu’on teste en premier si notre <strong>formulaire est valide</strong> et
+qu’ensuite on traite le résultat.</p>
+
+<pre><code>if ($this-&gt;_request-&gt;isPost()) {
+     $formData = $this-&gt;_request-&gt;getPost();
+}
+</code></pre>
+
+<p>On commence avec le <code>IF</code> pour voir si il y a eu des données de type <code>POST</code>,
+<code>POST</code> étant le type d’envoi par défaut pour les formulaires. On peut bien
+entendu envoyer notre formulaire en <code>GET</code> en modifiant la classe <code>user.php</code>.
+Ensuite on récupère nos données.</p>
+
+<pre><code>if ($form-&gt;isValid($formData)) {
+}
+</code></pre>
+
+<p>Ce point est très intéressant, car il va <strong>automatiquement voir si notre
+formulaire est valide</strong>. C’est a dire qu’il va exécuter chaque <code>validateurs</code> de
+nos <code>élement</code> composant le formulaire. Si il y a <strong>au moins une erreur la
+validation ne passera pas</strong>, mais zf va** automatiquement refaire notre
+formulaire en reprenant les valeurs insérer, et en ajouter un message ou il y a
+eu des erreurs** (par exemple « la valeur est requise »). Ici encore on peut
+personnaliser le message. Dans mon cas j’utilise encore une fois la
+<code>traduction</code>. Bon et si le formulaire est valide ?</p>
+
+<pre><code>$users = new Model_DbTable_Users();
+$row = $users-&gt;createRow();
+$row-&gt;nom = $form-&gt;getValue('nom');
+$row-&gt;prenom = $form-&gt;getValue('prenom');
+$row-&gt;email = $form-&gt;getValue('email');
+$row-&gt;password = md5($form-&gt;getValue('password'));
+$row-&gt;active = $form-&gt;getValue('active');
+$row-&gt;level = $form-&gt;getValue('level');
+$result = $row-&gt;save();
+</code></pre>
+
+<p>Comme on veut (à la base) que notre formulaire nous serve à <strong>ajouter des
+utilisateurs en base</strong>, et bien on reprend le même code que dans le tutoriel sur
+la <code>gestion des BDD</code> ; On instancie la classe <code>Model_DbTable_Users</code>, <strong>on crée
+un nouvelle ligne, on ajoute tous nos champs</strong>, et enfin <strong>on sauvegarde</strong>. Bien
+entendu, on peut mettre la ligne <code>$row-&gt;save()</code> dans un bloque <code>try-catch</code>, mais
+si on a bien fait notre boulot sur les <code>validateurs</code>, normalement, il n’y a pas
+besoin.</p>
+
+<pre><code>reset();
+</code></pre>
+
+<p>Enfin on <strong>remet a zéro notre formulaire,</strong> c’est a dire qu’on vide tout les
+champs. On peut par la suite ajouter un message (pour l’ergonomie) qui
+s’affichera expliquant que l’ajout s’est bien effectué. Ici c’est donc juste un
+passage de variable à la vue. Voilà notre formulaire fonctionne mais il y reste
+encore des choses a voir.</p>
+
+<h2 id="validateur">Double vérification du password ; Validation avec données.</h2>
+
+<p>Du fait qu’il faille vérifier que l’utilisateur a bien rentré <strong>deux fois le
+même password</strong>, on va avoir besoin d’au moins un des deux <code>password</code>. On va
+donc redéfinir la méthode <code>isValid</code> de la classe <code>Model_Form_User_User</code> qui
+étend <code>Zend_Form</code> je vous rappel. Cette classe, comme on a vu plus haut, <strong>est
+systématiquement appelé</strong>, et elle appel à son tour tous les <code>validateurs</code> de
+tous les <code>éléments</code>. On va utiliser pour vérifier que l’utilisateur a bien
+rentré deux fois le même <code>password</code> grâce une classe de validation réalisé par
+<a href="http://pastie.textmate.org/640447">l’ami dator</a> :</p>
+
+<pre><code>class App_Validate_PasswordMatch extends Zend_Validate_Abstract
+{
+    const PASSWORD_MISMATCH = 'passwordMismatch';
+    protected $_compare;
+    protected $_messageTemplates = array(
+        self::PASSWORD_MISMATCH =&gt; "PASSWORD_MISMATCH"
+    );
+    public function __construct($compare){
+        $this-&gt;_compare = $compare;
+    }
+    public function isValid($value){
+        $this-&gt;_setValue((string) $value);
+        if ($value !== $this-&gt;_compare) {
+            $this-&gt;_error(self::PASSWORD_MISMATCH);
+            return false;
+        }
+        return true;
+    }
+}
+</code></pre>
+
+<p>On peut la mettre en bas de la classe <code>Model_Form_User_User</code>, ça ne pose pas
+de problème. Du coup il ne nous reste plus qu’a l’utiliser :</p>
+
+<pre><code>public function isValid($data)
+{
+    $this-&gt;getElement('password')-&gt;addValidator(new
+    App_Validate_PasswordMatch($data['password2']));
+    if ($this-&gt;getElement('email')-&gt;getValue() == $data['email']){
+        $this-&gt;getElement('email')-&gt;removeValidator ( "Zend_Validate_Db_NoRecordExists");
+    }
+    return parent::isValid($data);
+}
+</code></pre>
+
+<p>On commence par récupérer l’élément <code>password</code>, auquel on ajoute notre
+<code>validateur personnalisé</code> en lui donnée comme paramètre le <code>password2</code> rentré
+par l’utilisateur. Ensuite on appelle la méthode « classique ».</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Et voilà, on a finit avec notre formulaire. On peut bien sur l’améliorer et
+surtout le rendre plus joli. Je vous redonnerai tous les fichiers nécessaires
+lors de la deuxième ;) et on peut continuer avec<a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html" title="Zend Framework, Formulaire et Base de donnée, partie 2"> la 2eme partie : affichage,
+modification et suppression</a>.</p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>

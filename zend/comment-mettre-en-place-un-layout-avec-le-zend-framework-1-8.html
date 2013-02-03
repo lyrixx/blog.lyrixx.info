@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Comment mettre en place un Layout avec le Zend-Framework 1.8</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Comment mettre en place un Layout avec le Zend-Framework 1.8</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Jul 23rd, 2009
+    </div>
+
+    <div class="body">
+      <p>On va voir ensemble comment utiliser les <strong>Layouts</strong>, <strong>placeholder</strong>,
+<strong>helper</strong> dans le** Zend Framework** 1.8 (et supérieur). En effet, depuis la
+version 1.8, la gestion n’est plus automatique, mais en 2 temps 3 mouvements
+c’est réglé.</p>
+
+<h2>Qu’est ce qu’un Layout ?</h2>
+
+<p>Un <code>layout</code> est un template, ou alors un squelette vide de votre site. Il n’y a
+aucun contenu, il n’y a presque que du code HTML. Les layouts sont très
+pratique, car ils permettent de ne pas avoir copier / coller tout le code html
+identique sur chaque pages. On peut donc faire des <code>templates</code> par defaut pour
+un grand nombre de page.</p>
+
+<blockquote>
+  <p>Dans tous les cas, un script de <strong>layout</strong> est nécessaire. Les scripts de
+  <strong>layout</strong> utilisent simplement Zend_View (ou une implémentation particulière
+  personnalisée). Les variables de <strong>layout</strong> sont enregistrées dans le
+  <strong>placeholder</strong> <strong>Layout</strong>, et peuvent être accédées via l’aide de vue
+  <strong>placeholder</strong> ou directement en tant que propriétés de l’objet <strong>layout</strong>.</p>
+</blockquote>
+
+<p style="text-align: right;">
+    D’après la
+    <a href="http://framework.zend.com/manual/fr/zend.layout.quickstart.html" target="_blank">
+        documentation de Zend Framework
+    </a>
+</p>
+
+<h2 id="sommaire">Sommaire</h2>
+
+<ul>
+<li><a href="#sommaire">Sommaire</a></li>
+<li><a href="#exemple">Exemple de layout ou template général</a></li>
+<li><a href="#layout">Mise en place du Layout</a></li>
+<li><a href="#comprendre">Comprendre les placeholders et les helpers</a></li>
+<li><a href="#helper">C’est quoi un helpers ou Script de Vue ?</a></li>
+<li><a href="#placeholder">C’est quoi un placeholders ?</a></li>
+<li><a href="#useplaceholder">Comment Utiliser un placeholders ?</a></li>
+<li><a href="#changetitle">Comment faire pour changer le titre de ma page ?</a></li>
+<li><a href="#explication">Explication : Implementation d’un placeholders dans un helper</a></li>
+</ul>
+
+<h2 id="exemple">Exemple de layout ou template général.</h2>
+
+<p>Voici un exemple de <code>template</code> :</p>
+
+<p><a href="../../wp-content/uploads/2009/07/Exemple-de-template.png"
+rel="lightbox[562]"><img class="size-medium wp-image-566" title="Exemple de
+template" src="../../wp-content/uploads/2009/07/Exemple-de-
+template-300x178.png" alt="Exemple de template" width="300" height="178" /></a></p>
+
+<p>On voit qu’on a diviser notre gabarit de page en quatre zones (complètement
+arbitrairement) :</p>
+
+<ul>
+<li>En haut : le Header</li>
+<li>En bas : le Footer</li>
+<li>A gauche : le menu de navigation</li>
+<li>A droite : le contenu</li>
+</ul>
+
+<p>Voici ce qu’est un <code>layout</code> : <strong>le layout c’est la partie qui ne change pas :
+Header, Footer, Menu.</strong></p>
+
+<h2 id="layout">Mise en place du Layout.</h2>
+
+<p>Il faut commencer par choisir un emplacement pour les fichiers. Moi j’ai choisit
+<code>APPLICATION_PATH "/layouts/scripts"</code> (par défaut, cf la doc de Zend). Dans ce
+dossier on va créer notre premier <code>layout</code>, qu’on appellera : layouts.phtml.
+L’extension <code>.phtml</code> est l’extension standard pour les <code>layouts</code> dans zend.</p>
+
+<p>Une fois ce fichier créé, il faut renseigner à zend qu’on va utiliser un
+<code>layout</code>. On va donc ajouter au fichier de configuration <code>application.ini</code> ces
+quelques lignes :</p>
+
+<pre><code>LAYOUT
+resources.layout.layout = "layout"
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
+</code></pre>
+
+<p>Grâce a ces deux lignes, Zend va automatiquement chercher le script
+<code>/layouts/scripts/layout.phtml</code> et l’utiliser. A partir de ce moment, le script
+de vues devient plus leger, avec seulement un partie du code html. Donc pour
+<strong>résumer</strong> : Dans le <code>layout</code>, il y a beaucoup de HTML (balise html, head,
+title, body) et dans les vues un peu plus de php et peu moins de html. OK ? Si
+vous avez un doute <a href="../../zend/zend-comment-faire-une-vue.html">sur les <code>view</code> (vue) c’est ici</a>, et sur <a href="../../zend/zend-quest-ce-quun-controller.html">les
+<code>controllers</code> c’est la</a>.</p>
+
+<p>Maintenant on peut encore plus customiser (personnaliser)  notre <code>layout</code>. Comme
+lui mettre une titre par défaut, choisir son encodage, choisir son doc type etc…
+Tout ce fait dans le bootstrap :</p>
+
+<pre><code>/**
+ * Initialize session
+ *
+ * @return Zend_View
+ */
+protected function _initView()
+{
+    // Initialize view
+    $view = new Zend_View();
+    $view-&gt;doctype('XHTML1_STRICT');
+    $view-&gt;headTitle('Ma premiere application avec Zend');
+    $view-&gt;headMeta()-&gt;appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+    // Add it to the ViewRenderer
+    $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+    $viewRenderer-&gt;setView($view);
+    // Return it, so that it can be stored by the bootstrap
+
+    return $view;
+}
+</code></pre>
+
+<p>Enfin il faut faire le fichier layouts.phtml</p>
+
+<pre><code>&lt;?php echo $this-&gt;doctype() ?&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;?php echo $this-&gt;headTitle() ?&gt;
+        &lt;?php echo $this-&gt;headLink() ?&gt;
+        &lt;?php echo $this-&gt;headStyle() ?&gt;
+        &lt;?php echo $this-&gt;headScript() ?&gt;
+        &lt;?php echo $this-&gt;headMeta() ?&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;?php echo $this-&gt;layout()-&gt;content ?&gt;&lt;br /&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Voila on a notre Layout en place. Maintenant, il s’agit de comprendre comment il
+fonctionne.</p>
+
+<h2 id="comprendre">Comprendre les placeholders et les helpers.</h2>
+
+<p>Si vous avez bien suivi le Tutos, vous avez vu que dans le bootstrap on a déjà
+mis des valeurs par défault. Ces valeurs, normalement c’est la vue (view) qui
+les passe aux layouts. Dans notre cas, le <code>bootstrap</code> crée en avance le <code>layout</code>
+(je rappel que presque tout est objet). Néanmoins il reste bien évidemment
+possible de changer ces valeurs.</p>
+
+<h3 id="helper">C’est quoi un helpers ou Script de Vue ?</h3>
+
+<p>D’après la documentation de Zend :</p>
+
+<blockquote>
+  <p>Dans vos scripts de vue, il est souvent nécessaire d’effectuer certaines
+  actions complexes encore et encore : par exemple, formater une date, générer des
+  éléments de formulaire, afficher des liens d’action. Vous pouvez utiliser des
+  classes d’aide pour effectuer ce genre de tâches.</p>
+</blockquote>
+
+<p>Petite traduction : un <code>helper</code> va être une classe que l’on va utiliser souvent
+dans les vues. Il évite les taches répétitives. Par exemple une zone pour savoir
+si l’utilisateur est loggué. Par contre la je vais vous laisser voir les exemple
+directement sur la <a href="http://framework.zend.com/manual/fr/zend.view.helpers.html"
+target="_self">doc de Zend</a>. D’ailleur on verra prochainement comment faire
+un helper pour vérifier si la personne est loggué.</p>
+
+<h3 id="placeholder">C’est quoi un placeholders ?</h3>
+
+<p>D’après la documentation de zend :</p>
+
+<blockquote>
+  <p>L’aide de vue <code>Placeholder</code> est utilisé pour faire persister le contenu entre
+  les scripts de vues et les instances de vues. Il offre aussi des fonctionnalités
+  utiles comme l’agrégation de contenu, la capture de contenu de scripts de vues
+  pour une utilisation ultérieure, et l’ajout de texte pré ou post contenu (et la
+  personnalisation des séparateurs de contenu).</p>
+</blockquote>
+
+<p>Petite traduction. Les <strong>Placeholders</strong> sont des genres de variables. On les
+utilises pour faire passer du code HTML mis en forme (la pluspart du temps)
+depuis la <code>vue</code> vers le <code>layout</code>. Vu que le <code>layout</code> est générique, il faut
+savoir rester général sur les noms des <code>placeholders</code>. Enfin <code>les placeholders</code>
+sont persistants : c’est a dire qu’on peut les utilisers dans une première
+<code>vue</code>, puis dans une autre <code>vue</code> ou dans un autre script…</p>
+
+<h3 id="useplaceholder">Comment Utiliser un placeholders ?</h3>
+
+<p>Dans le <code>layout</code>, le <code>placeholder</code> s’utilise de cette façon  :</p>
+
+<pre><code>&lt;?php echo $this-&gt;placeholder('PH1');?&gt;&lt;br /&gt;
+&lt;?php echo $this-&gt;placeholder('PH2');?&gt;&lt;br /&gt;
+&lt;?php echo $this-&gt;placeholder('PH3');?&gt;&lt;br /&gt;
+</code></pre>
+
+<p>Pour le layout, il n’y a pas 15 000 facon de les utiliser. Par contre dans une
+vue, on peut les utilisers de plusieurs facon :</p>
+
+<ul>
+<li><p>Comme une variable :</p>
+
+<pre><code>$this-&gt;placeholder('PH1')-&gt;set("j'utilise mon placeholder PH1");
+</code></pre></li>
+<li><p>Comme un agrégateur de variables, avec plein d’outils mis a disposition.</p>
+
+<pre><code>$this-&gt;placeholder('PH2')-&gt;exchangeArray(array(1,2,3));
+$this-&gt;placeholder('PH2')-&gt;setPrefix("&lt;ul&gt;n &lt;li&gt;")
+     -&gt;setSeparator("&lt;/li&gt;&lt;li&gt;n")
+     -&gt;setIndent(4)
+     -&gt;setPostfix("&lt;/li&gt;&lt;/ul&gt;n");
+</code></pre></li>
+</ul>
+
+<p>La on decoupe notre tableau gràce a la fonction <code>exchangeArray</code>. Puis on rajoute
+des balise html avant et après. Le code parle de lui même.</p>
+
+<ul>
+<li><p>Comme un agrégateur de contenu</p>
+
+<pre><code>&lt;?php $this-&gt;placeholder('PH3')-&gt;captureStart(); ?&gt;
+    La on utilise notre&lt;br&gt;
+    Placeholders PH3&lt;br&gt;
+    qui est sur plusieurs lignes &lt;br /&gt;
+    Et qui contient des balises html, ca ne dérange pas.
+&lt;?php  $this-&gt;placeholder('PH3')-&gt;captureEnd(); ?&gt;
+</code></pre></li>
+</ul>
+
+<p>La on utilise des méthodes qui vont commencer la capture puis terminer la
+capture. Tout ce qui sera entre ces deux méthodes seront contenue par le
+<code>placeholder</code>.</p>
+
+<p>Enfin il faut savoir qu’il existe un bon nombre de configurations pour les
+<code>placeholders</code>. Je vous conseil de regarder la doc. On peut y apprendre a
+identer le code, ajouter des préfix, suffix etc…</p>
+
+<h3 id="changetitle">Comment faire pour changer le titre de ma page ?</h3>
+
+<p>Voila le code, je vous l’explique après :</p>
+
+<pre><code>$this-&gt;headTitle('Mon nouveau titre','SET');
+</code></pre>
+
+<h3 id="explication">Explication : Implementation d’un placeholders dans un helper</h3>
+
+<p>Alors la je vous est perdu sur le titre. en fait ce n’est que pour les puristes
+et ceux qui veulent tout savoir que je l’ai ecrit comme ca. <strong>Sinon la on met
+met juste le titre de notre page en argument</strong> de la méthode <code>headTitle</code>. Mais
+d’ou vient ce <code>« SET »</code>‘. Et bien sans SET, par défault les méthodes head&#42;*|
+ajoute le code a la fin de ce qu’il y a deja. Ce qui est extremement pratique
+pour les CSS et JS (cf la prochaine note). Mais on peut aussi écraser la valeur
+du titre, ajouter le nouveau avant ou après etc… Alors pourquoi « Implementation
+d’un placeholders dans un helper ». Et bien en fait dans zend il existe déjà
+beaucoup de helper (comme vu plus haut), vous les utiliser mais vous ne le savez
+peut etre pas. Ensuite, headtitle par exemple est un placeholders, certe
+particulier, mais c’en est un. Voila vous savez tout !!</p>
+
+<p><br / ><br / ></p>
+
+    </div>
+
+      </article>
+            </div>
+          </div>
+        
+                      <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>  </body>
+</html>
