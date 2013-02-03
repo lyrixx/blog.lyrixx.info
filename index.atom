@@ -5,7 +5,7 @@
     <link href="http://blog.lyrixx.info/index.atom" rel="self" />
     <link href="http://blog.lyrixx.info/" />
         <id>http://blog.lyrixx.info/</id>
-            <updated>2013-02-03T18:48:13+01:00</updated>
+            <updated>2013-02-03T21:00:19+01:00</updated>
             <entry>
         <title>Symfony2: How to debug your functionals tests</title>
         <content><![CDATA[When you write functional tests with symfony2 and phpunit, it could be
