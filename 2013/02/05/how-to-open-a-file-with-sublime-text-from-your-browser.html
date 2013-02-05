@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>LyRiXx Blog</title>
+    <title>How to open a file with sublime text from your browser</title>
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
@@ -15,9 +15,9 @@
 
     
         <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/page/4.html"/>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
-    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+      <link rel="canonical" href="http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html"/>
+    <link rel="stylesheet" href="../../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -35,7 +35,7 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <a class="brand" href="../../../..">LyRiXx Blog</a>
                   <div class="nav-collapse collapse">
                     <ul class="nav">
                                                                                           </ul>
@@ -69,92 +69,94 @@
         
                   <div class="row">
             <div class="span10 offset1 content">
-              <div class="page-header">
-    <h1>LyRiXx Blog <small>Web Dev, PHP, Symfony, Open Source</small></h1>
-</div>
-
-                                          <h2>Latests blog post:</h2>
-                <div style="margin-left:30px">
-                        <ul class="unstyled">
-                                                <li>
-        <h5>
-            <a href="../../zend/zend-comment-utiliser-un-model.html">
-                <i class="icon-book"></i>
-                Zend : comment utiliser un model ?
-                <small>(2009-06-27)</small>
-            </a>
-        </h5>
-    </li>
-                                                <li>
-        <h5>
-            <a href="../../zend/zend-comment-faire-une-vue.html">
-                <i class="icon-book"></i>
-                Zend : comment faire une vue ?
-                <small>(2009-06-26)</small>
-            </a>
-        </h5>
-    </li>
-                                                <li>
-        <h5>
-            <a href="../../zend/zend-comment-utiliser-un-layout.html">
-                <i class="icon-book"></i>
-                Zend : comment utiliser un layout ?
-                <small>(2009-06-19)</small>
-            </a>
-        </h5>
-    </li>
-                                                <li>
-        <h5>
-            <a href="../../zend/zend-quest-ce-quun-controller.html">
-                <i class="icon-book"></i>
-                Zend : qu&#039;est ce qu&#039;un controller ?
-                <small>(2009-06-19)</small>
-            </a>
-        </h5>
-    </li>
-                                                <li>
-        <h5>
-            <a href="../../zend/architecture-de-zend-framework-en-mcv.html">
-                <i class="icon-book"></i>
-                Architecture de zend framework en mcv
-                <small>(2009-06-17)</small>
-            </a>
-        </h5>
-    </li>
-                                                <li>
-        <h5>
-            <a href="../../zend/css-javascript-et-zend-framework.html">
-                <i class="icon-book"></i>
-                Css, javascript et zend framework
-                <small>(2009-06-17)</small>
-            </a>
-        </h5>
-    </li>
-                                    </ul>
-            
+                                                <div class="page-header">
+                    <h1>How to open a file with sublime text from your browser</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Feb 5th, 2013
     </div>
-                                                <div class="pagination">
-                        <ul>
-                                                            <li >
-                                    <a href="../../index.html">1</a>
-                                </li>
-                                                            <li >
-                                    <a href="../../page/2.html">2</a>
-                                </li>
-                                                            <li >
-                                    <a href="../../page/3.html">3</a>
-                                </li>
-                                                            <li class="active">
-                                    <a href="../../page/4.html">4</a>
-                                </li>
-                                                    </ul>
-                    </div>
-                                        
-    
-    
-                                                        </div>
+
+    <div class="body">
+      <p><strong>Note:</strong> This work only with ubuntu.</p>
+
+<p>If you are doing some <strong>php with sublime text 2</strong>, this tips will enjoy your
+day. You can configure your system (ubuntu, may other other distro) to handle
+links like <code>subl:///tmp/file.txt?10</code> to open the file <code>/tmp/file.txt</code> with
+sublime text 2 at the line <code>10</code>. To do that, you have to register a new
+<strong>protocol handler</strong>, and to configure <strong>xdebug</strong></p>
+
+<p>Start by editing <code>~/.local/share/applications/mimeapps.list</code>:</p>
+
+<pre><code>[Added Associations]
+# ...
+x-scheme-handler/subl=subl-urlhandler.desktop
+</code></pre>
+
+<p>Then create the file <code>/usr/share/applications/subl-urlhandler.desktop</code>. (This is
+a fake application):</p>
+
+<pre><code>[Desktop Entry]
+Version=1.0
+Name=Sublime Text 2
+Name[en_PH]=Sublime Text 2
+Exec=xdebug-urlhandler %u
+Icon=/opt/subl/Icon/48x48/sublime_text.png
+Terminal=false
+Type=Application
+Categories=Development;
+StartupNotify=true
+MimeType=x-scheme-handler/subl;
+</code></pre>
+
+<p>And then create the file <code>/usr/local/bin/xdebug-urlhandler</code>:</p>
+
+<pre><code>#!/bin/bash
+
+url=$1
+file=${url#subl*//}
+path=`echo $file | cut -d? -f 1`
+line=`echo $file | cut -d? -f 2`
+sublime-text $path:$line
+</code></pre>
+
+<p>You should run:</p>
+
+<pre><code>sudo chmod +x /usr/local/bin/xdebug-urlhandler
+</code></pre>
+
+<p>And now you have to configure xdebug <code>/etc/php5/conf.d/90-my.ini</code>:</p>
+
+<pre><code>[PHP]
+xdebug.file_link_format=subl://%f?%l
+</code></pre>
+
+<p>Thinks to restart <code>apache</code> or <code>php-fpm</code>. <strong>Enjoy</strong></p>
+
+<p><a href="https://gist.github.com/svizion/3654834">Source</a></p>
+
+    </div>
+
+      </article>
+
+                                                <br />
+                  <p>
+                    By the way, if you found a typo, please
+                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2013-02-05-how-to-open-a-file-with-sublime-text-from-your-browser.md" target="_blank">
+                        edit this post
+                      </a>.
+                    Thank you so much!
+                  </p>
+                                          </div>
           </div>
         
+                  <div class="row comments">
+          <div class="span10 offset1 content">
+              <div id="disqus_thread"></div>
+          </div>
+      </div>
                   <footer>
             <p>
               &copy;
@@ -167,10 +169,11 @@
               </small>
             </p>
           </footer>
-              </div>
+        
+      </div>
     
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
                     var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-4212683-8']);
                         _gaq.push(['_trackPageview']);
@@ -179,5 +182,14 @@
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
-            </script>  </body>
+            </script>
+            <script type="text/javascript">
+            var disqus_shortname = 'lyrixxblog';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+      </body>
 </html>

@@ -5,8 +5,75 @@
     <link href="http://blog.lyrixx.info/index.atom" rel="self" />
     <link href="http://blog.lyrixx.info/" />
         <id>http://blog.lyrixx.info/</id>
-            <updated>2013-02-04T21:05:46+01:00</updated>
+            <updated>2013-02-05T19:23:14+01:00</updated>
             <entry>
+        <title>How to open a file with sublime text from your browser</title>
+        <content><![CDATA[<p><strong>Note:</strong> This work only with ubuntu.</p>
+
+<p>If you are doing some <strong>php with sublime text 2</strong>, this tips will enjoy your
+day. You can configure your system (ubuntu, may other other distro) to handle
+links like <code>subl:///tmp/file.txt?10</code> to open the file <code>/tmp/file.txt</code> with
+sublime text 2 at the line <code>10</code>. To do that, you have to register a new
+<strong>protocol handler</strong>, and to configure <strong>xdebug</strong></p>
+
+<p>Start by editing <code>~/.local/share/applications/mimeapps.list</code>:</p>
+
+<pre><code>[Added Associations]
+# ...
+x-scheme-handler/subl=subl-urlhandler.desktop
+</code></pre>
+
+<p>Then create the file <code>/usr/share/applications/subl-urlhandler.desktop</code>. (This is
+a fake application):</p>
+
+<pre><code>[Desktop Entry]
+Version=1.0
+Name=Sublime Text 2
+Name[en_PH]=Sublime Text 2
+Exec=xdebug-urlhandler %u
+Icon=/opt/subl/Icon/48x48/sublime_text.png
+Terminal=false
+Type=Application
+Categories=Development;
+StartupNotify=true
+MimeType=x-scheme-handler/subl;
+</code></pre>
+
+<p>And then create the file <code>/usr/local/bin/xdebug-urlhandler</code>:</p>
+
+<pre><code>#!/bin/bash
+
+url=$1
+file=${url#subl*//}
+path=`echo $file | cut -d? -f 1`
+line=`echo $file | cut -d? -f 2`
+sublime-text $path:$line
+</code></pre>
+
+<p>You should run:</p>
+
+<pre><code>sudo chmod +x /usr/local/bin/xdebug-urlhandler
+</code></pre>
+
+<p>And now you have to configure xdebug <code>/etc/php5/conf.d/90-my.ini</code>:</p>
+
+<pre><code>[PHP]
+xdebug.file_link_format=subl://%f?%l
+</code></pre>
+
+<p>Thinks to restart <code>apache</code> or <code>php-fpm</code>. <strong>Enjoy</strong></p>
+
+<p><a href="https://gist.github.com/svizion/3654834">Source</a></p>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html"/>
+                <id>http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html</id>
+                <updated>2013-02-05T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
         <title>Symfony2: How to debug your functionals tests</title>
         <content><![CDATA[<p>When you write functional tests with <strong>symfony2</strong> and <strong>phpunit</strong>, it could be
 hard to debug them if an exception happened. You can try to <code>var_dump</code> the
@@ -919,62 +986,6 @@ qu’il va y avoir avec php 5.3 puis php 6</p>
         </author>
     </entry>
         <entry>
-        <title>Application de site E-Commerce [Code-Source]</title>
-        <content><![CDATA[<p>Comme vous l’avez peut être vu passer sur <a href="http://twitter.com/lyrixx"
-target="_blank">twitter</a>, j’ai du faire pour les cours une <strong>application
-e-commerce très basique</strong>. J’ai choisis de la faire avec Zend. Et du coup je
-partage le code ici ;). <strong>Cette application est très simplifié : il n’y a qu’une
-page produit, avec la possibilité d’ajouter des produits dans un panier et
-ensuite de gérer son panier. Il y a aussi la toute la partie gestion des
-utilisateurs : connexion, enregistrement, déconnexion</strong> etc… Et enfin il y a une
-page paiement qui vérifie les informations de la carte bancaire.</p>
-
-<p>Quelques points techniques abordés dans cette application :</p>
-
-<ul>
-<li><strong>Bootstrap</strong> (Zend_Application)</li>
-<li><strong>Controller</strong>, <strong>View</strong>, <strong>Model</strong> (MVC)</li>
-<li>Mapping <strong>de base de données</strong> (ORM) (Zend_Db_Table)</li>
-<li><strong>Formulaires</strong>, <strong>Validations</strong>, <strong>Décorateurs</strong> (Zend_Form,
-Zend_Validate)</li>
-<li><strong>Layout</strong> et <strong>Aides de vue</strong> (Zend_View_Helper)</li>
-<li><strong>Authentification</strong> (Zend_Auth)</li>
-<li><strong>Session</strong> (Zend_Session)</li>
-<li><strong>Cookie</strong></li>
-<li>Zend_Text_Figlet (Bonus ca :))</li>
-</ul>
-
-<p>voila quelques screenshots :</p>
-
-<p><a href="../../wp-content/uploads/2010/03/TP1-Ecommerce-prod.png"
-rel="lightbox[1175]"><img class="alignnone size-medium wp-image-1176"
-title="TP1-Ecommerce prod" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-prod-300x168.png" alt="" width="300"
-height="168" /></a> <a href="../../wp-content/uploads/2010/03/TP1
--Ecommerce-register.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1177" title="TP1-Ecommerce register" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-register-300x168.png" alt="" width="300"
-height="168" /></a><a href="../../wp-content/uploads/2010/03/TP1
--Ecommerce-panier.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1178" title="TP1-Ecommerce panier" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-panier-300x153.png" alt="" width="300"
-height="153" /></a><a href="../../wp-content/uploads/2010/03/TP1
--Ecommerce-paiment.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1179" title="TP1-Ecommerce paiment" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-paiment-300x165.png" alt="" width="300"
-height="165" /></a></p>
-
-<p>Et enfin <a href="../../wp-content/uploads/2010/03/TP1-Ecommerce.tar.gz">les sources à télécharger</a></p>
-]]></content>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/application-de-site-e-commerce.html"/>
-                <id>http://blog.lyrixx.info/zend/application-de-site-e-commerce.html</id>
-                <updated>2010-03-18T00:00:00+01:00</updated>
-        <author>
-            <name>Grégoire Pineau</name>
-            <email>lyrixx@lyrixx.info</email>
-        </author>
-    </entry>
-        <entry>
         <title>Architecture du Zend Framework 1.10 en MVC</title>
         <content><![CDATA[<p>Depuis quelques versions du <strong>Zend Framework</strong>, l’architecture de celui-ci en
 mode MVC à un petit peu changé. Je vous donne le nouveau schémas, et je
@@ -1044,6 +1055,62 @@ des tests unitaires.</li>
 ]]></content>
         <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html"/>
                 <id>http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html</id>
+                <updated>2010-03-18T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Application de site E-Commerce [Code-Source]</title>
+        <content><![CDATA[<p>Comme vous l’avez peut être vu passer sur <a href="http://twitter.com/lyrixx"
+target="_blank">twitter</a>, j’ai du faire pour les cours une <strong>application
+e-commerce très basique</strong>. J’ai choisis de la faire avec Zend. Et du coup je
+partage le code ici ;). <strong>Cette application est très simplifié : il n’y a qu’une
+page produit, avec la possibilité d’ajouter des produits dans un panier et
+ensuite de gérer son panier. Il y a aussi la toute la partie gestion des
+utilisateurs : connexion, enregistrement, déconnexion</strong> etc… Et enfin il y a une
+page paiement qui vérifie les informations de la carte bancaire.</p>
+
+<p>Quelques points techniques abordés dans cette application :</p>
+
+<ul>
+<li><strong>Bootstrap</strong> (Zend_Application)</li>
+<li><strong>Controller</strong>, <strong>View</strong>, <strong>Model</strong> (MVC)</li>
+<li>Mapping <strong>de base de données</strong> (ORM) (Zend_Db_Table)</li>
+<li><strong>Formulaires</strong>, <strong>Validations</strong>, <strong>Décorateurs</strong> (Zend_Form,
+Zend_Validate)</li>
+<li><strong>Layout</strong> et <strong>Aides de vue</strong> (Zend_View_Helper)</li>
+<li><strong>Authentification</strong> (Zend_Auth)</li>
+<li><strong>Session</strong> (Zend_Session)</li>
+<li><strong>Cookie</strong></li>
+<li>Zend_Text_Figlet (Bonus ca :))</li>
+</ul>
+
+<p>voila quelques screenshots :</p>
+
+<p><a href="../../wp-content/uploads/2010/03/TP1-Ecommerce-prod.png"
+rel="lightbox[1175]"><img class="alignnone size-medium wp-image-1176"
+title="TP1-Ecommerce prod" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-prod-300x168.png" alt="" width="300"
+height="168" /></a> <a href="../../wp-content/uploads/2010/03/TP1
+-Ecommerce-register.png" rel="lightbox[1175]"><img class="alignnone size-medium
+wp-image-1177" title="TP1-Ecommerce register" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-register-300x168.png" alt="" width="300"
+height="168" /></a><a href="../../wp-content/uploads/2010/03/TP1
+-Ecommerce-panier.png" rel="lightbox[1175]"><img class="alignnone size-medium
+wp-image-1178" title="TP1-Ecommerce panier" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-panier-300x153.png" alt="" width="300"
+height="153" /></a><a href="../../wp-content/uploads/2010/03/TP1
+-Ecommerce-paiment.png" rel="lightbox[1175]"><img class="alignnone size-medium
+wp-image-1179" title="TP1-Ecommerce paiment" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-paiment-300x165.png" alt="" width="300"
+height="165" /></a></p>
+
+<p>Et enfin <a href="../../wp-content/uploads/2010/03/TP1-Ecommerce.tar.gz">les sources à télécharger</a></p>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/application-de-site-e-commerce.html"/>
+                <id>http://blog.lyrixx.info/zend/application-de-site-e-commerce.html</id>
                 <updated>2010-03-18T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
@@ -3348,80 +3415,26 @@ improvements.</li>
         </author>
     </entry>
         <entry>
-        <title>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</title>
-        <content><![CDATA[<p>On a deja vu pas mal de chose sur le <strong>Zend Framework</strong>, mais depuis la version
-1.8.`, il y a quelques petites choses qui ont changées, comme l’architecture, et
-l’arrivée de <strong>Zend_Tool</strong>.</p>
+        <title>Introduction a Zend Framework 1.8 en MVC</title>
+        <content><![CDATA[<p>On va voir comment transformer un script php qui n’utilise pas Zend en une
+application utilisant le <strong>Framework Zend</strong>. Pour se faire on va utiliser la
+version 1.8 (ou supérieur) de <strong>Zend Framework</strong>, et on va l’utiliser en mode
+<strong>MVC (Model View Controller</strong>).</p>
 
-<p>C’est quoi <strong>Zend_Tool</strong> ? c’est un script <code>php</code> qui s’exécute en mode console
-(<code>CLI</code>) et qui nous <strong>permet de créer une base pour notre application</strong> :</p>
+<p>Il va d’abord falloir faire les bases : <a href="../../zend/initialisation-dun-projet-zend.html">création de project</a>,
+<a href="../../zend/architecture-de-zend-framework-1-8-en-mvc.html">structure</a>, <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap</a>.</p>
 
-<ul>
-<li>L’architecture du projet</li>
-<li>Un nouveau controller</li>
-<li>Une nouvelle action</li>
-<li>Une nouvelle vue</li>
-<li>Un nouveau module</li>
-<li>etc …</li>
-</ul>
+<p>Voila une fois que le début de l’application est préparer on part sur une base
+solide. On va donc voir comment marche les <a href="../../zend/zend-quest-ce-quun-controller.html">Controleurs</a>, les <a href="../../zend/zend-comment-faire-une-vue.html">Vues</a>, et
+les <a href="../../zend/zend-comment-utiliser-un-model.html">Models</a>, on pourra aussi voir comment se servir<a href="../../zend/css-javascript-et-zend-framework.html" title="Tuto avec Zend Framework 1.7"> des css et du
+javascript avec zend</a> (pour Zend Framework 1.7).</p>
 
-<p>On va donc recréer notre application de gestion de budget grâce aux
-<strong>Zend_Tools</strong>. Pour faire les choses proprement, on va commencer par
-télécharger la <a href="http://framework.zend.com/download"
-target="_blank">dernière version de Zend Framework </a>(1.8.4). Vous la dé-
-zipper ou vous voulez sur votre disque dur. Dans mon cas, c’est <span style
-="text-decoration:
-underline;">/home/lyrix/Prog/php/2009/ZendFramework-1.8.4</span>. Maintenant il
-va falloir inclure ce path dans notre include path. c’est a dire qu’il nous sera
-possible d’appeler zf.sh (ou zf.bat pour les windowsiens) depuis n’importe quels
-répertoires depuis notre console favorites. <strong>Sinon sous Linux on peut faire
-plus simple</strong>, on va tout simplement faire un alias :</p>
-
-<pre><code>alias zf.sh=/home/lyrix/Prog/php/2009/ZendFramework-1.8.4/bin/zf.sh
-</code></pre>
-
-<p>Note : Si vous faites ce code directement depuis la console, l’alias sera
-temporaire (juste pour cette console), si vous le faite dans le fichier
-~/.bashrc, l’alias sera permanent.</p>
-
-<p>Voila maintenant il nous faut créer ce projet dans le dossier qui va bien. Moi
-je veux le mettre la : /home/lyrix/Prog/php/2009/Budget/ donc je me place dans
-ma console dans le dossier /home/lyrix/Prog/php/2009/ puis je crée mon projet :</p>
-
-<pre><code>cd /home/lyrix/Prog/php/2009/ zf.sh create project Budget
-</code></pre>
-
-<p>Voila notre projet est crée. On peut aussi faire des modules, pour ce faire il
-faut aller se placer dans le projet en question, et créer un module :</p>
-
-<pre><code>cd /home/lyrix/Prog/php/2009/Budget zf.sh create module Frontend
-</code></pre>
-
-<p>Voila, notre structure du projet est crée. Il faut maintenant coller la
-librairie librairie dans /home/lyrix/Prog/php/2009/Budget/library. (On doit
-copier tout le dossier Zend). Sous linux on peut aussi faire un lien symbolique
-directement vers un autre dossier de son disque dur. :</p>
-
-<pre><code>cd /home/lyrix/Prog/php/2009/Budget/library
-ln -s /home/lyrix/Prog/php/2009/ZendFramework-1.8.4/library/Zend/ Zend
-</code></pre>
-
-<p>Voila notre projet fonctionne, on peut se rendre a la page suivante pour voir le
-résultat :</p>
-
-<pre><code>http://127.0.0.1/monwww/2009/Budget/public/
-</code></pre>
-
-<p><a href="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit.png" rel="lightbox[449]"><img class="size-medium wp-image-455" title="Installation de Zend Framework 1.8 - finit" src="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit-300x187.png" alt="Installation de Zend Framework 1.8 - finit" width="300" height="187" /></a></p>
-
-<p>Enfin, je rappel qu’il est quand meme possible de creer l’architecture d’un
-projet directement dans Zend Studio. Il suffit de faire un nouveau projet et se
-laisser guider.</p>
-
-<p>On peut passer a <a href="../../zend/architecture-du-zend-framework-1-10.html" title="Architecture du Zend Framework 1.10 en MVC">l’architecture de Zend Framework</a></p>
+<p>On va donc partir des sources de l’application que j’ai deja faite pour la
+gestion du budget commun dans une colocation, et on va essayé de l’adapté à
+Zend.</p>
 ]]></content>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html"/>
-                <id>http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html</id>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html"/>
+                <id>http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html</id>
                 <updated>2009-07-13T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
@@ -3762,33 +3775,6 @@ resources.db.isDefaultTableAdapter = true
         </author>
     </entry>
         <entry>
-        <title>Introduction a Zend Framework 1.8 en MVC</title>
-        <content><![CDATA[<p>On va voir comment transformer un script php qui n’utilise pas Zend en une
-application utilisant le <strong>Framework Zend</strong>. Pour se faire on va utiliser la
-version 1.8 (ou supérieur) de <strong>Zend Framework</strong>, et on va l’utiliser en mode
-<strong>MVC (Model View Controller</strong>).</p>
-
-<p>Il va d’abord falloir faire les bases : <a href="../../zend/initialisation-dun-projet-zend.html">création de project</a>,
-<a href="../../zend/architecture-de-zend-framework-1-8-en-mvc.html">structure</a>, <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap</a>.</p>
-
-<p>Voila une fois que le début de l’application est préparer on part sur une base
-solide. On va donc voir comment marche les <a href="../../zend/zend-quest-ce-quun-controller.html">Controleurs</a>, les <a href="../../zend/zend-comment-faire-une-vue.html">Vues</a>, et
-les <a href="../../zend/zend-comment-utiliser-un-model.html">Models</a>, on pourra aussi voir comment se servir<a href="../../zend/css-javascript-et-zend-framework.html" title="Tuto avec Zend Framework 1.7"> des css et du
-javascript avec zend</a> (pour Zend Framework 1.7).</p>
-
-<p>On va donc partir des sources de l’application que j’ai deja faite pour la
-gestion du budget commun dans une colocation, et on va essayé de l’adapté à
-Zend.</p>
-]]></content>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html"/>
-                <id>http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html</id>
-                <updated>2009-07-13T00:00:00+02:00</updated>
-        <author>
-            <name>Grégoire Pineau</name>
-            <email>lyrixx@lyrixx.info</email>
-        </author>
-    </entry>
-        <entry>
         <title>Architecture de Zend Framework 1.8 en MVC</title>
         <content><![CDATA[<p>Voila, on vient de voir comment <a href="../../zend/initialisation-dun-projet-zend.html">faire un nouveau projet avec le
 <strong>Zend_Tool</strong></a>. Comme j’expliquai dans le précédant article, l’architecture
@@ -3858,6 +3844,87 @@ restant identique.</p>
 ]]></content>
         <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html"/>
                 <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html</id>
+                <updated>2009-07-13T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</title>
+        <content><![CDATA[<p>On a deja vu pas mal de chose sur le <strong>Zend Framework</strong>, mais depuis la version
+1.8.`, il y a quelques petites choses qui ont changées, comme l’architecture, et
+l’arrivée de <strong>Zend_Tool</strong>.</p>
+
+<p>C’est quoi <strong>Zend_Tool</strong> ? c’est un script <code>php</code> qui s’exécute en mode console
+(<code>CLI</code>) et qui nous <strong>permet de créer une base pour notre application</strong> :</p>
+
+<ul>
+<li>L’architecture du projet</li>
+<li>Un nouveau controller</li>
+<li>Une nouvelle action</li>
+<li>Une nouvelle vue</li>
+<li>Un nouveau module</li>
+<li>etc …</li>
+</ul>
+
+<p>On va donc recréer notre application de gestion de budget grâce aux
+<strong>Zend_Tools</strong>. Pour faire les choses proprement, on va commencer par
+télécharger la <a href="http://framework.zend.com/download"
+target="_blank">dernière version de Zend Framework </a>(1.8.4). Vous la dé-
+zipper ou vous voulez sur votre disque dur. Dans mon cas, c’est <span style
+="text-decoration:
+underline;">/home/lyrix/Prog/php/2009/ZendFramework-1.8.4</span>. Maintenant il
+va falloir inclure ce path dans notre include path. c’est a dire qu’il nous sera
+possible d’appeler zf.sh (ou zf.bat pour les windowsiens) depuis n’importe quels
+répertoires depuis notre console favorites. <strong>Sinon sous Linux on peut faire
+plus simple</strong>, on va tout simplement faire un alias :</p>
+
+<pre><code>alias zf.sh=/home/lyrix/Prog/php/2009/ZendFramework-1.8.4/bin/zf.sh
+</code></pre>
+
+<p>Note : Si vous faites ce code directement depuis la console, l’alias sera
+temporaire (juste pour cette console), si vous le faite dans le fichier
+~/.bashrc, l’alias sera permanent.</p>
+
+<p>Voila maintenant il nous faut créer ce projet dans le dossier qui va bien. Moi
+je veux le mettre la : /home/lyrix/Prog/php/2009/Budget/ donc je me place dans
+ma console dans le dossier /home/lyrix/Prog/php/2009/ puis je crée mon projet :</p>
+
+<pre><code>cd /home/lyrix/Prog/php/2009/ zf.sh create project Budget
+</code></pre>
+
+<p>Voila notre projet est crée. On peut aussi faire des modules, pour ce faire il
+faut aller se placer dans le projet en question, et créer un module :</p>
+
+<pre><code>cd /home/lyrix/Prog/php/2009/Budget zf.sh create module Frontend
+</code></pre>
+
+<p>Voila, notre structure du projet est crée. Il faut maintenant coller la
+librairie librairie dans /home/lyrix/Prog/php/2009/Budget/library. (On doit
+copier tout le dossier Zend). Sous linux on peut aussi faire un lien symbolique
+directement vers un autre dossier de son disque dur. :</p>
+
+<pre><code>cd /home/lyrix/Prog/php/2009/Budget/library
+ln -s /home/lyrix/Prog/php/2009/ZendFramework-1.8.4/library/Zend/ Zend
+</code></pre>
+
+<p>Voila notre projet fonctionne, on peut se rendre a la page suivante pour voir le
+résultat :</p>
+
+<pre><code>http://127.0.0.1/monwww/2009/Budget/public/
+</code></pre>
+
+<p><a href="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit.png" rel="lightbox[449]"><img class="size-medium wp-image-455" title="Installation de Zend Framework 1.8 - finit" src="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit-300x187.png" alt="Installation de Zend Framework 1.8 - finit" width="300" height="187" /></a></p>
+
+<p>Enfin, je rappel qu’il est quand meme possible de creer l’architecture d’un
+projet directement dans Zend Studio. Il suffit de faire un nouveau projet et se
+laisser guider.</p>
+
+<p>On peut passer a <a href="../../zend/architecture-du-zend-framework-1-10.html" title="Architecture du Zend Framework 1.10 en MVC">l’architecture de Zend Framework</a></p>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html"/>
+                <id>http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html</id>
                 <updated>2009-07-13T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
