@@ -23,7 +23,7 @@ When did it happend ? When a fatal error or an exception is throwed by php:
 
 With this tip `/opt/dotefiles/www/fail.php` is clickable.
 
-**Note:** If you are using symfony2 all file in a exception page, or the web
+**Note:** If you are using symfony2 all files in an exception page, or the web
 developper toolbar will be clickable!!!
 
 How?
