@@ -5,16 +5,29 @@
     <link href="http://blog.lyrixx.info/index.atom" rel="self" />
     <link href="http://blog.lyrixx.info/" />
         <id>http://blog.lyrixx.info/</id>
-            <updated>2013-02-05T19:23:14+01:00</updated>
+            <updated>2013-02-06T10:43:19+01:00</updated>
             <entry>
         <title>How to open a file with sublime text from your browser</title>
         <content><![CDATA[<p><strong>Note:</strong> This work only with ubuntu.</p>
+
+<h2>Why?</h2>
 
 <p>If you are doing some <strong>php with sublime text 2</strong>, this tips will enjoy your
 day. You can configure your system (ubuntu, may other other distro) to handle
 links like <code>subl:///tmp/file.txt?10</code> to open the file <code>/tmp/file.txt</code> with
 sublime text 2 at the line <code>10</code>. To do that, you have to register a new
-<strong>protocol handler</strong>, and to configure <strong>xdebug</strong></p>
+<strong>protocol handler</strong>, and to configure <strong>xdebug</strong>.</p>
+
+<p>When did it happend ? When a fatal error or an exception is throwed by php:</p>
+
+<p><img src="../../../../images/xdebug.png" alt="Xdebug" /></p>
+
+<p>With this tip <code>/opt/dotefiles/www/fail.php</code> is clickable.</p>
+
+<p><strong>Note:</strong> If you are using symfony2 all file in a exception page, or the web
+developper toolbar will be clickable!!!</p>
+
+<h2>How?</h2>
 
 <p>Start by editing <code>~/.local/share/applications/mimeapps.list</code>:</p>
 

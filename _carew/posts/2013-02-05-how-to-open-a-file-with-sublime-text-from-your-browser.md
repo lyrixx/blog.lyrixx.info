@@ -8,11 +8,26 @@ tags:
 
 **Note:** This work only with ubuntu.
 
+Why?
+----
+
 If you are doing some **php with sublime text 2**, this tips will enjoy your
-day. You can configure your system (ubuntu, may other other distro) to handle
-links like `subl:///tmp/file.txt?10` to open the file `/tmp/file.txt` with
-sublime text 2 at the line `10`. To do that, you have to register a new
-**protocol handler**, and to configure **xdebug**
+day. You can configure your system (ubuntu, may be other other distro too) to
+handle links like `subl:///tmp/file.txt?10` to open the file `/tmp/file.txt`
+with sublime text 2 at the line `10`. To do that, you have to register a new
+**protocol handler**, and to configure **xdebug**.
+
+When did it happend ? When a fatal error or an exception is throwed by php:
+
+![Xdebug]({{ relativeRoot}}/images/xdebug.png)
+
+With this tip `/opt/dotefiles/www/fail.php` is clickable.
+
+**Note:** If you are using symfony2 all file in a exception page, or the web
+developper toolbar will be clickable!!!
+
+How?
+----
 
 Start by editing `~/.local/share/applications/mimeapps.list`:
 
