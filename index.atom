@@ -5,17 +5,88 @@
     <link href="http://blog.lyrixx.info/index.atom" rel="self" />
     <link href="http://blog.lyrixx.info/" />
         <id>http://blog.lyrixx.info/</id>
-            <updated>2013-02-05T00:00:00+01:00</updated>
+            <updated>2013-02-07T22:03:42+01:00</updated>
             <entry>
-        <title>How to open a file with sublime text from your browser</title>
-                <id>http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html</id>
-                <updated>2013-02-05T00:00:00+01:00</updated>
+        <title>What is look like my Sismo Config</title>
+        <content><![CDATA[<p><a href="http://sismo.sensiolabs.org/">Sismo</a> is a Continuous Testing Server written in
+PHP. I build all projects I'm working on with it.</p>
+
+<p>It's very fast to set up a newproject, but it's a little but boring. So I want
+to share my <code>~/.sismo/config.php</code> and a little script to set-up a new project.</p>
+
+<pre><code>&lt;?php
+
+// ~/.sismo/config.php
+
+Sismo\Project::setDefaultCommand('if [ -f composer.json ]; then composer install --dev; fi &amp;&amp; phpunit');
+
+$notifier = new Sismo\Notifier\DBusNotifier();
+
+$sfCommand = &lt;&lt;&lt;'EOL'
+cp app/config/parameters.yml-dist app/config/parameters.yml
+
+sed -i -e "s/database_user:.*/database_user: greg/" app/config/parameters.yml
+sed -i -e "s/database_password:.*/database_password: ~/" app/config/parameters.yml
+
+./bin/run-tests.sh
+EOL;
+
+$projects = array(
+    (new Sismo\Project(ucfirst('monolog'), '/home/greg/dev/labs/monolog', $notifier)),
+    (new Sismo\Project('Project FOO', '/home/greg/dev/project/foo', $notifier))-&gt;setCommand($sfCommand),
+    // ...
+);
+
+return $projects;
+</code></pre>
+
+<p>And then the little script to set up the <strong>post commit hook</strong> and <code>config.php</code>.</p>
+
+<ol>
+<li>Put this command in your <code>$PATH</code> (like <code>/usr/local/bin/sismo-add</code>)</li>
+<li>Adapt the <code>SISMO_PATH</code></li>
+<li>Then call it from a git project that you want to test with sismo</li>
+</ol>
+
+<p>The script:</p>
+
+<pre><code>#!/bin/bash
+
+SISMO_PATH=$HOME/dev/labs/sismo/sismo
+
+#/usr/local/bin/sismo-add
+
+#######################################
+# Do not changed code after this line #
+#######################################
+
+BASE_PATH=`pwd`
+SLUG=`basename $BASE_PATH`
+
+cat &gt; $BASE_PATH/.git/hooks/post-commit &lt;&lt;EOL
+#!/bin/bash
+
+$SISMO_PATH build $SLUG \`git log -1 HEAD --pretty="%H"\` --force --quiet &amp;
+EOL
+
+chmod +x $BASE_PATH/.git/hooks/post-commit
+
+SISMO_PROJECT="    (new Sismo\\\\Project(ucfirst('$SLUG'), '$BASE_PATH', \$notifier)),"
+
+sed -ie "s#\(\$projects = array(\)#\1\n$SISMO_PROJECT#" $HOME/.sismo/config.php
+</code></pre>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/02/07/what-is-look-like-my-sismo-config.html"/>
+                <id>http://blog.lyrixx.info/2013/02/07/what-is-look-like-my-sismo-config.html</id>
+                <updated>2013-02-07T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p><strong>Note:</strong> This work only with ubuntu.</p>
+    </entry>
+        <entry>
+        <title>How to open a file with sublime text from your browser</title>
+        <content><![CDATA[<p><strong>Note:</strong> This work only with ubuntu.</p>
 
 <h2>Why?</h2>
 
@@ -31,7 +102,7 @@ with sublime text 2 at the line <code>10</code>. To do that, you have to registe
 
 <p>With this tip <code>/opt/dotefiles/www/fail.php</code> is clickable.</p>
 
-<p><strong>Note:</strong> If you are using symfony2 all files in an exception page, or the web
+<p><strong>Note:</strong> If you are using symfony2 all file in a exception page, or the web
 developper toolbar will be clickable!!!</p>
 
 <h2>How?</h2>
@@ -85,17 +156,17 @@ xdebug.file_link_format=subl://%f?%l
 
 <p><a href="https://gist.github.com/svizion/3654834">Source</a></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Symfony2: How to debug your functionals tests</title>
-                <id>http://blog.lyrixx.info/2013/02/03/symfony2-how-to-debug-your-functional-tests.html</id>
-                <updated>2013-02-03T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html"/>
+                <id>http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html</id>
+                <updated>2013-02-05T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/02/03/symfony2-how-to-debug-your-functional-tests.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>When you write functional tests with <strong>symfony2</strong> and <strong>phpunit</strong>, it could be
+    </entry>
+        <entry>
+        <title>Symfony2: How to debug your functionals tests</title>
+        <content><![CDATA[<p>When you write functional tests with <strong>symfony2</strong> and <strong>phpunit</strong>, it could be
 hard to debug them if an exception happened. You can try to <code>var_dump</code> the
 response, but since you ran tests from cli, the output is totally unreadable.</p>
 
@@ -128,17 +199,17 @@ class UserControllerTest extends WebTestCase
 
 <p>And now, you can browse <code>http://yourpoject.localhost/debug.html</code> with your favorite browser.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Symfony2: Snippet to render all form errors</title>
-                <id>http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html</id>
-                <updated>2013-01-31T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/02/03/symfony2-how-to-debug-your-functional-tests.html"/>
+                <id>http://blog.lyrixx.info/2013/02/03/symfony2-how-to-debug-your-functional-tests.html</id>
+                <updated>2013-02-03T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>With symfony 2, you can render all errors from a form with a little macro. You
+    </entry>
+        <entry>
+        <title>Symfony2: Snippet to render all form errors</title>
+        <content><![CDATA[<p>With symfony 2, you can render all errors from a form with a little macro. You
 can use it for only one form, or for all your application</p>
 
 <h3>The macro</h3>
@@ -222,17 +293,17 @@ can use it for only one form, or for all your application</p>
 {% endblock %}
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Sublime text 2 et xdebug : liens cliquables sur les fichiers</title>
-                <id>http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html</id>
-                <updated>2012-02-23T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html"/>
+                <id>http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html</id>
+                <updated>2013-01-31T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Salut,</p>
+    </entry>
+        <entry>
+        <title>Sublime text 2 et xdebug : liens cliquables sur les fichiers</title>
+        <content><![CDATA[<p>Salut,</p>
 
 <p>Si comme moi vous utilisez sublime text 2 pour développer, vous allez apprécier
 ce petit tips. Par exemple quand vous avez une erreur 500 et / ou une fatal
@@ -272,17 +343,17 @@ simple de faire la meme choses pour linux.</p>
 <li><a href="http://www.koch.ro/blog/index.php?/archives/77-Firefox,-VIM,-Xdebug-Jumping-to-the-error-line.html">Astuce pour VIM</a></li>
 </ul>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Mysql + export + csv + groupy en gardant les colonnes groupées</title>
-                <id>http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html</id>
-                <updated>2012-02-01T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html"/>
+                <id>http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html</id>
+                <updated>2012-02-23T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Petit tips avec MySQL. Admettons que vous voulez faire un export en csv d’une
+    </entry>
+        <entry>
+        <title>Mysql + export + csv + groupy en gardant les colonnes groupées</title>
+        <content><![CDATA[<p>Petit tips avec MySQL. Admettons que vous voulez faire un export en csv d’une
 table (A). Dans ce cas, c’est facile, il suffit d’utiliser « INTO OUTFILE ». Par
 contre, si vous avez une jointure (A -> B), c’est plus compliqué.</p>
 
@@ -320,17 +391,17 @@ posteriori.</p>
 Vous n’aurez donc pas les droits pour le lire et/ou le modifier. Il faut donc
 passer en root ;).</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Silex Kitchen Edition</title>
-                <id>http://blog.lyrixx.info/silex/silex-kitchen-edition.html</id>
-                <updated>2011-10-24T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html"/>
+                <id>http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html</id>
+                <updated>2012-02-01T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/silex/silex-kitchen-edition.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<div class="pull-right">
+    </entry>
+        <entry>
+        <title>Silex Kitchen Edition</title>
+        <content><![CDATA[<div class="pull-right">
     <img src="../../images/silex.png" alt="Silex">
 </div>
 
@@ -348,17 +419,17 @@ packagé avec <strong><a href="http://twitter.github.com/bootstrap/">twitter boo
 <p>Je vous invite à lire <a href="http://lyrixx.github.com/Silex-Kitchen-Edition/">la doc</a>
 ou à la <a href="https://github.com/lyrixx/Silex-Kitchen-Edition">télécharger sur github</a></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Lister ses films</title>
-                <id>http://blog.lyrixx.info/ubuntu/lister-ses-films.html</id>
-                <updated>2011-06-05T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/silex/silex-kitchen-edition.html"/>
+                <id>http://blog.lyrixx.info/silex/silex-kitchen-edition.html</id>
+                <updated>2011-10-24T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/lister-ses-films.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Un petit script bash (donc pour linux/mac) pour lister tous les films qui
+    </entry>
+        <entry>
+        <title>Lister ses films</title>
+        <content><![CDATA[<p>Un petit script bash (donc pour linux/mac) pour lister tous les films qui
 peuvent trainer dans plusieurs répertoires et sous répertoires…</p>
 
 <pre><code>wget https://gist.github.com/raw/1008082/dc6cdb8ae50bd981ae9458cc270f96de41583718/movieList.sh
@@ -397,17 +468,17 @@ done
 `rm $OUTPUT_TEMP`
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Symfony2 en vidéo</title>
-                <id>http://blog.lyrixx.info/symfony/symfony2-en-video.html</id>
-                <updated>2011-01-03T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/lister-ses-films.html"/>
+                <id>http://blog.lyrixx.info/ubuntu/lister-ses-films.html</id>
+                <updated>2011-06-05T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/symfony/symfony2-en-video.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Voici l’évolution du code source de <a href="http://symfony.com/"
+    </entry>
+        <entry>
+        <title>Symfony2 en vidéo</title>
+        <content><![CDATA[<p>Voici l’évolution du code source de <a href="http://symfony.com/"
 target="_blank">symfony2</a> réalisé grâce à <a
 href="http://code.google.com/p/gource/" target="_blank">gource</a>, ffmpef,
 pitivi et ubuntu ;)</p>
@@ -421,17 +492,17 @@ pitivi et ubuntu ;)</p>
 <pre><code>gource --title "Symfony2" -s .25 --file-idle-time 600  --auto-skip-seconds 1 -1920x1080 --output-framerate 30 --stop-at-end --max-files 1000000 --bloom- multiplier 1.1 --bloom-intensity .25 --background 101010  --highlight-dirs --highlight-users --hide filenames,date,progress --output-ppm-stream - | nice -n19 ffmpeg -y -b 3000k -r 30 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 22 -threads 0 symfony.avi
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment utiliser le Routeur du Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html</id>
-                <updated>2010-08-09T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/symfony/symfony2-en-video.html"/>
+                <id>http://blog.lyrixx.info/symfony/symfony2-en-video.html</id>
+                <updated>2011-01-03T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Je suppose que vous connaissez déjà tous l’<strong>url rewriting</strong>. Il est assez
+    </entry>
+        <entry>
+        <title>Comment utiliser le Routeur du Zend Framework</title>
+        <content><![CDATA[<p>Je suppose que vous connaissez déjà tous l’<strong>url rewriting</strong>. Il est assez
 simple de mettre en place des formats d’URL (user firendly) prédéfinis avec
 <strong>Zend</strong>. On va voir ensemble comment faire.</p>
 
@@ -701,17 +772,17 @@ echo $this-&gt;url(array('id'=&gt;'25','name'=&gt;'aka'),'teams').'&lt;br /&gt;'
 nom de la variable, et la valeur représente la valeur de cette variable. Le
 deuxième argument représente la nom de la route.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>ZFDebug : Un plugin pour Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/zfdebug-un-plugin-pour-zend-framework.html</id>
-                <updated>2010-08-05T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-utiliser-le-routeur-du-zend-framework.html</id>
+                <updated>2010-08-09T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zfdebug-un-plugin-pour-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p><strong>ZFDebug</strong> est un outils très utile lorsqu’on développe avec Zend. En effet ce
+    </entry>
+        <entry>
+        <title>ZFDebug : Un plugin pour Zend Framework</title>
+        <content><![CDATA[<p><strong>ZFDebug</strong> est un outils très utile lorsqu’on développe avec Zend. En effet ce
 plugin, <strong>qui ne demande presque aucunes configurations</strong>, permet de mettre en
 évidence beaucoup d’informations utilises. On va voir commment l’installer dans
 un projet déjà existant (ou un nouveau, ca ne change rien).Donc ce plugin va
@@ -799,17 +870,17 @@ en haut du fichier <code>index.php</code> qui se trouve dans le répertoire <cod
 <pre><code>apache_setenv("APPLICATION_ENV", "development");
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Qu&#039;est-ce que PECL ?</title>
-                <id>http://blog.lyrixx.info/web-dev/quest-ce-que-pecl.html</id>
-                <updated>2010-05-10T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zfdebug-un-plugin-pour-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/zfdebug-un-plugin-pour-zend-framework.html</id>
+                <updated>2010-08-05T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/quest-ce-que-pecl.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Il y a quelques semaines un rapport sur l’<strong>utilisation de PHP sur les serveurs
+    </entry>
+        <entry>
+        <title>Qu&#039;est-ce que PECL ?</title>
+        <content><![CDATA[<p>Il y a quelques semaines un rapport sur l’<strong>utilisation de PHP sur les serveurs
 debian est sorti</strong> (<a href="http://popcon.debian.org/"
 target="_blank">http://popcon.debian.org/</a> ; vraiment pas sexy ! ). <a
 href="http://www.industrialisation-php.com/statistiques-dusage-de-php-sur-
@@ -877,73 +948,17 @@ par exemple)</p>
 <p><a href="http://www.php.net/manual/fr/install.pecl.php"
 target="_blank">Documentation sur php.net</a></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Application de site E-Commerce [Code-Source]</title>
-                <id>http://blog.lyrixx.info/zend/application-de-site-e-commerce.html</id>
-                <updated>2010-03-18T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/web-dev/quest-ce-que-pecl.html"/>
+                <id>http://blog.lyrixx.info/web-dev/quest-ce-que-pecl.html</id>
+                <updated>2010-05-10T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/application-de-site-e-commerce.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Comme vous l’avez peut être vu passer sur <a href="http://twitter.com/lyrixx"
-target="_blank">twitter</a>, j’ai du faire pour les cours une <strong>application
-e-commerce très basique</strong>. J’ai choisis de la faire avec Zend. Et du coup je
-partage le code ici ;). <strong>Cette application est très simplifié : il n’y a qu’une
-page produit, avec la possibilité d’ajouter des produits dans un panier et
-ensuite de gérer son panier. Il y a aussi la toute la partie gestion des
-utilisateurs : connexion, enregistrement, déconnexion</strong> etc… Et enfin il y a une
-page paiement qui vérifie les informations de la carte bancaire.</p>
-
-<p>Quelques points techniques abordés dans cette application :</p>
-
-<ul>
-<li><strong>Bootstrap</strong> (Zend_Application)</li>
-<li><strong>Controller</strong>, <strong>View</strong>, <strong>Model</strong> (MVC)</li>
-<li>Mapping <strong>de base de données</strong> (ORM) (Zend_Db_Table)</li>
-<li><strong>Formulaires</strong>, <strong>Validations</strong>, <strong>Décorateurs</strong> (Zend_Form,
-Zend_Validate)</li>
-<li><strong>Layout</strong> et <strong>Aides de vue</strong> (Zend_View_Helper)</li>
-<li><strong>Authentification</strong> (Zend_Auth)</li>
-<li><strong>Session</strong> (Zend_Session)</li>
-<li><strong>Cookie</strong></li>
-<li>Zend_Text_Figlet (Bonus ca :))</li>
-</ul>
-
-<p>voila quelques screenshots :</p>
-
-<p><a href="../../wp-content/uploads/2010/03/TP1-Ecommerce-prod.png"
-rel="lightbox[1175]"><img class="alignnone size-medium wp-image-1176"
-title="TP1-Ecommerce prod" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-prod-300x168.png" alt="" width="300"
-height="168" /></a> <a href="../../wp-content/uploads/2010/03/TP1
--Ecommerce-register.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1177" title="TP1-Ecommerce register" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-register-300x168.png" alt="" width="300"
-height="168" /></a><a href="../../wp-content/uploads/2010/03/TP1
--Ecommerce-panier.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1178" title="TP1-Ecommerce panier" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-panier-300x153.png" alt="" width="300"
-height="153" /></a><a href="../../wp-content/uploads/2010/03/TP1
--Ecommerce-paiment.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1179" title="TP1-Ecommerce paiment" src="../../wp-
-content/uploads/2010/03/TP1-Ecommerce-paiment-300x165.png" alt="" width="300"
-height="165" /></a></p>
-
-<p>Et enfin <a href="../../wp-content/uploads/2010/03/TP1-Ecommerce.tar.gz">les sources à télécharger</a></p>
-]]></content>
     </entry>
         <entry>
         <title>Architecture du Zend Framework 1.10 en MVC</title>
-                <id>http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html</id>
-                <updated>2010-03-18T00:00:00+01:00</updated>
-        <author>
-            <name>Grégoire Pineau</name>
-            <email>lyrixx@lyrixx.info</email>
-        </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Depuis quelques versions du <strong>Zend Framework</strong>, l’architecture de celui-ci en
+        <content><![CDATA[<p>Depuis quelques versions du <strong>Zend Framework</strong>, l’architecture de celui-ci en
 mode MVC à un petit peu changé. Je vous donne le nouveau schémas, et je
 l’explique ensuite. La racine des dossiers est (chez moi) le dossier « zftuto ».
 Je précise que <strong>cette structure a été obtenu grâce aux Zend_Tool</strong> (cf prochain
@@ -1009,17 +1024,17 @@ l’extérieur.
 des tests unitaires.</li>
 </ul>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment bien démarrer un projet Zend Framework grâce aux Zend_Tool</title>
-                <id>http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html</id>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html"/>
+                <id>http://blog.lyrixx.info/zend/architecture-du-zend-framework-1-10.html</id>
                 <updated>2010-03-18T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Cet article est une mise à jour du tutoriel sur <strong>l’outil Zend_Tool</strong>. Donc
+    </entry>
+        <entry>
+        <title>Comment bien démarrer un projet Zend Framework grâce aux Zend_Tool</title>
+        <content><![CDATA[<p>Cet article est une mise à jour du tutoriel sur <strong>l’outil Zend_Tool</strong>. Donc
 depuis quelque temps dans le Zend Framework, il y a de nouvelles
 fonctionnalités. Mais pour bien faire les choses, on va reprendre Zend_Tool
 depuis le début.</p>
@@ -1129,17 +1144,73 @@ un namespace « application »</strong>. Ce
 qui a mon goût est plus propre, et anticipe peut être les changements
 qu’il va y avoir avec php 5.3 puis php 6</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Gerer l&#039;authentification avec Zend_Auth du Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html</id>
-                <updated>2009-12-23T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html</id>
+                <updated>2010-03-18T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p><strong>Comment faire un système de login sur son application</strong> ? On va voir comment
+    </entry>
+        <entry>
+        <title>Application de site E-Commerce [Code-Source]</title>
+        <content><![CDATA[<p>Comme vous l’avez peut être vu passer sur <a href="http://twitter.com/lyrixx"
+target="_blank">twitter</a>, j’ai du faire pour les cours une <strong>application
+e-commerce très basique</strong>. J’ai choisis de la faire avec Zend. Et du coup je
+partage le code ici ;). <strong>Cette application est très simplifié : il n’y a qu’une
+page produit, avec la possibilité d’ajouter des produits dans un panier et
+ensuite de gérer son panier. Il y a aussi la toute la partie gestion des
+utilisateurs : connexion, enregistrement, déconnexion</strong> etc… Et enfin il y a une
+page paiement qui vérifie les informations de la carte bancaire.</p>
+
+<p>Quelques points techniques abordés dans cette application :</p>
+
+<ul>
+<li><strong>Bootstrap</strong> (Zend_Application)</li>
+<li><strong>Controller</strong>, <strong>View</strong>, <strong>Model</strong> (MVC)</li>
+<li>Mapping <strong>de base de données</strong> (ORM) (Zend_Db_Table)</li>
+<li><strong>Formulaires</strong>, <strong>Validations</strong>, <strong>Décorateurs</strong> (Zend_Form,
+Zend_Validate)</li>
+<li><strong>Layout</strong> et <strong>Aides de vue</strong> (Zend_View_Helper)</li>
+<li><strong>Authentification</strong> (Zend_Auth)</li>
+<li><strong>Session</strong> (Zend_Session)</li>
+<li><strong>Cookie</strong></li>
+<li>Zend_Text_Figlet (Bonus ca :))</li>
+</ul>
+
+<p>voila quelques screenshots :</p>
+
+<p><a href="../../wp-content/uploads/2010/03/TP1-Ecommerce-prod.png"
+rel="lightbox[1175]"><img class="alignnone size-medium wp-image-1176"
+title="TP1-Ecommerce prod" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-prod-300x168.png" alt="" width="300"
+height="168" /></a> <a href="../../wp-content/uploads/2010/03/TP1
+-Ecommerce-register.png" rel="lightbox[1175]"><img class="alignnone size-medium
+wp-image-1177" title="TP1-Ecommerce register" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-register-300x168.png" alt="" width="300"
+height="168" /></a><a href="../../wp-content/uploads/2010/03/TP1
+-Ecommerce-panier.png" rel="lightbox[1175]"><img class="alignnone size-medium
+wp-image-1178" title="TP1-Ecommerce panier" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-panier-300x153.png" alt="" width="300"
+height="153" /></a><a href="../../wp-content/uploads/2010/03/TP1
+-Ecommerce-paiment.png" rel="lightbox[1175]"><img class="alignnone size-medium
+wp-image-1179" title="TP1-Ecommerce paiment" src="../../wp-
+content/uploads/2010/03/TP1-Ecommerce-paiment-300x165.png" alt="" width="300"
+height="165" /></a></p>
+
+<p>Et enfin <a href="../../wp-content/uploads/2010/03/TP1-Ecommerce.tar.gz">les sources à télécharger</a></p>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/application-de-site-e-commerce.html"/>
+                <id>http://blog.lyrixx.info/zend/application-de-site-e-commerce.html</id>
+                <updated>2010-03-18T00:00:00+01:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Gerer l&#039;authentification avec Zend_Auth du Zend Framework</title>
+        <content><![CDATA[<p><strong>Comment faire un système de login sur son application</strong> ? On va voir comment
 mettre en place un système de connexion d’utilisateur dans son application avec
 le <strong>Zend Framework</strong>. Pour ce faire on va utiliser le composant <strong>Zend_Auth</strong>.
 Il va falloir commencer par faire le <strong>formulaire de login</strong> qui n’est pas très
@@ -1442,17 +1513,17 @@ va falloir faire :</p>
 }
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Zend Framework, Formulaire et Base de donnée, partie 2</title>
-                <id>http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html</id>
-                <updated>2009-11-20T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html</id>
+                <updated>2009-12-23T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>On continue avec la deuxième partie de la <a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html" title="Zend Framework, Formulaire et Base de donnée, partie 1">gestion d’un formulaire</a>, de <strong>la
+    </entry>
+        <entry>
+        <title>Zend Framework, Formulaire et Base de donnée, partie 2</title>
+        <content><![CDATA[<p>On continue avec la deuxième partie de la <a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html" title="Zend Framework, Formulaire et Base de donnée, partie 1">gestion d’un formulaire</a>, de <strong>la
 création de formulaire, et d’ajout de donnée en BDD</strong> dans le <strong>Zend
 Framework</strong>. Dans cette partie nous verrons <strong>comment afficher les données, les
 modifier à l’aide du même formulaire que pour l’ajout, et la suppression des
@@ -1762,17 +1833,17 @@ titre indicatif). Il ne fonctionneront pas sans le bootstrap, le fichier de
 config, le fichier de traduction et enfin la bdd. Je referais un gros package
 plus tard. <a href="../../wp-content/uploads/2009/11/formulaire.zip">Fichiers</a></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Zend Framework, Formulaire et Base de donnée, partie 1</title>
-                <id>http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html</id>
-                <updated>2009-11-19T00:00:00+01:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html</id>
+                <updated>2009-11-20T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Hello, On va voir aujourd’hui <strong>comment construire et gérer un formulaire</strong>,
+    </entry>
+        <entry>
+        <title>Zend Framework, Formulaire et Base de donnée, partie 1</title>
+        <content><![CDATA[<p>Hello, On va voir aujourd’hui <strong>comment construire et gérer un formulaire</strong>,
 <strong>ajouter les données récupéré dans une base de données</strong>, <strong>afficher ces
 données</strong>, et enfin <strong>modifier</strong> et <strong>supprimer</strong> celles-ci. En gros, on va
 utiliser les propriétés <strong><acronym title="Create Read Update
@@ -2160,17 +2231,17 @@ surtout le rendre plus joli. Je vous redonnerai tous les fichiers nécessaires
 lors de la deuxième ;) et on peut continuer avec<a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html" title="Zend Framework, Formulaire et Base de donnée, partie 2"> la 2eme partie : affichage,
 modification et suppression</a>.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment gérer une base de donnée avec le Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html</id>
-                <updated>2009-10-19T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html</id>
+                <updated>2009-11-19T00:00:00+01:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Alors la on va aborder un chapitre très important. <strong>Les bases de données sont
+    </entry>
+        <entry>
+        <title>Comment gérer une base de donnée avec le Zend Framework</title>
+        <content><![CDATA[<p>Alors la on va aborder un chapitre très important. <strong>Les bases de données sont
 bien sur très importantes</strong> pour un site web ou un service web. On va voir
 ensemble comment <strong>ajouter, modifier, supprimer des enregistrements (ou tuples)
 dans un table, dans une base de donnée</strong>. On va donc utiliser la gestion <strong>CRUD
@@ -2459,17 +2530,17 @@ Comme par exemple pour avoir le nombre d’enregistrement :</p>
 et de plus on est pas obligé d’utiliser les transaction sql qui sont quand même
 plus lourde. On verra dans un prochain tuto comme utiliser les clés étrangères.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment mettre en place un systeme de traduction dans Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html</id>
-                <updated>2009-10-15T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html</id>
+                <updated>2009-10-19T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Avoir un site, c’est bien, mais c’est encore mieux si on peut le <strong>traduire
+    </entry>
+        <entry>
+        <title>Comment mettre en place un systeme de traduction dans Zend Framework</title>
+        <content><![CDATA[<p>Avoir un site, c’est bien, mais c’est encore mieux si on peut le <strong>traduire
 facilement dans plusieurs langues</strong>. On va voir ensemble comment mettre en place
 un <strong>fichier de traduction **avec **Zend_Translate</strong> dans notre <code>application</code>.
 Il y a plusieurs moyens de gérer les <strong>traductions</strong> avec <strong>Zend Framework</strong>.
@@ -2576,17 +2647,17 @@ de faire</p>
 <p>Bon voilà on a fait le tours ! Enfin il me semble. Il y a des questions ou
 des remarques ?</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment gérer la navigation de son site avec le Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html</id>
-                <updated>2009-10-08T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html</id>
+                <updated>2009-10-15T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Dans ce tuto on va voir comment
+    </entry>
+        <entry>
+        <title>Comment gérer la navigation de son site avec le Zend Framework</title>
+        <content><![CDATA[<p>Dans ce tuto on va voir comment
 mettre en place un système automatique de <strong>navigation</strong> dans le <strong>Zend
 Framework</strong>. C’est a dire que notre <strong>menu de navigation soit dynamique et
 flexible</strong>. On pourra par exemple avoir notre <strong>chemin de navigation ou fil de
@@ -2786,17 +2857,17 @@ est séparer notre liste de liens.</li>
 <p>Voilà, comme on a pu voir, le plus dur est de faire le fichier <code>xml</code> ainsi que
 le <code>css</code> des menus. Après c’est un jeux d’enfant pour avoir de beau menu ;)</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Télécharger automatiquement des .torrent sur un PC Ubuntu distant</title>
-                <id>http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html</id>
-                <updated>2009-09-27T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html</id>
+                <updated>2009-10-08T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Il m’arrive souvent de vouloir télécharger quelque chose alors que je suis en
+    </entry>
+        <entry>
+        <title>Télécharger automatiquement des .torrent sur un PC Ubuntu distant</title>
+        <content><![CDATA[<p>Il m’arrive souvent de vouloir télécharger quelque chose alors que je suis en
 cours ou au boulot, mais c’est souvent difficile pour diverses raisons. Une
 solution est d’utiliser un serveur @home et de le configurer pour qu’il
 télécharge automatiquement des fichiers .torrent. Voici une façon de bidouiller
@@ -2924,17 +2995,17 @@ sur ajouter et saisissez <strong>/usr/bin/deluge</strong> dans le champs « Com
 <p>Voila, on peut maintenant télécharger son film du soir quand on y pense au
 boulot :p</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Zend Framework 1.9 : Comment lier une feuille de style css ou un js au layout</title>
-                <id>http://blog.lyrixx.info/zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html</id>
-                <updated>2009-09-24T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html"/>
+                <id>http://blog.lyrixx.info/ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html</id>
+                <updated>2009-09-27T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Comment lier un <strong>css</strong> et un <strong>js</strong> dans un projet <strong>zend framework</strong> (a partir
+    </entry>
+        <entry>
+        <title>Zend Framework 1.9 : Comment lier une feuille de style css ou un js au layout</title>
+        <content><![CDATA[<p>Comment lier un <strong>css</strong> et un <strong>js</strong> dans un projet <strong>zend framework</strong> (a partir
 de la 1.9) directement dans le <strong>layout</strong> ?</p>
 
 <p>Et bien a partir de la version 1.9, c’est vraiment très simple dans la mesure ou
@@ -2954,17 +3025,17 @@ underline;">application/layout/scripts/main.phtml</span>), entre les balises
 <pre><code>&lt;script type="text/javascript" src="&lt;?php echo $this-&gt;baseUrl();?&gt;/styles/main.js"&gt;&lt;/script&gt;
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment mettre en place un backup sur son serveur dedié ?</title>
-                <id>http://blog.lyrixx.info/ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html</id>
-                <updated>2009-07-24T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html</id>
+                <updated>2009-09-24T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Comment mettre en place un <strong>système de backup automatique sur son serveur
+    </entry>
+        <entry>
+        <title>Comment mettre en place un backup sur son serveur dedié ?</title>
+        <content><![CDATA[<p>Comment mettre en place un <strong>système de backup automatique sur son serveur
 dédié</strong> qui tourne sous linux ? Et bien rien de bien compliqué, il suffit de
 lire ce qui va suivre pour <strong>s'auvegarder les dossiers que vous voulez</strong> :
 <strong>/home</strong>,  les svn, <strong>les bases de données</strong> etc ...</p>
@@ -3121,17 +3192,17 @@ et jouer :</p>
 jours, et vous du coté client il n’y a plus qu’a exécuter le script tous les
 jours...</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Comment mettre en place un Layout avec le Zend-Framework 1.8</title>
-                <id>http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html</id>
-                <updated>2009-07-23T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html"/>
+                <id>http://blog.lyrixx.info/ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html</id>
+                <updated>2009-07-24T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>On va voir ensemble comment utiliser les <strong>Layouts</strong>, <strong>placeholder</strong>,
+    </entry>
+        <entry>
+        <title>Comment mettre en place un Layout avec le Zend-Framework 1.8</title>
+        <content><![CDATA[<p>On va voir ensemble comment utiliser les <strong>Layouts</strong>, <strong>placeholder</strong>,
 <strong>helper</strong> dans le** Zend Framework** 1.8 (et supérieur). En effet, depuis la
 version 1.8, la gestion n’est plus automatique, mais en 2 temps 3 mouvements
 c’est réglé.</p>
@@ -3382,17 +3453,17 @@ particulier, mais c’en est un. Voila vous savez tout !!</p>
 
 <p><br / ><br / ></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Sortie de la beta 1.9 de Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/sortie-de-la-beta-1-9-de-zend-framework.html</id>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html"/>
+                <id>http://blog.lyrixx.info/zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html</id>
                 <updated>2009-07-23T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/sortie-de-la-beta-1-9-de-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p><strong>Zend Framework 1.9.0 vient de sortir en beta</strong>. Youpi. On peut la trouver
+    </entry>
+        <entry>
+        <title>Sortie de la beta 1.9 de Zend Framework</title>
+        <content><![CDATA[<p><strong>Zend Framework 1.9.0 vient de sortir en beta</strong>. Youpi. On peut la trouver
 la : <a href="http://framework.zend.com/download/latest">http://framework.zend.com/download/latest</a></p>
 
 <p>Bon en gros ils nous disent quoi les gars de chez Zend ? Que c’est uneversion
@@ -3426,17 +3497,93 @@ improvements.</li>
 <li>Several new view helpers, including <code>Zend_View_Helper_BaseUrl</code>.</li>
 </ul>
 ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/sortie-de-la-beta-1-9-de-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/sortie-de-la-beta-1-9-de-zend-framework.html</id>
+                <updated>2009-07-23T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
     </entry>
         <entry>
-        <title>Introduction a Zend Framework 1.8 en MVC</title>
-                <id>http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html</id>
+        <title>Architecture de Zend Framework 1.8 en MVC</title>
+        <content><![CDATA[<p>Voila, on vient de voir comment <a href="../../zend/initialisation-dun-projet-zend.html">faire un nouveau projet avec le
+<strong>Zend_Tool</strong></a>. Comme j’expliquai dans le précédant article, l’architecture
+de <strong>Zend Framework</strong> a un petit changé. <strong>Voila la nouvelle Architecture</strong> :</p>
+
+<p><a href="../../wp-content/uploads/2009/07/zend-framework-Structure-.png">
+  <img class="size-full wp-image-460" title="zend framework : Structure" src="../../wp-content/uploads/2009/07/zend-framework-Structure-.png" alt="zend framework : Structure" width="236" height="497" />
+</a></p>
+
+<ul>
+<li>ZfProject
+
+<ul>
+<li>Application : contient toute l’application, en générale ce dossier
+ce situe a un endroit de votre serveur
+qui n’est pas accessible depuis l’extérieur (comme dans les CGI-BIN)
+
+<ul>
+<li>config : Contient tous les fichiers de configuration de
+l’application
+
+<ul>
+<li>application.ini : on retrouve tous les configuration de votre
+application (BDD, php.ini etc)</li>
+</ul></li>
+<li>controllers : ce sont les controlleurs (le C de MVC). ce sont eux
+qui vont creer des models pour excecuter
+des actions, des taches ou des opérations, ils founissent ensuite
+le ou les résultats à la vue.</li>
+<li>models : ce sont les models de votre application. Ce sont des
+class php qui vont faire le « gros »
+du travail</li>
+<li>view : ce sont le vues de votre applications. On y retrouve :
+
+<ul>
+<li>helpers : des bouts de code commun que l’on peu aussi utiliser
+dans les layouts</li>
+<li>scripts : les vrais vues. Ici il faut respecter une structure
+precise, en accord avec les controllers,
+mais on y reviendra</li>
+</ul></li>
+<li>bootstrap.php est le fichier de chargement de
+l’application. c’est dans le bootstrap qu’on fait
+les connections a la base de donnée par exemple.</li>
+</ul></li>
+<li>library : ici on a toutes les class dont zend a besoin pour fonctionner,
+et on a aussi toutes les autres
+class disponible (voir la doc …)</li>
+<li>public : c’est le dossier public qui est accessible depuis
+l’extérieur : on y retrouve toutes les
+feuilles de style, les fichiers javascripts, les images …</li>
+<li>test : ce dossier contient toutes les class qui servent a faire des
+tests unitaire.</li>
+</ul></li>
+</ul>
+
+<p>Ici on est dans une architecture ou l’on utilise pas de modules, avec des
+modules, la structure est un tout petit peux différente. Je pense que l’image
+parle d’elle même… Sinon je n’ai développer que le dossier modules, le reste
+restant identique.</p>
+
+<p><a href="../../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" rel="lightbox[448]">
+    <img class="size-full wp-image-473" title="zend framework : Structure Modules" src="../../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" alt="zend framework : Structure Modules" width="227" height="417" />
+</a></p>
+
+<p>On peut passer au <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap de Zend Framework 1.8</a></p>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html"/>
+                <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html</id>
                 <updated>2009-07-13T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>On va voir comment transformer un script php qui n’utilise pas Zend en une
+    </entry>
+        <entry>
+        <title>Introduction a Zend Framework 1.8 en MVC</title>
+        <content><![CDATA[<p>On va voir comment transformer un script php qui n’utilise pas Zend en une
 application utilisant le <strong>Framework Zend</strong>. Pour se faire on va utiliser la
 version 1.8 (ou supérieur) de <strong>Zend Framework</strong>, et on va l’utiliser en mode
 <strong>MVC (Model View Controller</strong>).</p>
@@ -3453,17 +3600,17 @@ javascript avec zend</a> (pour Zend Framework 1.7).</p>
 gestion du budget commun dans une colocation, et on va essayé de l’adapté à
 Zend.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</title>
-                <id>http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html</id>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html"/>
+                <id>http://blog.lyrixx.info/zend/introduction-a-zend-framework-1-8-en-mvc.html</id>
                 <updated>2009-07-13T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>On a deja vu pas mal de chose sur le <strong>Zend Framework</strong>, mais depuis la version
+    </entry>
+        <entry>
+        <title>Initialisation d&#039;un projet Zend Framework Avec Zend_Tool</title>
+        <content><![CDATA[<p>On a deja vu pas mal de chose sur le <strong>Zend Framework</strong>, mais depuis la version
 1.8.`, il y a quelques petites choses qui ont changées, comme l’architecture, et
 l’arrivée de <strong>Zend_Tool</strong>.</p>
 
@@ -3534,17 +3681,17 @@ laisser guider.</p>
 
 <p>On peut passer a <a href="../../zend/architecture-du-zend-framework-1-10.html" title="Architecture du Zend Framework 1.10 en MVC">l’architecture de Zend Framework</a></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Tuto : Zend Framework 1.8 et son bootstrap</title>
-                <id>http://blog.lyrixx.info/zend/zend-framework-1-8-et-son-bootstrap.html</id>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html"/>
+                <id>http://blog.lyrixx.info/zend/initialisation-dun-projet-zend.html</id>
                 <updated>2009-07-13T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-1-8-et-son-bootstrap.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Voila, on va voir comment fonctionne le <code>Boostrap</code> de la version 1.8 de <strong>Zend
+    </entry>
+        <entry>
+        <title>Tuto : Zend Framework 1.8 et son bootstrap</title>
+        <content><![CDATA[<p>Voila, on va voir comment fonctionne le <code>Boostrap</code> de la version 1.8 de <strong>Zend
 Framework</strong>. Par default le fichier <code>Bootsrap.php</code> est presque vide. Il ne
 contient que ces quelques lignes :</p>
 
@@ -3867,93 +4014,17 @@ resources.db.params.date_format = "YYYY-MM-ddTHH:mm:ss"
 resources.db.isDefaultTableAdapter = true
 </code></pre>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Architecture de Zend Framework 1.8 en MVC</title>
-                <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html</id>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-1-8-et-son-bootstrap.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-1-8-et-son-bootstrap.html</id>
                 <updated>2009-07-13T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Voila, on vient de voir comment <a href="../../zend/initialisation-dun-projet-zend.html">faire un nouveau projet avec le
-<strong>Zend_Tool</strong></a>. Comme j’expliquai dans le précédant article, l’architecture
-de <strong>Zend Framework</strong> a un petit changé. <strong>Voila la nouvelle Architecture</strong> :</p>
-
-<p><a href="../../wp-content/uploads/2009/07/zend-framework-Structure-.png">
-  <img class="size-full wp-image-460" title="zend framework : Structure" src="../../wp-content/uploads/2009/07/zend-framework-Structure-.png" alt="zend framework : Structure" width="236" height="497" />
-</a></p>
-
-<ul>
-<li>ZfProject
-
-<ul>
-<li>Application : contient toute l’application, en générale ce dossier
-ce situe a un endroit de votre serveur
-qui n’est pas accessible depuis l’extérieur (comme dans les CGI-BIN)
-
-<ul>
-<li>config : Contient tous les fichiers de configuration de
-l’application
-
-<ul>
-<li>application.ini : on retrouve tous les configuration de votre
-application (BDD, php.ini etc)</li>
-</ul></li>
-<li>controllers : ce sont les controlleurs (le C de MVC). ce sont eux
-qui vont creer des models pour excecuter
-des actions, des taches ou des opérations, ils founissent ensuite
-le ou les résultats à la vue.</li>
-<li>models : ce sont les models de votre application. Ce sont des
-class php qui vont faire le « gros »
-du travail</li>
-<li>view : ce sont le vues de votre applications. On y retrouve :
-
-<ul>
-<li>helpers : des bouts de code commun que l’on peu aussi utiliser
-dans les layouts</li>
-<li>scripts : les vrais vues. Ici il faut respecter une structure
-precise, en accord avec les controllers,
-mais on y reviendra</li>
-</ul></li>
-<li>bootstrap.php est le fichier de chargement de
-l’application. c’est dans le bootstrap qu’on fait
-les connections a la base de donnée par exemple.</li>
-</ul></li>
-<li>library : ici on a toutes les class dont zend a besoin pour fonctionner,
-et on a aussi toutes les autres
-class disponible (voir la doc …)</li>
-<li>public : c’est le dossier public qui est accessible depuis
-l’extérieur : on y retrouve toutes les
-feuilles de style, les fichiers javascripts, les images …</li>
-<li>test : ce dossier contient toutes les class qui servent a faire des
-tests unitaire.</li>
-</ul></li>
-</ul>
-
-<p>Ici on est dans une architecture ou l’on utilise pas de modules, avec des
-modules, la structure est un tout petit peux différente. Je pense que l’image
-parle d’elle même… Sinon je n’ai développer que le dossier modules, le reste
-restant identique.</p>
-
-<p><a href="../../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" rel="lightbox[448]">
-    <img class="size-full wp-image-473" title="zend framework : Structure Modules" src="../../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" alt="zend framework : Structure Modules" width="227" height="417" />
-</a></p>
-
-<p>On peut passer au <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap de Zend Framework 1.8</a></p>
-]]></content>
     </entry>
         <entry>
         <title>Zend framework : Initializer et boot strap</title>
-                <id>http://blog.lyrixx.info/zend/zend-framework-initializer-et-boot-strap.html</id>
-                <updated>2009-06-30T00:00:00+02:00</updated>
-        <author>
-            <name>Grégoire Pineau</name>
-            <email>lyrixx@lyrixx.info</email>
-        </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-initializer-et-boot-strap.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<h2 style="text-align: center;">
+        <content><![CDATA[<h2 style="text-align: center;">
     <span style="text-decoration: underline;color:#ff0000;">
         <strong>
             UPDATE du 22/07/2009 :
@@ -4300,17 +4371,17 @@ n’importe quelle fonction.</p>
 m’attardé dessus, il y a la doc pour ca. Par contre dans la mise a jour de cet
 article, j’essayerai d’aller plus loin.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Zend : Comment utiliser un model ?</title>
-                <id>http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html</id>
-                <updated>2009-06-27T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-initializer-et-boot-strap.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-framework-initializer-et-boot-strap.html</id>
+                <updated>2009-06-30T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>On va voir comment se servir d’un <code>model</code> dans <strong>Zend framework</strong>. Un <code>model</code>
+    </entry>
+        <entry>
+        <title>Zend : Comment utiliser un model ?</title>
+        <content><![CDATA[<p>On va voir comment se servir d’un <code>model</code> dans <strong>Zend framework</strong>. Un <code>model</code>
 est en fait un objet que vous allez pouvoir utiliser. Il est bien sur possible
 d’en utiliser plusieurs, et d’appeler un <code>model</code> depuis un autre <code>model</code>. Il est
 possible d’utiliser dans les <code>models</code> des <code>models</code> du framework zend comme
@@ -4449,17 +4520,17 @@ résultat d’une de ses méthodes.</p>
 <p>La suite : on avance dans le projet <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html" title="Tuto : Zend Framework 1.8 et son bootstrap">le bootstrap, la connection a la base de
 donnée</a>.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Zend : Comment faire une vue ?</title>
-                <id>http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html</id>
-                <updated>2009-06-26T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-comment-utiliser-un-model.html</id>
+                <updated>2009-06-27T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Et bien on continue sur notre lancé avec les <code>vues</code> ou <code>View</code> dans le <strong>Zend
+    </entry>
+        <entry>
+        <title>Zend : Comment faire une vue ?</title>
+        <content><![CDATA[<p>Et bien on continue sur notre lancé avec les <code>vues</code> ou <code>View</code> dans le <strong>Zend
 Framework</strong>. Après les <a href="../../zend/zend-quest-ce-quun-controller.html"><code>controller</code></a>, maintenant les <code>vues</code>. <strong>La vue c’est
 la partie qui va s’occuper d’afficher vos résultats, vos variables, votre code
 html</strong>. Donc pour re-résumer les design pattern <code>MVC</code> :</p>
@@ -4586,141 +4657,17 @@ alt="Zend : vues" width="300" height="187" /></a></p>
 
 <p>La suite : <a href="../../zend/zend-comment-utiliser-un-model.html">Comment utiliser un model avec Zend framework</a></p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Zend : Qu&#039;est ce qu&#039;un controller ?</title>
-                <id>http://blog.lyrixx.info/zend/zend-quest-ce-quun-controller.html</id>
-                <updated>2009-06-19T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html</id>
+                <updated>2009-06-26T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-quest-ce-quun-controller.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<h2>Comment utiliser les controllers dans Zend ?</h2>
-
-<p>En fait, le <strong>controller</strong> du <strong>Zend Framework</strong> c’est l’outil qui va
-complètement contrôler l’application, c’est a dire que c’est lui qui va
-<strong>s’occuper de lancer les calculs de récupérer les résultats et de les envoyer à
-la vue</strong>.</p>
-
-<p>Donc par exemple si mon application est a l’adresse suivante :
-<code>http://www.lyrixx.info/</code> et que je vais à l’adresse suivante :
-<code>http://www.lyrixx.info/controller/action/</code> j’exécuterais le code du controller
-« <code>controller</code> » et plus précissement la méthode (on dit Action) « <code>action</code>« .
-Par défaut si on ne précisse pas de controller, ni d’action c’est le controller
-<code>index</code> et l’action <code>index</code> qui sera appelé. Donc l’adresse
-<code>http://www.lyrixx.info/</code> est équivalente a <code>http://www.lyrixx.info/index/</code> et
-est aussi équivalente à <code>http://www.lyrixx.info/index/index/</code>. Par exemple le
-controller par default ressemble a ca :</p>
-
-<pre><code>&lt;?php
-
-/**
- * IndexController - The default controller class
- *
- * @author
- * @version
- */
-
-class IndexController extends Zend_Controller_Action
-{
-    /**
-     * The default action - show the home page
-     */
-    public function indexAction()
-    {
-    // TODO Auto-generated IndexController::indexAction() action
-    }
-}
-</code></pre>
-
-<p>De plus les controllers doivent respecter une certaines terminologies :</p>
-
-<ul>
-<li>Ils commencent par une majuscule</li>
-<li>Finissent par « <code>Controller.php</code>« </li>
-</ul>
-
-<p>De même pour les actions :</p>
-
-<ul>
-<li>Elles commencent par une minuscules</li>
-<li>Finissent par « <code>Action</code>« </li>
-</ul>
-
-<p>Donc maintenant il va falloir définir les controllers. La c’est un peu une
-question de gout. C’est a travers les controllers qu’on va definir les urls de
-notre application (bien qu’il soit quand meme possible de les changer). Il faut
-qu’il y ai un bon equilibre entre le nombre de controller et le nombre d’action
-dans chaque controller.</p>
-
-<p>Donc notre cas on a environ 5 types pages :</p>
-
-<ul>
-<li>Ajouter / Editer / Supprimer une facture</li>
-<li>Ajouter / Editer / Supprimer un utilisateur</li>
-<li>Voir la liste des Facture</li>
-<li>Calculer les sommes dues</li>
-<li>Voir les statistiques</li>
-</ul>
-
-<p>On va donc faire 5 controllers :</p>
-
-<ul>
-<li><code>Facture</code> pour Ajouter / Editer / Supprimer une facture</li>
-<li><code>User</code> pour Ajouter / Editer / Supprimer un utilisateur</li>
-<li><code>Factures</code> pour Voir la liste des Facture</li>
-<li><code>Calcul</code> pour Calculer les sommes dues</li>
-<li><code>Stats</code> pour Voir les statistiques</li>
-</ul>
-
-<p>Et dans chaque controller on aura différente action. Par exemple pour le
-controller facture on aura comme action :</p>
-
-<ul>
-<li>ajouter</li>
-<li>editer</li>
-<li>supprimer</li>
-</ul>
-
-<p>** Truc et Astuces**</p>
-
-<p>on peut ajouter facilement un controller dans zend studio (que je vous
-recommende fortement). Il suffit de faire CTRL+N puis de choisir Zend Controller
-:</p>
-
-<p><a href="../../wp-content/uploads/2009/06/New_Controller.png">
-  <img title="New_Controller" src="../../wp-content/uploads/2009/06/New_Controller-274x300.png"
-  alt="Zend :Ajouter un nouveau controller" width="274" height="300" />
-</a></p>
-
-<p>Voila a quoi ressemble notre controller <code>facture</code></p>
-
-<p>Biensur, pour l’instant les actions sont vides. Il va falloir les « remplir » de
-code, mais on verra ca par la suite ! Maintenant que notre premier controller
-est fait, on peut essayé d’aller dessus. Mais il y a une exception qui est
-lancé. C’est normale, c’est qu’il n’y a pas encore de vue associé a ce
-controller. Il faut pour ça créer une vue.</p>
-
-<p><a href="../../wp-content/uploads/2009/06/Zend-pas-de-view.png" rel="lightbox[340]">
-  <img class="size-medium wp-image-373" title="Zend pas de view" src="../../wp-content/uploads/2009/06/Zend-pas-de-view-300x175.png" alt="Zend : Erruer : pas de vue" width="300" height="175" />
-</a></p>
-
-<p>On peut noter l’url pour acceder a cette action : <code>…/facture/ajouter/</code></p>
-
-<p>Voila maintenant on a plus qu’a <a href="../../zend/zend-comment-faire-une-vue.html" title="Zend : Comment faire une vue">faire une vue pour ce controller</a>.</p>
-]]></content>
     </entry>
         <entry>
         <title>Zend : Comment utiliser un layout ?</title>
-                <id>http://blog.lyrixx.info/zend/zend-comment-utiliser-un-layout.html</id>
-                <updated>2009-06-19T00:00:00+02:00</updated>
-        <author>
-            <name>Grégoire Pineau</name>
-            <email>lyrixx@lyrixx.info</email>
-        </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-layout.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<h3>Comment utiliser un seul layout dans le Zend Framework ?</h3>
+        <content><![CDATA[<h3>Comment utiliser un seul layout dans le Zend Framework ?</h3>
 
 <p>On va continuer d’utiliser la base qu’on avait sur la gestion de compte en
 collocation. On va donc reprendre le code de ce script et l’adapté a Zend. Dans
@@ -4847,108 +4794,141 @@ echo $this-&gt;doctype()
 encore. C’est normale, il n’y a pas encore de <a href="../../zend/zend-quest-ce-quun-controller.html" title="Zend : Qu’est ce qu’un controller ?">controller</a> qui va s’occuper
 de gerer tout ca.</p>
 ]]></content>
-    </entry>
-        <entry>
-        <title>Architecture de Zend Framework en MCV</title>
-                <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-en-mcv.html</id>
-                <updated>2009-06-17T00:00:00+02:00</updated>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-utiliser-un-layout.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-comment-utiliser-un-layout.html</id>
+                <updated>2009-06-19T00:00:00+02:00</updated>
         <author>
             <name>Grégoire Pineau</name>
             <email>lyrixx@lyrixx.info</email>
         </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-en-mcv.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Vous êtes nouveaux sur le Zend Framework, et vous êtes un peu perdu avec
-l’architecture MCV de ce framework. Pas de panique, je vous explique tout !
-Deja, c’est quoi le MVC :</p>
+    </entry>
+        <entry>
+        <title>Zend : Qu&#039;est ce qu&#039;un controller ?</title>
+        <content><![CDATA[<h2>Comment utiliser les controllers dans Zend ?</h2>
 
-<blockquote>
-  <p>Le Modèle-Vue-Contrôleur (en abrégé MVC, de l’anglais Model-View-Controller)
-  est une architecture et une méthode de conception qui organise l’interface
-  homme-machine (IHM) d’une application logicielle. Ce paradigme divise l’IHM en
-  un modèle (modèle de données), une vue (présentation, interface utilisateur) et
-  un contrôleur (logique de contrôle, gestion des événements, synchronisation),
-  chacun ayant un rôle précis dans l’interface.</p>
-</blockquote>
+<p>En fait, le <strong>controller</strong> du <strong>Zend Framework</strong> c’est l’outil qui va
+complètement contrôler l’application, c’est a dire que c’est lui qui va
+<strong>s’occuper de lancer les calculs de récupérer les résultats et de les envoyer à
+la vue</strong>.</p>
 
-<p>D’après <a
-href="http://fr.wikipedia.org/wiki/Mod%C3%A8le-Vue-Contr%C3%B4leur"
-target="_blank">Wikipedia</a></p>
+<p>Donc par exemple si mon application est a l’adresse suivante :
+<code>http://www.lyrixx.info/</code> et que je vais à l’adresse suivante :
+<code>http://www.lyrixx.info/controller/action/</code> j’exécuterais le code du controller
+« <code>controller</code> » et plus précissement la méthode (on dit Action) « <code>action</code>« .
+Par défaut si on ne précisse pas de controller, ni d’action c’est le controller
+<code>index</code> et l’action <code>index</code> qui sera appelé. Donc l’adresse
+<code>http://www.lyrixx.info/</code> est équivalente a <code>http://www.lyrixx.info/index/</code> et
+est aussi équivalente à <code>http://www.lyrixx.info/index/index/</code>. Par exemple le
+controller par default ressemble a ca :</p>
 
-<p><a href="../../wp-content/uploads/2009/06/Zend-Architecture.png"
-rel="lightbox[310]"><img class="size-full wp-image-312" title="Zend -
-Architecture" src="../../wp-content/uploads/2009/06/Zend-Architecture.png" alt="Zend -
-Architecture" width="328" height="580" /></a></p>
+<pre><code>&lt;?php
 
-<h2>Zend - Architecture</h2>
+/**
+ * IndexController - The default controller class
+ *
+ * @author
+ * @version
+ */
 
-<p>Voila, l’architecture typique d’une application Zend. Donc on retrouve tout en
-haut de l’achitecture, le dossier du projet : <code>Budget</code>.</p>
+class IndexController extends Zend_Controller_Action
+{
+    /**
+     * The default action - show the home page
+     */
+    public function indexAction()
+    {
+    // TODO Auto-generated IndexController::indexAction() action
+    }
+}
+</code></pre>
 
-<ul>
-<li>Budget
-
-<ul>
-<li>Application : contient toute l’application, en générale ce dossier
-ce situe a un endroit de votre serveur
-qui n’est pas accessible depuis l’extérieur (comme dans les CGI-BIN)
-
-<ul>
-<li>default : c’est le nom d’une application, en général on
-n’en a qu’une, mais sur de grosse
-architecture, on peut en avoir plusieurs.
-
-<ul>
-<li>controllers : ce sont les controlleurs (le C de MVC). ce sont
-eux qui vont creer des models pour
-excecuter des actions, des taches ou des opérations, ils
-founissent ensuite le ou les résultats à
-la vue.</li>
-<li>helpers : ce sont des bouts de code utilisable dans tous
-les controllers</li>
-<li>layouts : c’est le template de votre site</li>
-<li>models : ce sont les models de votre application. Ce sont des
-class php qui vont faire le « gros »
-du travail</li>
-<li>view : ce sont le vues de votre applications. On y retrouve :
+<p>De plus les controllers doivent respecter une certaines terminologies :</p>
 
 <ul>
-<li>filters : des filtres</li>
-<li>helpers : des bouts de code commun que l’on peu aussi
-utiliser dans les layouts</li>
-<li>scripts : les vrais vues. Ici il faut respecter une
-structure precise, en accord avec les
-controllers, mais on y reviendra</li>
-</ul></li>
-</ul></li>
-<li>bootstrap.php et initializer.php sont les fichiers de chargement
-de l’application. c’est dans
-l’initializer qu’on fait les connections a la base de donnée
-par exemple.</li>
-</ul></li>
-<li>library : ici on a toutes les class dont zend a besoin pour fonctionner,
-et on a aussi toutes les autres
-class disponible (voir la doc …)</li>
-<li>public : c’est le dossier public qui est accessible depuis
-l’extérieur : on y retrouve toutes les
-feuilles de style, les fichiers javascripts, les images …</li>
-<li>test : ce dossier contient toutes les class qui servent a faire des
-tests unitaire.</li>
-</ul></li>
+<li>Ils commencent par une majuscule</li>
+<li>Finissent par « <code>Controller.php</code>« </li>
 </ul>
 
-<p>On passe a la suite : <a href="../../zend/css-javascript-et-zend-framework.html">Comment ajouter une feuille de style CSS et un fichier Javascript avec Zend Framework</a></p>
+<p>De même pour les actions :</p>
+
+<ul>
+<li>Elles commencent par une minuscules</li>
+<li>Finissent par « <code>Action</code>« </li>
+</ul>
+
+<p>Donc maintenant il va falloir définir les controllers. La c’est un peu une
+question de gout. C’est a travers les controllers qu’on va definir les urls de
+notre application (bien qu’il soit quand meme possible de les changer). Il faut
+qu’il y ai un bon equilibre entre le nombre de controller et le nombre d’action
+dans chaque controller.</p>
+
+<p>Donc notre cas on a environ 5 types pages :</p>
+
+<ul>
+<li>Ajouter / Editer / Supprimer une facture</li>
+<li>Ajouter / Editer / Supprimer un utilisateur</li>
+<li>Voir la liste des Facture</li>
+<li>Calculer les sommes dues</li>
+<li>Voir les statistiques</li>
+</ul>
+
+<p>On va donc faire 5 controllers :</p>
+
+<ul>
+<li><code>Facture</code> pour Ajouter / Editer / Supprimer une facture</li>
+<li><code>User</code> pour Ajouter / Editer / Supprimer un utilisateur</li>
+<li><code>Factures</code> pour Voir la liste des Facture</li>
+<li><code>Calcul</code> pour Calculer les sommes dues</li>
+<li><code>Stats</code> pour Voir les statistiques</li>
+</ul>
+
+<p>Et dans chaque controller on aura différente action. Par exemple pour le
+controller facture on aura comme action :</p>
+
+<ul>
+<li>ajouter</li>
+<li>editer</li>
+<li>supprimer</li>
+</ul>
+
+<p>** Truc et Astuces**</p>
+
+<p>on peut ajouter facilement un controller dans zend studio (que je vous
+recommende fortement). Il suffit de faire CTRL+N puis de choisir Zend Controller
+:</p>
+
+<p><a href="../../wp-content/uploads/2009/06/New_Controller.png">
+  <img title="New_Controller" src="../../wp-content/uploads/2009/06/New_Controller-274x300.png"
+  alt="Zend :Ajouter un nouveau controller" width="274" height="300" />
+</a></p>
+
+<p>Voila a quoi ressemble notre controller <code>facture</code></p>
+
+<p>Biensur, pour l’instant les actions sont vides. Il va falloir les « remplir » de
+code, mais on verra ca par la suite ! Maintenant que notre premier controller
+est fait, on peut essayé d’aller dessus. Mais il y a une exception qui est
+lancé. C’est normale, c’est qu’il n’y a pas encore de vue associé a ce
+controller. Il faut pour ça créer une vue.</p>
+
+<p><a href="../../wp-content/uploads/2009/06/Zend-pas-de-view.png" rel="lightbox[340]">
+  <img class="size-medium wp-image-373" title="Zend pas de view" src="../../wp-content/uploads/2009/06/Zend-pas-de-view-300x175.png" alt="Zend : Erruer : pas de vue" width="300" height="175" />
+</a></p>
+
+<p>On peut noter l’url pour acceder a cette action : <code>…/facture/ajouter/</code></p>
+
+<p>Voila maintenant on a plus qu’a <a href="../../zend/zend-comment-faire-une-vue.html" title="Zend : Comment faire une vue">faire une vue pour ce controller</a>.</p>
 ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-quest-ce-quun-controller.html"/>
+                <id>http://blog.lyrixx.info/zend/zend-quest-ce-quun-controller.html</id>
+                <updated>2009-06-19T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
     </entry>
         <entry>
         <title>Css, JavaScript et Zend Framework</title>
-                <id>http://blog.lyrixx.info/zend/css-javascript-et-zend-framework.html</id>
-                <updated>2009-06-17T00:00:00+02:00</updated>
-        <author>
-            <name>Grégoire Pineau</name>
-            <email>lyrixx@lyrixx.info</email>
-        </author>
-        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/css-javascript-et-zend-framework.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Comment lier une feuille  de style CSS ou un fichier javascript proprement dans
+        <content><![CDATA[<p>Comment lier une feuille  de style CSS ou un fichier javascript proprement dans
 une application utilisant le Framework Zend ?</p>
 
 <p>Etant donnée qu’on est dans un contexte model vue controller, et que le dossier
@@ -5081,5 +5061,103 @@ echo $this-&gt;doctype()
 <strong>JavaScipts</strong> On peut donc passer a la suite avec : <a href="../../zend/zend-comment-utiliser-un-layout.html" title="Zend et les layouts">Comment mettre en place un
 layout ou template avec Zend Framework</a></p>
 ]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/css-javascript-et-zend-framework.html"/>
+                <id>http://blog.lyrixx.info/zend/css-javascript-et-zend-framework.html</id>
+                <updated>2009-06-17T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
+    </entry>
+        <entry>
+        <title>Architecture de Zend Framework en MCV</title>
+        <content><![CDATA[<p>Vous êtes nouveaux sur le Zend Framework, et vous êtes un peu perdu avec
+l’architecture MCV de ce framework. Pas de panique, je vous explique tout !
+Deja, c’est quoi le MVC :</p>
+
+<blockquote>
+  <p>Le Modèle-Vue-Contrôleur (en abrégé MVC, de l’anglais Model-View-Controller)
+  est une architecture et une méthode de conception qui organise l’interface
+  homme-machine (IHM) d’une application logicielle. Ce paradigme divise l’IHM en
+  un modèle (modèle de données), une vue (présentation, interface utilisateur) et
+  un contrôleur (logique de contrôle, gestion des événements, synchronisation),
+  chacun ayant un rôle précis dans l’interface.</p>
+</blockquote>
+
+<p>D’après <a
+href="http://fr.wikipedia.org/wiki/Mod%C3%A8le-Vue-Contr%C3%B4leur"
+target="_blank">Wikipedia</a></p>
+
+<p><a href="../../wp-content/uploads/2009/06/Zend-Architecture.png"
+rel="lightbox[310]"><img class="size-full wp-image-312" title="Zend -
+Architecture" src="../../wp-content/uploads/2009/06/Zend-Architecture.png" alt="Zend -
+Architecture" width="328" height="580" /></a></p>
+
+<h2>Zend - Architecture</h2>
+
+<p>Voila, l’architecture typique d’une application Zend. Donc on retrouve tout en
+haut de l’achitecture, le dossier du projet : <code>Budget</code>.</p>
+
+<ul>
+<li>Budget
+
+<ul>
+<li>Application : contient toute l’application, en générale ce dossier
+ce situe a un endroit de votre serveur
+qui n’est pas accessible depuis l’extérieur (comme dans les CGI-BIN)
+
+<ul>
+<li>default : c’est le nom d’une application, en général on
+n’en a qu’une, mais sur de grosse
+architecture, on peut en avoir plusieurs.
+
+<ul>
+<li>controllers : ce sont les controlleurs (le C de MVC). ce sont
+eux qui vont creer des models pour
+excecuter des actions, des taches ou des opérations, ils
+founissent ensuite le ou les résultats à
+la vue.</li>
+<li>helpers : ce sont des bouts de code utilisable dans tous
+les controllers</li>
+<li>layouts : c’est le template de votre site</li>
+<li>models : ce sont les models de votre application. Ce sont des
+class php qui vont faire le « gros »
+du travail</li>
+<li>view : ce sont le vues de votre applications. On y retrouve :
+
+<ul>
+<li>filters : des filtres</li>
+<li>helpers : des bouts de code commun que l’on peu aussi
+utiliser dans les layouts</li>
+<li>scripts : les vrais vues. Ici il faut respecter une
+structure precise, en accord avec les
+controllers, mais on y reviendra</li>
+</ul></li>
+</ul></li>
+<li>bootstrap.php et initializer.php sont les fichiers de chargement
+de l’application. c’est dans
+l’initializer qu’on fait les connections a la base de donnée
+par exemple.</li>
+</ul></li>
+<li>library : ici on a toutes les class dont zend a besoin pour fonctionner,
+et on a aussi toutes les autres
+class disponible (voir la doc …)</li>
+<li>public : c’est le dossier public qui est accessible depuis
+l’extérieur : on y retrouve toutes les
+feuilles de style, les fichiers javascripts, les images …</li>
+<li>test : ce dossier contient toutes les class qui servent a faire des
+tests unitaire.</li>
+</ul></li>
+</ul>
+
+<p>On passe a la suite : <a href="../../zend/css-javascript-et-zend-framework.html">Comment ajouter une feuille de style CSS et un fichier Javascript avec Zend Framework</a></p>
+]]></content>
+        <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-en-mcv.html"/>
+                <id>http://blog.lyrixx.info/zend/architecture-de-zend-framework-en-mcv.html</id>
+                <updated>2009-06-17T00:00:00+02:00</updated>
+        <author>
+            <name>Grégoire Pineau</name>
+            <email>lyrixx@lyrixx.info</email>
+        </author>
     </entry>
     </feed>
