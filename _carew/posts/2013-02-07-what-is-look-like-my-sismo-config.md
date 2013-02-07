@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  What is look like my Sismo Config
+title:  What my sismo configuration looks like?
 ---
 
 [Sismo](http://sismo.sensiolabs.org/) is a Continuous Testing Server written in
