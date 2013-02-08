@@ -49,9 +49,9 @@ The script:
 
     #/usr/local/bin/sismo-add
 
-    #######################################
-    # Do not changed code after this line #
-    #######################################
+    ######################################
+    # Do not change code after this line #
+    ######################################
 
     BASE_PATH=`pwd`
     SLUG=`basename $BASE_PATH`
