@@ -105,7 +105,7 @@ with sublime text 2 at the line <code>10</code>. To do that, you have to registe
 
 <p>When did it happend ? When a fatal error or an exception is throwed by php:</p>
 
-<p><img src="../../../../images/xdebug.png" alt="Xdebug" /></p>
+<p><img src="../../../images/xdebug.png" alt="Xdebug" /></p>
 
 <p>With this tip <code>/opt/dotefiles/www/fail.php</code> is clickable.</p>
 
@@ -409,7 +409,7 @@ passer en root ;).</p>
         </author>
         <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/silex/silex-kitchen-edition.html"/>
         <content type="html" xml:lang="en"><![CDATA[<div class="pull-right">
-    <img src="../../images/silex.png" alt="Silex">
+    <img src="../images/silex.png" alt="Silex">
 </div>
 
 <p><strong>Silex est un micro-framework</strong> (en php) basé sur les <strong>composants symfony2</strong>.
@@ -813,9 +813,9 @@ validateur W3C.</li>
 <p>Voila à quoi ressemble cette barre  : (Note : Tous les modules ne sont pas
 chargé)</p>
 
-<p><a href="../../wp-content/uploads/2010/08/ZFDebug-bar1.png"
+<p><a href="../wp-content/uploads/2010/08/ZFDebug-bar1.png"
 rel="lightbox[1270]"><img class="aligncenter size-full wp-image-1274"
-title="ZFDebug bar" src="../../wp-content/uploads/2010/08/ZFDebug-
+title="ZFDebug bar" src="../wp-content/uploads/2010/08/ZFDebug-
 bar1.png" alt="" width="626" height="25" /></a></p>
 
 <p>Alors pour l’installer il faut  commencer par télécharger la dernière version
@@ -971,9 +971,9 @@ l’explique ensuite. La racine des dossiers est (chez moi) le dossier « zftut
 Je précise que <strong>cette structure a été obtenu grâce aux Zend_Tool</strong> (cf prochain
 tutoriel).</p>
 
-<p><a href="../../wp-content/uploads/2010/03/architecture.png"
+<p><a href="../wp-content/uploads/2010/03/architecture.png"
 rel="lightbox[1187]"><img class="alignright size-full wp-image-1188"
-title="architecture" src="../../wp-
+title="architecture" src="../wp-
 content/uploads/2010/03/architecture.png" alt="" width="260" height="592" /></a></p>
 
 <p>Dans ce dossier nous avons :</p>
@@ -1187,25 +1187,25 @@ Zend_Validate)</li>
 
 <p>voila quelques screenshots :</p>
 
-<p><a href="../../wp-content/uploads/2010/03/TP1-Ecommerce-prod.png"
+<p><a href="../wp-content/uploads/2010/03/TP1-Ecommerce-prod.png"
 rel="lightbox[1175]"><img class="alignnone size-medium wp-image-1176"
-title="TP1-Ecommerce prod" src="../../wp-
+title="TP1-Ecommerce prod" src="../wp-
 content/uploads/2010/03/TP1-Ecommerce-prod-300x168.png" alt="" width="300"
-height="168" /></a> <a href="../../wp-content/uploads/2010/03/TP1
+height="168" /></a> <a href="../wp-content/uploads/2010/03/TP1
 -Ecommerce-register.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1177" title="TP1-Ecommerce register" src="../../wp-
+wp-image-1177" title="TP1-Ecommerce register" src="../wp-
 content/uploads/2010/03/TP1-Ecommerce-register-300x168.png" alt="" width="300"
-height="168" /></a><a href="../../wp-content/uploads/2010/03/TP1
+height="168" /></a><a href="../wp-content/uploads/2010/03/TP1
 -Ecommerce-panier.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1178" title="TP1-Ecommerce panier" src="../../wp-
+wp-image-1178" title="TP1-Ecommerce panier" src="../wp-
 content/uploads/2010/03/TP1-Ecommerce-panier-300x153.png" alt="" width="300"
-height="153" /></a><a href="../../wp-content/uploads/2010/03/TP1
+height="153" /></a><a href="../wp-content/uploads/2010/03/TP1
 -Ecommerce-paiment.png" rel="lightbox[1175]"><img class="alignnone size-medium
-wp-image-1179" title="TP1-Ecommerce paiment" src="../../wp-
+wp-image-1179" title="TP1-Ecommerce paiment" src="../wp-
 content/uploads/2010/03/TP1-Ecommerce-paiment-300x165.png" alt="" width="300"
 height="165" /></a></p>
 
-<p>Et enfin <a href="../../wp-content/uploads/2010/03/TP1-Ecommerce.tar.gz">les sources à télécharger</a></p>
+<p>Et enfin <a href="../wp-content/uploads/2010/03/TP1-Ecommerce.tar.gz">les sources à télécharger</a></p>
 ]]></content>
     </entry>
         <entry>
@@ -1240,7 +1240,7 @@ un petit <strong>Zend_View_Helper</strong> (aide de vue) pour créer automatique
 <h2 id="formulaire">Création du formulaire de login :</h2>
 
 <p>On va allé assez vite sur la création du formulaire dans la mesure ou j’explique
-dans un autre tutoriel <a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire" title="Zend Framework, Formulaire et Base de donnée, partie 1"><strong>comment faire un formulaire</strong></a>.</p>
+dans un autre tutoriel <a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire" title="Zend Framework, Formulaire et Base de donnée, partie 1"><strong>comment faire un formulaire</strong></a>.</p>
 
 <pre><code>class Model_Form_User_Login extends Zend_Form {
 
@@ -1530,7 +1530,7 @@ va falloir faire :</p>
             <email>lyrixx@lyrixx.info</email>
         </author>
         <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>On continue avec la deuxième partie de la <a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html" title="Zend Framework, Formulaire et Base de donnée, partie 1">gestion d’un formulaire</a>, de <strong>la
+        <content type="html" xml:lang="en"><![CDATA[<p>On continue avec la deuxième partie de la <a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html" title="Zend Framework, Formulaire et Base de donnée, partie 1">gestion d’un formulaire</a>, de <strong>la
 création de formulaire, et d’ajout de donnée en BDD</strong> dans le <strong>Zend
 Framework</strong>. Dans cette partie nous verrons <strong>comment afficher les données, les
 modifier à l’aide du même formulaire que pour l’ajout, et la suppression des
@@ -1542,13 +1542,13 @@ données</strong>.</p>
 <li>Partie 1
 
 <ul>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#sommaire">Sommaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#bdd">Préparation de la BDD</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire">Préparation du formulaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#affichage">Affichage du formulaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#controller">Le Controller du formulaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#validateur">Gérer d’autres validateurs</a></li>
-<li><a href=../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1/"#conclusion">Conclusion</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#sommaire">Sommaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#bdd">Préparation de la BDD</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire">Préparation du formulaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#affichage">Affichage du formulaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#controller">Le Controller du formulaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#validateur">Gérer d’autres validateurs</a></li>
+<li><a href=../zend/zend-framework-formulaire-et-base-de-donnee-partie-1/"#conclusion">Conclusion</a></li>
 </ul></li>
 <li>Partie 2
 
@@ -1618,14 +1618,14 @@ j’utilise souvent cette classe, j’ai fait une méthode dans la classe
 &lt;?php endif; ?&gt;
 </code></pre>
 
-<p style="text-align: center;">   <a href="../../wp-
+<p style="text-align: center;">   <a href="../wp-
 content/uploads/2009/11/liste-users.png"   rel="lightbox[947]"><img
-class="aligncenter   size-full wp-image-948" title="liste users" src="../../wp-content/uploads/2009/11/liste-users.png"   alt="liste
+class="aligncenter   size-full wp-image-948" title="liste users" src="../wp-content/uploads/2009/11/liste-users.png"   alt="liste
 users" width="675" height="220" /></a> </p>
 
 <p>On commence par vérifier que la variable <code>usersAll</code> est bien définit. Dans ce
 cas la on construit notre tableau assez naturellement. Encore une fois j’utilise
-ici la <a href="../../zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html" title="Comment mettre en place un systeme de traduction dans Zend Framework">traduction du framework</a> (mais on n’est pas forcé de le faire).</p>
+ici la <a href="../zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html" title="Comment mettre en place un systeme de traduction dans Zend Framework">traduction du framework</a> (mais on n’est pas forcé de le faire).</p>
 
 <pre><code>if ($user['active'] == 1) {
     echo '&lt;tr&gt;';
@@ -1781,9 +1781,9 @@ pour finir on met a jour la base de donnée.</p>
 &lt;?php endif ?&gt;
 </code></pre>
 
-<p style="text-align: center;">   <a href="../../wp-
+<p style="text-align: center;">   <a href="../wp-
 content/uploads/2009/11/edit-user.png"   rel="lightbox[947]"><img
-class="aligncenter   size-full wp-image-949" title="edit user" src="../../wp-content/uploads/2009/11/edit-user.png"   alt="edit user"
+class="aligncenter   size-full wp-image-949" title="edit user" src="../wp-content/uploads/2009/11/edit-user.png"   alt="edit user"
 width="468" height="669" /></a> </p>
 
 <h2 id="delete">Supprimer un Enregistrement</h2>
@@ -1838,7 +1838,7 @@ messages de confirmation ou d’échec. De plus la structure de l’archive n’
 bonne du tout… Il y a bien tous les fichiers (enfin je pense, mais c’est plus a
 titre indicatif). Il ne fonctionneront pas sans le bootstrap, le fichier de
 config, le fichier de traduction et enfin la bdd. Je referais un gros package
-plus tard. <a href="../../wp-content/uploads/2009/11/formulaire.zip">Fichiers</a></p>
+plus tard. <a href="../wp-content/uploads/2009/11/formulaire.zip">Fichiers</a></p>
 ]]></content>
     </entry>
         <entry>
@@ -1878,19 +1878,19 @@ suppression.</p>
 <li>Partie 2
 
 <ul>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#sommaire">Sommaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#read">Afficher des enregistrement</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#update">Mettre a jour des enregistrement</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#delete">Supprimer des enregistrement</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#conclusion">Conclusion</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#sommaire">Sommaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#read">Afficher des enregistrement</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#update">Mettre a jour des enregistrement</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#delete">Supprimer des enregistrement</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html#conclusion">Conclusion</a></li>
 </ul></li>
 </ul>
 
 <h2 id="bdd">Préparation de la base de donnée :</h2>
 
-<p style="text-align: center;">   <a href="../../wp-
+<p style="text-align: center;">   <a href="../wp-
 content/uploads/2009/11/database.png"   rel="lightbox[929]"><img
-class="aligncenter   size-full wp-image-931" title="database user" src="../../wp-content/uploads/2009/11/database.png"   alt="database user"
+class="aligncenter   size-full wp-image-931" title="database user" src="../wp-content/uploads/2009/11/database.png"   alt="database user"
 width="136" height="178" /></a> </p>
 
 <pre><code>CREATE TABLE IF NOT
@@ -1908,7 +1908,7 @@ DEFAULT CHARACTER SET = utf8
 PACK_KEYS = DEFAULT
 </code></pre>
 
-<p>Comme <a href="../../zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html" title="Comment gérer une base de donnée avec le Zend Framework">on a vu dans un précédant tutoriel</a>, il faut créer une <strong>classe qui
+<p>Comme <a href="../zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html" title="Comment gérer une base de donnée avec le Zend Framework">on a vu dans un précédant tutoriel</a>, il faut créer une <strong>classe qui
 va nous mapper les informations de la table</strong> (<strong><acronym title="Object Relation
 Mapper">ORM</acronym></strong> du <code>Zend Framework</code>).</p>
 
@@ -2111,10 +2111,10 @@ le code et je l’explique ensuite</strong> :
 
 <p>Petit apercu avant de continuer</p>
 
-<p style="text-align: center;">   <a href="../../wp-
+<p style="text-align: center;">   <a href="../wp-
 content/uploads/2009/11/Form-User-Add.png"   rel="lightbox[929]"><img
 class="aligncenter size-full wp-image-938" style="border: 1px solid black;"
-title="Form User Add" src="../../wp-content/uploads/2009/11/Form-
+title="Form User Add" src="../wp-content/uploads/2009/11/Form-
 User-Add.png" alt="Form   User Add" width="370" height="571" /></a> </p>
 
 <pre><code>$form = new
@@ -2235,7 +2235,7 @@ par l’utilisateur. Ensuite on appelle la méthode « classique ».</p>
 
 <p>Et voilà, on a finit avec notre formulaire. On peut bien sur l’améliorer et
 surtout le rendre plus joli. Je vous redonnerai tous les fichiers nécessaires
-lors de la deuxième ;) et on peut continuer avec<a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html" title="Zend Framework, Formulaire et Base de donnée, partie 2"> la 2eme partie : affichage,
+lors de la deuxième ;) et on peut continuer avec<a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html" title="Zend Framework, Formulaire et Base de donnée, partie 2"> la 2eme partie : affichage,
 modification et suppression</a>.</p>
 ]]></content>
     </entry>
@@ -2351,7 +2351,7 @@ exemple la table <code>users</code> contient plusieurs utilisateurs. Il faut mai
 créer une class qui représente cette table. On peut organiser ses <code>class</code> comme
 on veut, mais en général sur le petits projets je mets toutes mes <code>class</code> dans
 le dossier <code>application/models/DbTable/</code>. De plus je nomme toujours ma class
-avec le même nom que la table. A quoi doit ressembler la <code>class</code> (<a href="../../zend/zend-comment-utiliser-un-model.html" title="Zend : Comment utiliser un model ?">Voir la
+avec le même nom que la table. A quoi doit ressembler la <code>class</code> (<a href="../zend/zend-comment-utiliser-un-model.html" title="Zend : Comment utiliser un model ?">Voir la
 convention de nommage des <code>models</code></a>) :</p>
 
 <pre><code>&lt;?php
@@ -2772,7 +2772,7 @@ l’endroit ou vous voulez que le menu s’affiche :</p>
 
 <p>On va voir maintenant un exemple de fichier xml ou il y a plusieurs pages et
 sous pages <img class="alignright size-full wp-image-735" title="navigation-
-Menu" src="../../wp-content/uploads/2009/10/navigation-Menu.png"
+Menu" src="../wp-content/uploads/2009/10/navigation-Menu.png"
 alt="navigation-Menu" width="208" height="156" /></p>
 
 <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -2838,7 +2838,7 @@ de toucher au <code>css</code> pour ajouter un petit effet ;)</p>
 
 <h2 id="fil">Fil de Navigation ou <strong>breadcrumbs</strong></h2>
 
-<p><img class="alignright size-full wp-image-736" title="navigation-fil" src="../../wp-content/uploads/2009/10/navigation-fil.png" alt="navigation-
+<p><img class="alignright size-full wp-image-736" title="navigation-fil" src="../wp-content/uploads/2009/10/navigation-fil.png" alt="navigation-
 fil" width="296" height="41" /></p>
 
 <p>Et bien avec <code>Zend_Navigation</code>on peut retracer notre <strong>chemin de navigation</strong>,
@@ -3255,9 +3255,9 @@ un grand nombre de page.</p>
 
 <p>Voici un exemple de <code>template</code> :</p>
 
-<p><a href="../../wp-content/uploads/2009/07/Exemple-de-template.png"
+<p><a href="../wp-content/uploads/2009/07/Exemple-de-template.png"
 rel="lightbox[562]"><img class="size-medium wp-image-566" title="Exemple de
-template" src="../../wp-content/uploads/2009/07/Exemple-de-
+template" src="../wp-content/uploads/2009/07/Exemple-de-
 template-300x178.png" alt="Exemple de template" width="300" height="178" /></a></p>
 
 <p>On voit qu’on a diviser notre gabarit de page en quatre zones (complètement
@@ -3294,7 +3294,7 @@ resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts"
 de vues devient plus leger, avec seulement un partie du code html. Donc pour
 <strong>résumer</strong> : Dans le <code>layout</code>, il y a beaucoup de HTML (balise html, head,
 title, body) et dans les vues un peu plus de php et peu moins de html. OK ? Si
-vous avez un doute <a href="../../zend/zend-comment-faire-une-vue.html">sur les <code>view</code> (vue) c’est ici</a>, et sur <a href="../../zend/zend-quest-ce-quun-controller.html">les
+vous avez un doute <a href="../zend/zend-comment-faire-une-vue.html">sur les <code>view</code> (vue) c’est ici</a>, et sur <a href="../zend/zend-quest-ce-quun-controller.html">les
 <code>controllers</code> c’est la</a>.</p>
 
 <p>Maintenant on peut encore plus customiser (personnaliser)  notre <code>layout</code>. Comme
@@ -3514,12 +3514,12 @@ improvements.</li>
             <email>lyrixx@lyrixx.info</email>
         </author>
         <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/architecture-de-zend-framework-1-8-en-mvc.html"/>
-        <content type="html" xml:lang="en"><![CDATA[<p>Voila, on vient de voir comment <a href="../../zend/initialisation-dun-projet-zend.html">faire un nouveau projet avec le
+        <content type="html" xml:lang="en"><![CDATA[<p>Voila, on vient de voir comment <a href="../zend/initialisation-dun-projet-zend.html">faire un nouveau projet avec le
 <strong>Zend_Tool</strong></a>. Comme j’expliquai dans le précédant article, l’architecture
 de <strong>Zend Framework</strong> a un petit changé. <strong>Voila la nouvelle Architecture</strong> :</p>
 
-<p><a href="../../wp-content/uploads/2009/07/zend-framework-Structure-.png">
-  <img class="size-full wp-image-460" title="zend framework : Structure" src="../../wp-content/uploads/2009/07/zend-framework-Structure-.png" alt="zend framework : Structure" width="236" height="497" />
+<p><a href="../wp-content/uploads/2009/07/zend-framework-Structure-.png">
+  <img class="size-full wp-image-460" title="zend framework : Structure" src="../wp-content/uploads/2009/07/zend-framework-Structure-.png" alt="zend framework : Structure" width="236" height="497" />
 </a></p>
 
 <ul>
@@ -3574,11 +3574,11 @@ modules, la structure est un tout petit peux différente. Je pense que l’image
 parle d’elle même… Sinon je n’ai développer que le dossier modules, le reste
 restant identique.</p>
 
-<p><a href="../../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" rel="lightbox[448]">
-    <img class="size-full wp-image-473" title="zend framework : Structure Modules" src="../../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" alt="zend framework : Structure Modules" width="227" height="417" />
+<p><a href="../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" rel="lightbox[448]">
+    <img class="size-full wp-image-473" title="zend framework : Structure Modules" src="../wp-content/uploads/2009/07/zend-framework-Structure-Modules.png" alt="zend framework : Structure Modules" width="227" height="417" />
 </a></p>
 
-<p>On peut passer au <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap de Zend Framework 1.8</a></p>
+<p>On peut passer au <a href="../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap de Zend Framework 1.8</a></p>
 ]]></content>
     </entry>
         <entry>
@@ -3595,12 +3595,12 @@ application utilisant le <strong>Framework Zend</strong>. Pour se faire on va ut
 version 1.8 (ou supérieur) de <strong>Zend Framework</strong>, et on va l’utiliser en mode
 <strong>MVC (Model View Controller</strong>).</p>
 
-<p>Il va d’abord falloir faire les bases : <a href="../../zend/initialisation-dun-projet-zend.html">création de project</a>,
-<a href="../../zend/architecture-de-zend-framework-1-8-en-mvc.html">structure</a>, <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap</a>.</p>
+<p>Il va d’abord falloir faire les bases : <a href="../zend/initialisation-dun-projet-zend.html">création de project</a>,
+<a href="../zend/architecture-de-zend-framework-1-8-en-mvc.html">structure</a>, <a href="../zend/zend-framework-1-8-et-son-bootstrap.html">bootstrap</a>.</p>
 
 <p>Voila une fois que le début de l’application est préparer on part sur une base
-solide. On va donc voir comment marche les <a href="../../zend/zend-quest-ce-quun-controller.html">Controleurs</a>, les <a href="../../zend/zend-comment-faire-une-vue.html">Vues</a>, et
-les <a href="../../zend/zend-comment-utiliser-un-model.html">Models</a>, on pourra aussi voir comment se servir<a href="../../zend/css-javascript-et-zend-framework.html" title="Tuto avec Zend Framework 1.7"> des css et du
+solide. On va donc voir comment marche les <a href="../zend/zend-quest-ce-quun-controller.html">Controleurs</a>, les <a href="../zend/zend-comment-faire-une-vue.html">Vues</a>, et
+les <a href="../zend/zend-comment-utiliser-un-model.html">Models</a>, on pourra aussi voir comment se servir<a href="../zend/css-javascript-et-zend-framework.html" title="Tuto avec Zend Framework 1.7"> des css et du
 javascript avec zend</a> (pour Zend Framework 1.7).</p>
 
 <p>On va donc partir des sources de l’application que j’ai deja faite pour la
@@ -3680,13 +3680,13 @@ résultat :</p>
 <pre><code>http://127.0.0.1/monwww/2009/Budget/public/
 </code></pre>
 
-<p><a href="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit.png" rel="lightbox[449]"><img class="size-medium wp-image-455" title="Installation de Zend Framework 1.8 - finit" src="../../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit-300x187.png" alt="Installation de Zend Framework 1.8 - finit" width="300" height="187" /></a></p>
+<p><a href="../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit.png" rel="lightbox[449]"><img class="size-medium wp-image-455" title="Installation de Zend Framework 1.8 - finit" src="../wp-content/uploads/2009/07/Installation-de-Zend-Framework-1.8-finit-300x187.png" alt="Installation de Zend Framework 1.8 - finit" width="300" height="187" /></a></p>
 
 <p>Enfin, je rappel qu’il est quand meme possible de creer l’architecture d’un
 projet directement dans Zend Studio. Il suffit de faire un nouveau projet et se
 laisser guider.</p>
 
-<p>On peut passer a <a href="../../zend/architecture-du-zend-framework-1-10.html" title="Architecture du Zend Framework 1.10 en MVC">l’architecture de Zend Framework</a></p>
+<p>On peut passer a <a href="../zend/architecture-du-zend-framework-1-10.html" title="Architecture du Zend Framework 1.10 en MVC">l’architecture de Zend Framework</a></p>
 ]]></content>
     </entry>
         <entry>
@@ -3853,7 +3853,7 @@ depuis n’importe ou dans l’application.</p>
 <p><span style="text-decoration: underline;"><strong>Note</strong></span> : On
 créer ici une connection a la base de donnée qui pourra etre utilisé depuis
 n’importe quelle partie de l’application. Cependant on verra qu’en regle
-général, on ne fait pas directement de requete sur la base de donnée, <a href="../../zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html" title="Voir le tuto sur la gestion des bases de données">on
+général, on ne fait pas directement de requete sur la base de donnée, <a href="../zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html" title="Voir le tuto sur la gestion des bases de données">on
 utilise des models pour se faire </a>…</p>
 
 <h2 id="session">Initialisation des sessions :</h2>
@@ -4042,7 +4042,7 @@ resources.db.isDefaultTableAdapter = true
 <p style="text-align: center;">
     <span style="text-decoration: underline;color:#ff0000;">
         <strong>
-            <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html">
+            <a href="../zend/zend-framework-1-8-et-son-bootstrap.html">
                 Il y a une mise a jour de ce tuto ici.
             </a>
         </strong>
@@ -4524,7 +4524,7 @@ echo $this-&gt;obj2;
 <p>On voit bien qu’on peut passer a la vue toute sorte d’objet : un objet, ou le
 résultat d’une de ses méthodes.</p>
 
-<p>La suite : on avance dans le projet <a href="../../zend/zend-framework-1-8-et-son-bootstrap.html" title="Tuto : Zend Framework 1.8 et son bootstrap">le bootstrap, la connection a la base de
+<p>La suite : on avance dans le projet <a href="../zend/zend-framework-1-8-et-son-bootstrap.html" title="Tuto : Zend Framework 1.8 et son bootstrap">le bootstrap, la connection a la base de
 donnée</a>.</p>
 ]]></content>
     </entry>
@@ -4538,7 +4538,7 @@ donnée</a>.</p>
         </author>
         <link rel="alternate" type="text/html" href="http://blog.lyrixx.info/zend/zend-comment-faire-une-vue.html"/>
         <content type="html" xml:lang="en"><![CDATA[<p>Et bien on continue sur notre lancé avec les <code>vues</code> ou <code>View</code> dans le <strong>Zend
-Framework</strong>. Après les <a href="../../zend/zend-quest-ce-quun-controller.html"><code>controller</code></a>, maintenant les <code>vues</code>. <strong>La vue c’est
+Framework</strong>. Après les <a href="../zend/zend-quest-ce-quun-controller.html"><code>controller</code></a>, maintenant les <code>vues</code>. <strong>La vue c’est
 la partie qui va s’occuper d’afficher vos résultats, vos variables, votre code
 html</strong>. Donc pour re-résumer les design pattern <code>MVC</code> :</p>
 
@@ -4565,19 +4565,19 @@ underline;">facture</span> s’exécutera.</p>
 
 <p>Tips : Comment faire une vues avec Zend Studio 7:</p>
 
-<p><a href="../../wp-content/uploads/2009/06/Zend-New-View.png"
+<p><a href="../wp-content/uploads/2009/06/Zend-New-View.png"
 rel="lightbox[375]"><img class="size-medium wp-image-404" title="Zend-New View"
-src="../../wp-content/uploads/2009/06/Zend-New-View-300x273.png"
+src="../wp-content/uploads/2009/06/Zend-New-View-300x273.png"
 alt="Comment faire une vue avec Zend Studio" width="300" height="273" /></a></p>
 
-<p><a href="../../wp-content/uploads/2009/06/Capture-New-Zend-
+<p><a href="../wp-content/uploads/2009/06/Capture-New-Zend-
 View2.png" rel="lightbox[375]"><img class="size-medium wp-image-405" title="New
-Zend View (2)" src="../../wp-content/uploads/2009/06/Capture-New-
+Zend View (2)" src="../wp-content/uploads/2009/06/Capture-New-
 Zend-View2-300x241.png" alt="Comment faire une vue avec Zend Studio" width="300"
 height="241" /></a></p>
 
 <p>Enfin dans la <code>vue</code>, on aura pas besoin de mettre tout le code html de la page.
-Le <a href="../../zend/zend-comment-utiliser-un-layout.html"><code>layout</code></a> le fait deja. Donc on a juste besoin de mettre le code html
+Le <a href="../zend/zend-comment-utiliser-un-layout.html"><code>layout</code></a> le fait deja. Donc on a juste besoin de mettre le code html
 spécifique a cet <code>action</code> (l’<code>action</code> de ce <code>controller</code>).</p>
 
 <h2>Comment on fait pour récupérer nos variable du controller dans la vue?</h2>
@@ -4657,12 +4657,12 @@ du fichier <code>ajouter.phtml</code></p>
 veut appelé. C’est très pratique lorsqu’on a plein d’actions, mais qu’on a pas
 besoin de <code>vues</code> différentes a chaque <code>action</code>.</p>
 
-<p><a href="../../wp-content/uploads/2009/06/Zend-vues.png"
+<p><a href="../wp-content/uploads/2009/06/Zend-vues.png"
 rel="lightbox[375]"><img class="size-medium wp-image-406" title="Zend : vues"
-src="../../wp-content/uploads/2009/06/Zend-vues-300x187.png"
+src="../wp-content/uploads/2009/06/Zend-vues-300x187.png"
 alt="Zend : vues" width="300" height="187" /></a></p>
 
-<p>La suite : <a href="../../zend/zend-comment-utiliser-un-model.html">Comment utiliser un model avec Zend framework</a></p>
+<p>La suite : <a href="../zend/zend-comment-utiliser-un-model.html">Comment utiliser un model avec Zend framework</a></p>
 ]]></content>
     </entry>
         <entry>
@@ -4798,7 +4798,7 @@ echo $this-&gt;doctype()
 </code></pre>
 
 <p>Voila on a notre layout tout prêt. Cependant les liens ne fonctionnent pas
-encore. C’est normale, il n’y a pas encore de <a href="../../zend/zend-quest-ce-quun-controller.html" title="Zend : Qu’est ce qu’un controller ?">controller</a> qui va s’occuper
+encore. C’est normale, il n’y a pas encore de <a href="../zend/zend-quest-ce-quun-controller.html" title="Zend : Qu’est ce qu’un controller ?">controller</a> qui va s’occuper
 de gerer tout ca.</p>
 ]]></content>
     </entry>
@@ -4904,8 +4904,8 @@ controller facture on aura comme action :</p>
 recommende fortement). Il suffit de faire CTRL+N puis de choisir Zend Controller
 :</p>
 
-<p><a href="../../wp-content/uploads/2009/06/New_Controller.png">
-  <img title="New_Controller" src="../../wp-content/uploads/2009/06/New_Controller-274x300.png"
+<p><a href="../wp-content/uploads/2009/06/New_Controller.png">
+  <img title="New_Controller" src="../wp-content/uploads/2009/06/New_Controller-274x300.png"
   alt="Zend :Ajouter un nouveau controller" width="274" height="300" />
 </a></p>
 
@@ -4917,13 +4917,13 @@ est fait, on peut essayé d’aller dessus. Mais il y a une exception qui est
 lancé. C’est normale, c’est qu’il n’y a pas encore de vue associé a ce
 controller. Il faut pour ça créer une vue.</p>
 
-<p><a href="../../wp-content/uploads/2009/06/Zend-pas-de-view.png" rel="lightbox[340]">
-  <img class="size-medium wp-image-373" title="Zend pas de view" src="../../wp-content/uploads/2009/06/Zend-pas-de-view-300x175.png" alt="Zend : Erruer : pas de vue" width="300" height="175" />
+<p><a href="../wp-content/uploads/2009/06/Zend-pas-de-view.png" rel="lightbox[340]">
+  <img class="size-medium wp-image-373" title="Zend pas de view" src="../wp-content/uploads/2009/06/Zend-pas-de-view-300x175.png" alt="Zend : Erruer : pas de vue" width="300" height="175" />
 </a></p>
 
 <p>On peut noter l’url pour acceder a cette action : <code>…/facture/ajouter/</code></p>
 
-<p>Voila maintenant on a plus qu’a <a href="../../zend/zend-comment-faire-une-vue.html" title="Zend : Comment faire une vue">faire une vue pour ce controller</a>.</p>
+<p>Voila maintenant on a plus qu’a <a href="../zend/zend-comment-faire-une-vue.html" title="Zend : Comment faire une vue">faire une vue pour ce controller</a>.</p>
 ]]></content>
     </entry>
         <entry>
@@ -5065,7 +5065,7 @@ echo $this-&gt;doctype()
 </code></pre>
 
 <p>Voila maintenant il suffit de faire la meme chose pour les fichiers
-<strong>JavaScipts</strong> On peut donc passer a la suite avec : <a href="../../zend/zend-comment-utiliser-un-layout.html" title="Zend et les layouts">Comment mettre en place un
+<strong>JavaScipts</strong> On peut donc passer a la suite avec : <a href="../zend/zend-comment-utiliser-un-layout.html" title="Zend et les layouts">Comment mettre en place un
 layout ou template avec Zend Framework</a></p>
 ]]></content>
     </entry>
@@ -5095,9 +5095,9 @@ Deja, c’est quoi le MVC :</p>
 href="http://fr.wikipedia.org/wiki/Mod%C3%A8le-Vue-Contr%C3%B4leur"
 target="_blank">Wikipedia</a></p>
 
-<p><a href="../../wp-content/uploads/2009/06/Zend-Architecture.png"
+<p><a href="../wp-content/uploads/2009/06/Zend-Architecture.png"
 rel="lightbox[310]"><img class="size-full wp-image-312" title="Zend -
-Architecture" src="../../wp-content/uploads/2009/06/Zend-Architecture.png" alt="Zend -
+Architecture" src="../wp-content/uploads/2009/06/Zend-Architecture.png" alt="Zend -
 Architecture" width="328" height="580" /></a></p>
 
 <h2>Zend - Architecture</h2>
@@ -5157,7 +5157,7 @@ tests unitaire.</li>
 </ul></li>
 </ul>
 
-<p>On passe a la suite : <a href="../../zend/css-javascript-et-zend-framework.html">Comment ajouter une feuille de style CSS et un fichier Javascript avec Zend Framework</a></p>
+<p>On passe a la suite : <a href="../zend/css-javascript-et-zend-framework.html">Comment ajouter une feuille de style CSS et un fichier Javascript avec Zend Framework</a></p>
 ]]></content>
     </entry>
     </feed>

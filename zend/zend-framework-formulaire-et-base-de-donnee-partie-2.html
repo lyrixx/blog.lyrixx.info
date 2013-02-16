@@ -16,8 +16,8 @@
     
         <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
       <link rel="canonical" href="http://blog.lyrixx.info/zend/zend-framework-formulaire-et-base-de-donnee-partie-2.html"/>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css"><link rel="stylesheet" href="../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
-    <script src="../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -35,7 +35,7 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="../..">LyRiXx Blog</a>
+                  <a class="brand" href="..">LyRiXx Blog</a>
                   <div class="nav-collapse collapse">
                     <ul class="nav">
                                                                                           </ul>
@@ -80,7 +80,7 @@
     </div>
 
     <div class="body">
-      <p>On continue avec la deuxième partie de la <a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html" title="Zend Framework, Formulaire et Base de donnée, partie 1">gestion d’un formulaire</a>, de <strong>la
+      <p>On continue avec la deuxième partie de la <a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html" title="Zend Framework, Formulaire et Base de donnée, partie 1">gestion d’un formulaire</a>, de <strong>la
 création de formulaire, et d’ajout de donnée en BDD</strong> dans le <strong>Zend
 Framework</strong>. Dans cette partie nous verrons <strong>comment afficher les données, les
 modifier à l’aide du même formulaire que pour l’ajout, et la suppression des
@@ -92,13 +92,13 @@ données</strong>.</p>
 <li>Partie 1
 
 <ul>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#sommaire">Sommaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#bdd">Préparation de la BDD</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire">Préparation du formulaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#affichage">Affichage du formulaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#controller">Le Controller du formulaire</a></li>
-<li><a href="../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#validateur">Gérer d’autres validateurs</a></li>
-<li><a href=../../zend/zend-framework-formulaire-et-base-de-donnee-partie-1/"#conclusion">Conclusion</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#sommaire">Sommaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#bdd">Préparation de la BDD</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#formulaire">Préparation du formulaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#affichage">Affichage du formulaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#controller">Le Controller du formulaire</a></li>
+<li><a href="../zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html#validateur">Gérer d’autres validateurs</a></li>
+<li><a href=../zend/zend-framework-formulaire-et-base-de-donnee-partie-1/"#conclusion">Conclusion</a></li>
 </ul></li>
 <li>Partie 2
 
@@ -168,14 +168,14 @@ j’utilise souvent cette classe, j’ai fait une méthode dans la classe
 &lt;?php endif; ?&gt;
 </code></pre>
 
-<p style="text-align: center;">   <a href="../../wp-
+<p style="text-align: center;">   <a href="../wp-
 content/uploads/2009/11/liste-users.png"   rel="lightbox[947]"><img
-class="aligncenter   size-full wp-image-948" title="liste users" src="../../wp-content/uploads/2009/11/liste-users.png"   alt="liste
+class="aligncenter   size-full wp-image-948" title="liste users" src="../wp-content/uploads/2009/11/liste-users.png"   alt="liste
 users" width="675" height="220" /></a> </p>
 
 <p>On commence par vérifier que la variable <code>usersAll</code> est bien définit. Dans ce
 cas la on construit notre tableau assez naturellement. Encore une fois j’utilise
-ici la <a href="../../zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html" title="Comment mettre en place un systeme de traduction dans Zend Framework">traduction du framework</a> (mais on n’est pas forcé de le faire).</p>
+ici la <a href="../zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html" title="Comment mettre en place un systeme de traduction dans Zend Framework">traduction du framework</a> (mais on n’est pas forcé de le faire).</p>
 
 <pre><code>if ($user['active'] == 1) {
     echo '&lt;tr&gt;';
@@ -331,9 +331,9 @@ pour finir on met a jour la base de donnée.</p>
 &lt;?php endif ?&gt;
 </code></pre>
 
-<p style="text-align: center;">   <a href="../../wp-
+<p style="text-align: center;">   <a href="../wp-
 content/uploads/2009/11/edit-user.png"   rel="lightbox[947]"><img
-class="aligncenter   size-full wp-image-949" title="edit user" src="../../wp-content/uploads/2009/11/edit-user.png"   alt="edit user"
+class="aligncenter   size-full wp-image-949" title="edit user" src="../wp-content/uploads/2009/11/edit-user.png"   alt="edit user"
 width="468" height="669" /></a> </p>
 
 <h2 id="delete">Supprimer un Enregistrement</h2>
@@ -388,7 +388,7 @@ messages de confirmation ou d’échec. De plus la structure de l’archive n’
 bonne du tout… Il y a bien tous les fichiers (enfin je pense, mais c’est plus a
 titre indicatif). Il ne fonctionneront pas sans le bootstrap, le fichier de
 config, le fichier de traduction et enfin la bdd. Je referais un gros package
-plus tard. <a href="../../wp-content/uploads/2009/11/formulaire.zip">Fichiers</a></p>
+plus tard. <a href="../wp-content/uploads/2009/11/formulaire.zip">Fichiers</a></p>
 
     </div>
 
@@ -426,7 +426,7 @@ plus tard. <a href="../../wp-content/uploads/2009/11/formulaire.zip">Fichiers</a
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
                     var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-4212683-8']);
                         _gaq.push(['_trackPageview']);
