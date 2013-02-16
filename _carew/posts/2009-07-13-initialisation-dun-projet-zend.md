@@ -2,7 +2,7 @@
 title: Initialisation d'un projet Zend Framework Avec Zend_Tool
 author: Greg
 layout: post
-permalink: /zend/initialisation-dun-projet-zend/
+permalink: /zend/initialisation-dun-projet-zend.html
 tags:
   - Zend Framework
 ---

@@ -2,7 +2,7 @@
 title: Css, JavaScript et Zend Framework
 author: Greg
 layout: post
-permalink: /zend/css-javascript-et-zend-framework/
+permalink: /zend/css-javascript-et-zend-framework.html
 tags:
   - Zend Framework
 ---

@@ -2,7 +2,7 @@
 title: Comment mettre en place un systeme de traduction dans Zend Framework
 author: Greg
 layout: post
-permalink: /zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework/
+permalink: /zend/mettre-en-place-un-systeme-de-traduction-dans-zend-framework.html
 tags:
   - Zend Framework
 ---

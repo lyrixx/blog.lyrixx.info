@@ -2,7 +2,7 @@
 title: Télécharger automatiquement des .torrent sur un PC Ubuntu distant
 author: Arnaud
 layout: post
-permalink: /ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant/
+permalink: /ubuntu/telecharger-automatiquement-des-torrent-sur-un-serveur-distant.html
 tags:
   - Download
   - Torrent

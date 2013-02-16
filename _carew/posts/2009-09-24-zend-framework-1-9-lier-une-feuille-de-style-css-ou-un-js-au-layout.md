@@ -2,7 +2,7 @@
 title: 'Zend Framework 1.9 : Comment lier une feuille de style css ou un js au layout'
 author: Greg
 layout: post
-permalink: /zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout/
+permalink: /zend/zend-framework-1-9-lier-une-feuille-de-style-css-ou-un-js-au-layout.html
 tags:
   - Zend Framework
 ---

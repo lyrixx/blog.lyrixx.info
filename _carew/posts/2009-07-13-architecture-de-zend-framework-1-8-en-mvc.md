@@ -2,7 +2,7 @@
 title: Architecture de Zend Framework 1.8 en MVC
 author: Greg
 layout: post
-permalink: /zend/architecture-de-zend-framework-1-8-en-mvc/
+permalink: /zend/architecture-de-zend-framework-1-8-en-mvc.html
 tags:
   - Zend Framework
 ---

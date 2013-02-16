@@ -2,7 +2,7 @@
 title: Comment mettre en place un backup sur son serveur dedié ?
 author: Greg
 layout: post
-permalink: /ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie/
+permalink: /ubuntu/comment-mettre-en-place-un-backup-sur-son-serveur-dedie.html
 tags:
   - Backup
 ---

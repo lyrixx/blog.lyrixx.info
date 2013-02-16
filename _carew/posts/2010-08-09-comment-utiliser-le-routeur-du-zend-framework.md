@@ -2,7 +2,7 @@
 title: Comment utiliser le Routeur du Zend Framework
 author: Greg
 layout: post
-permalink: /zend/comment-utiliser-le-routeur-du-zend-framework/
+permalink: /zend/comment-utiliser-le-routeur-du-zend-framework.html
 tags:
   - Zend Framework
 ---

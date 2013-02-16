@@ -2,7 +2,7 @@
 title: 'Sublime text 2 et xdebug : liens cliquables sur les fichiers'
 author: Greg
 layout: post
-permalink: /web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers/
+permalink: /web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html
 categories:
   - Web Dev
 tags:

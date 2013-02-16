@@ -2,7 +2,7 @@
 title: 'Tuto : Zend Framework 1.8 et son bootstrap'
 author: Greg
 layout: post
-permalink: /zend/zend-framework-1-8-et-son-bootstrap/
+permalink: /zend/zend-framework-1-8-et-son-bootstrap.html
 tags:
   - Zend Framework
 ---

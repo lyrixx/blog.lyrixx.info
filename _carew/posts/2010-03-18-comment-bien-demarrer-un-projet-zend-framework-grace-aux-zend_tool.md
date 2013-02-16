@@ -2,7 +2,7 @@
 title: Comment bien démarrer un projet Zend Framework grâce aux Zend_Tool
 author: Greg
 layout: post
-permalink: /zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool/
+permalink: /zend/comment-bien-demarrer-un-projet-zend-framework-grace-aux-zend_tool.html
 tags:
   - Zend Framework
 ---

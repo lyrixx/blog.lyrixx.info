@@ -2,7 +2,7 @@
 title: 'Zend : Comment utiliser un layout ?'
 author: Greg
 layout: post
-permalink: /zend/zend-comment-utiliser-un-layout/
+permalink: /zend/zend-comment-utiliser-un-layout.html
 tags:
   - Zend Framework
 ---

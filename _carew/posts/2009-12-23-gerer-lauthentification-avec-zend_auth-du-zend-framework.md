@@ -2,7 +2,7 @@
 title: Gerer l'authentification avec Zend_Auth du Zend Framework
 author: Greg
 layout: post
-permalink: /zend/gerer-lauthentification-avec-zend_auth-du-zend-framework/
+permalink: /zend/gerer-lauthentification-avec-zend_auth-du-zend-framework.html
 tags:
   - Zend Framework
 ---

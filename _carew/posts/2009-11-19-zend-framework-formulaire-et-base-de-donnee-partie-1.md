@@ -2,7 +2,7 @@
 title: Zend Framework, Formulaire et Base de donnée, partie 1
 author: Greg
 layout: post
-permalink: /zend/zend-framework-formulaire-et-base-de-donnee-partie-1/
+permalink: /zend/zend-framework-formulaire-et-base-de-donnee-partie-1.html
 tags:
   - Zend Framework
 ---

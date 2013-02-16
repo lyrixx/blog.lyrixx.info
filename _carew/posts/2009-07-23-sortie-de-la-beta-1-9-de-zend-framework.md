@@ -2,7 +2,7 @@
 title: Sortie de la beta 1.9 de Zend Framework
 author: Greg
 layout: post
-permalink: /zend/sortie-de-la-beta-1-9-de-zend-framework/
+permalink: /zend/sortie-de-la-beta-1-9-de-zend-framework.html
 tags:
   - Zend Framework
 ---

@@ -2,7 +2,7 @@
 title: Introduction a Zend Framework 1.8 en MVC
 author: Greg
 layout: post
-permalink: /zend/introduction-a-zend-framework-1-8-en-mvc/
+permalink: /zend/introduction-a-zend-framework-1-8-en-mvc.html
 tags:
   - Zend Framework
 ---

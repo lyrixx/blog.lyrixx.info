@@ -2,7 +2,7 @@
 title: Comment mettre en place un Layout avec le Zend-Framework 1.8
 author: Greg
 layout: post
-permalink: /zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8/
+permalink: /zend/comment-mettre-en-place-un-layout-avec-le-zend-framework-1-8.html
 tags:
   - Zend Framework
 ---

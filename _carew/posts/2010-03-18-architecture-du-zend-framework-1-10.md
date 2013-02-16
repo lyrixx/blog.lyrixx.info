@@ -2,7 +2,7 @@
 title: Architecture du Zend Framework 1.10 en MVC
 author: Greg
 layout: post
-permalink: /zend/architecture-du-zend-framework-1-10/
+permalink: /zend/architecture-du-zend-framework-1-10.html
 tags:
   - Zend Framework
 ---

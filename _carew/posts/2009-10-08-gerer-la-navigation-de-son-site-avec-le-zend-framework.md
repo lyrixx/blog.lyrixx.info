@@ -2,7 +2,7 @@
 title: Comment gérer la navigation de son site avec le Zend Framework
 author: Greg
 layout: post
-permalink: /zend/gerer-la-navigation-de-son-site-avec-le-zend-framework/
+permalink: /zend/gerer-la-navigation-de-son-site-avec-le-zend-framework.html
 tags:
    - Zend Framework
 ---

@@ -2,7 +2,7 @@
 title: 'Zend framework : Initializer et boot strap'
 author: Greg
 layout: post
-permalink: /zend/zend-framework-initializer-et-boot-strap/
+permalink: /zend/zend-framework-initializer-et-boot-strap.html
 tags:
   - Zend Framework
 ---

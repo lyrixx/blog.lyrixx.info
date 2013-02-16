@@ -2,7 +2,7 @@
 title: 'Zend : Comment utiliser un model ?'
 author: Greg
 layout: post
-permalink: /zend/zend-comment-utiliser-un-model/
+permalink: /zend/zend-comment-utiliser-un-model.html
 tags:
   - Zend Framework
 ---

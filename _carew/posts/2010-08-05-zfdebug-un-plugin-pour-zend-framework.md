@@ -2,7 +2,7 @@
 title: 'ZFDebug : Un plugin pour Zend Framework'
 author: Greg
 layout: post
-permalink: /zend/zfdebug-un-plugin-pour-zend-framework/
+permalink: /zend/zfdebug-un-plugin-pour-zend-framework.html
 tags:
   - Zend Framework
 ---

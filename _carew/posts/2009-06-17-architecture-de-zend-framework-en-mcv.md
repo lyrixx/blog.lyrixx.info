@@ -2,7 +2,7 @@
 title: Architecture de Zend Framework en MCV
 author: Greg
 layout: post
-permalink: /zend/architecture-de-zend-framework-en-mcv/
+permalink: /zend/architecture-de-zend-framework-en-mcv.html
 tags:
   - Zend Framework
 ---

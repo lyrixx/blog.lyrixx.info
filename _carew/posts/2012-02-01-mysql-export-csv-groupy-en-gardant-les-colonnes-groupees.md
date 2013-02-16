@@ -2,7 +2,7 @@
 title: Mysql + export + csv + groupy en gardant les colonnes groupées
 author: Greg
 layout: post
-permalink: /web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees/
+permalink: /web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html
 tags:
   - Mysql
 ---

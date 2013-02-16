@@ -2,7 +2,7 @@
 title: 'Zend : Comment faire une vue ?'
 author: Greg
 layout: post
-permalink: /zend/zend-comment-faire-une-vue/
+permalink: /zend/zend-comment-faire-une-vue.html
 tags:
   - Zend Framework
 ---

@@ -2,7 +2,7 @@
 title: Zend : Qu'est ce qu'un controller ?
 author: Greg
 layout: post
-permalink: /zend/zend-quest-ce-quun-controller/
+permalink: /zend/zend-quest-ce-quun-controller.html
 tags:
   - Zend Framework
 ---

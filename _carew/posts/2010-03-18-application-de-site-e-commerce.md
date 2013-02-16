@@ -2,7 +2,7 @@
 title: 'Application de site E-Commerce [Code-Source]'
 author: Greg
 layout: post
-permalink: /zend/application-de-site-e-commerce/
+permalink: /zend/application-de-site-e-commerce.html
 tags:
   - Zend Framework
 ---

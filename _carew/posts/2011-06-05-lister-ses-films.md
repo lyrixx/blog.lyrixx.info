@@ -2,7 +2,7 @@
 title: Lister ses films
 author: Greg
 layout: post
-permalink: /ubuntu/lister-ses-films/
+permalink: /ubuntu/lister-ses-films.html
 tags:
   - Bash
 

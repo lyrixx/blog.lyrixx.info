@@ -2,7 +2,7 @@
 title: Qu'est-ce que PECL ?
 author: Greg
 layout: post
-permalink: /web-dev/quest-ce-que-pecl/
+permalink: /web-dev/quest-ce-que-pecl.html
 tags:
   - PECL
   - PHP

@@ -2,7 +2,7 @@
 title: Comment gérer une base de donnée avec le Zend Framework
 author: Greg
 layout: post
-permalink: /zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework/
+permalink: /zend/comment-gerer-une-base-de-donnee-avec-le-zend-framework.html
 tags:
   - Zend Framework
 ---

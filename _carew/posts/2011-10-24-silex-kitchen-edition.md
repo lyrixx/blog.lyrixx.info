@@ -2,7 +2,7 @@
 title: Silex Kitchen Edition
 author: Greg
 layout: post
-permalink: /silex/silex-kitchen-edition/
+permalink: /silex/silex-kitchen-edition.html
 tags:
   - Silex
 ---

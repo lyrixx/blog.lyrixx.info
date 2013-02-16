@@ -2,7 +2,7 @@
 title: Symfony2 en vidéo
 author: Greg
 layout: post
-permalink: /symfony/symfony2-en-video/
+permalink: /symfony/symfony2-en-video.html
 tags:
   - gource
   - Symfony2
