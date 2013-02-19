@@ -7,9 +7,9 @@ tags:
   - Zend Framework
 ---
 
-Vous êtes nouveaux sur le Zend Framework, et vous êtes un peu perdu avec
+Vous êtes nouveaux sur le Zend Framework, et vous êtes un peu perdus avec
 l’architecture MCV de ce framework. Pas de panique, je vous explique tout !
-Deja, c’est quoi le MVC :
+Déjà, qu'est-ce que le MVC ?
 
 > Le Modèle-Vue-Contrôleur (en abrégé MVC, de l’anglais Model-View-Controller)
 est une architecture et une méthode de conception qui organise l’interface
@@ -48,7 +48,7 @@ haut de l’achitecture, le dossier du projet : `Budget`.
             * helpers : ce sont des bouts de code utilisable dans tous
             les controllers
             * layouts : c’est le template de votre site
-            * models : ce sont les models de votre application. Ce sont des
+            * models : ce sont les modeles de votre application. Ce sont des
             class php qui vont faire le « gros »
             du travail
             * view : ce sont le vues de votre applications. On y retrouve :
@@ -60,15 +60,15 @@ haut de l’achitecture, le dossier du projet : `Budget`.
                 controllers, mais on y reviendra
         * bootstrap.php et initializer.php sont les fichiers de chargement
         de l’application. c’est dans
-        l’initializer qu’on fait les connections a la base de donnée
+        l’initializer qu’on fait les connexions à la base de données
         par exemple.
     * library : ici on a toutes les class dont zend a besoin pour fonctionner,
     et on a aussi toutes les autres
-    class disponible (voir la doc …)
+    class disponibles (voir la doc …)
     * public : c’est le dossier public qui est accessible depuis
     l’extérieur : on y retrouve toutes les
     feuilles de style, les fichiers javascripts, les images …
-    * test : ce dossier contient toutes les class qui servent a faire des
-    tests unitaire.
+    * test : ce dossier contient toutes les class qui servent à faire des
+    tests unitaires.
 
-On passe a la suite : [Comment ajouter une feuille de style CSS et un fichier Javascript avec Zend Framework]({{ relativeRoot }}/zend/css-javascript-et-zend-framework.html)
+On passe à la suite : [Comment ajouter une feuille de style CSS et un fichier Javascript avec Zend Framework]({{ relativeRoot }}/zend/css-javascript-et-zend-framework.html)
