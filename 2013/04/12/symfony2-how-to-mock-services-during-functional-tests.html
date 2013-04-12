@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Symfony2: How to mock services during functional tests</title>
+
+    <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
+    <meta name="author" content="Grégoire Pineau">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
+      <link rel="canonical" href="http://blog.lyrixx.info/2013/04/12/symfony2-how-to-mock-services-during-functional-tests.html"/>
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <script src="../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+
+                <a href="https://github.com/lyrixx/blog.lyrixx.info/tree/master/_carew" target="_blank" class="hidden-tablet hidden-phone"><img style="position: fixed; top: 40px; left: 0; border: 0; z-index:10000" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+    
+          <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+              <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="../../..">LyRiXx Blog</a>
+                  <div class="nav-collapse collapse">
+                    <ul class="nav">
+                                                                                          </ul>
+                        <ul class="nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other OSS project">
+                Lyrixx
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                                                    <li><a href="http://carew.github.com" target="_blank">Carew</a></li>
+                                    <li><a href="http://lyrixx.github.com/Silex-Kitchen-Edition/" target="_blank">Silex Kitchen Edition</a></li>
+                                    <li><a href="http://lyrixx.github.com/lifestream/" target="_blank">Lifestream</a></li>
+                                    <li><a href="http://lyrixx.github.com/Series/" target="_blank">Series</a></li>
+                                <li class="divider"></li>
+                <li class="nav-header">Follow me on</li>
+                                                    <li><a href="http://github.com/lyrixx" target="_blank">Github</a></li>
+                                    <li><a href="http://twitter.com/lyrixx" target="_blank">Twitter</a></li>
+                                    <li><a href="http://blog.lyrixx.info" target="_blank">Blog</a></li>
+                            </ul>
+        </li>
+    </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    
+          <div class="container">
+
+        
+                  <div class="row">
+            <div class="span10 offset1 content">
+                                                <div class="page-header">
+                    <h1>Symfony2: How to mock services during functional tests</h1>
+                  </div>
+                              
+                <article>
+    <div class="pull-right date">
+      <i class="icon-calendar"></i>
+      Apr 12th, 2013
+    </div>
+
+    <div class="body">
+      <p>When you are working with web-service and you want to add some tests, you have
+two options:</p>
+
+<ul>
+<li>Use the real service</li>
+<li>Mock the service</li>
+</ul>
+
+<p>The first one has some advantages: If the web-service change, your tests will
+fail. And it has some inconvenience: If the web-service is momently down, your
+tests fail.</p>
+
+<p>But sometime, you really want to mock these services to perform some extra
+tests, such as emulate a service down, etc...</p>
+
+<p>With Symfony2 you have some options to mock a web-service.</p>
+
+<p>The first one is to use a mock class for <code>test</code> environment. Here, we assume you
+have created a Symfony2 service (think DIC) to wrap the web-service.</p>
+
+<p>The first
+option is to change the service through the configuration in
+<code>app/config/config_test.yml</code>. So you may have something like this in your
+<code>src/MyBundle/Resources/config/services.xml</code>:</p>
+
+<pre><code>&lt;parameters&gt;
+    &lt;parameter key="my_bundle.twitter.class"&gt;Twitter&lt;/parameter&gt;
+&lt;/parameters&gt;
+
+&lt;services&gt;
+    &lt;service id="my_bundle.twitter" class="%my_bundle.twitter.class%"&gt;
+    &lt;/service&gt;
+&lt;services&gt;
+</code></pre>
+
+<p>and so the <code>config_test.yml</code></p>
+
+<pre><code>parameters:
+    my_bundle.twitter.class: TwitterMock
+</code></pre>
+
+<p>This option is not very flexible because we can emulate a service down, ...</p>
+
+<p>So the second option is to replace the service by a <code>phpunit</code> mock. To do that,
+we have to change during the runtime a Symfony2 service. But this is not so
+easy, because symfony will shutdown and re-boot your kernel between each
+request (<a href="https://github.com/symfony/symfony/blob/3196dbdf528ab62c304b72b3208f8d03f7247203/src/Symfony/Bundle/FrameworkBundle/Client.php#L94-L102">see here</a>).</p>
+
+<p>So the idea is to override the Kernel to allow the developer to execute some
+code after the <code>boot</code> call. So we start to create a new kernel:</p>
+
+<pre><code>&lt;?php
+
+// app/AppTestKernel.php
+
+require_once __DIR__.'/AppKernel.php';
+
+class AppTestKernel extends AppKernel
+{
+    private $kernelModifier = null;
+
+    public function boot()
+    {
+        parent::boot();
+
+        if ($kernelModifier = $this-&gt;kernelModifier) {
+            $kernelModifier($this);
+            $this-&gt;kernelModifier = null;
+        };
+    }
+
+    public function setKernelModifier(\Closure $kernelModifier)
+    {
+        $this-&gt;kernelModifier = $kernelModifier;
+
+        // We force the kernel to shutdown to be sure the next request will boot it
+        $this-&gt;shutdown();
+    }
+}
+</code></pre>
+
+<p>And now, we can alter the kernel during the test:</p>
+
+<pre><code>class TwitterTest extends WebTestCase
+{
+    public function testTwitter()
+    {
+        $twitter = $this-&gt;getMock('Twitter');
+        // Configure your mock here.
+        static::$kernel-&gt;setKernelModifier(function($kernel) use ($twitter) {
+            $kernel-&gt;getContainer()-&gt;set('my_bundle.twitter', $twitter);
+        });
+
+        $this-&gt;client-&gt;request('GET', '/fetch/twitter'));
+
+        $this-&gt;assertSame(200, $this-&gt;client-&gt;getResponse()-&gt;getStatusCode());
+    }
+}
+</code></pre>
+
+<p>And thats it ;)</p>
+
+    </div>
+
+      </article>
+
+                                                <br />
+                  <p>
+                    By the way, if you found a typo, please
+                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2013-04-12-symfony2-how-to-mock-services-during-functional-tests.md" target="_blank">
+                        edit this post
+                      </a>.
+                    Thank you so much!
+                  </p>
+                                          </div>
+          </div>
+        
+                  <div class="row comments">
+          <div class="span10 offset1 content">
+              <div id="disqus_thread"></div>
+          </div>
+      </div>
+                  <footer>
+            <p>
+              &copy;
+                              <a href="http://gregoirepineau.fr">
+                  Grégoire Pineau
+                </a>
+                            2013
+              <small>
+                with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
+              </small>
+            </p>
+          </footer>
+        
+      </div>
+    
+    
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
+                    var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-4212683-8']);
+                        _gaq.push(['_trackPageview']);
+                        (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+            <script type="text/javascript">
+            var disqus_shortname = 'lyrixxblog';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+      </body>
+</html>
