@@ -4,7 +4,7 @@ title:  What my sismo configuration looks like?
 ---
 
 [Sismo](http://sismo.sensiolabs.org/) is a Continuous Testing Server written in
-PHP. I build all projects I'm working on with it.
+PHP. It builds all projects I'm working on with it.
 
 It's very fast to set up a newproject, but it's a little but boring. So I want
 to share my `~/.sismo/config.php` and a little script to set-up a new project.
