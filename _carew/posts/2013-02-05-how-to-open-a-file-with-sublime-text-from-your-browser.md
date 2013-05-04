@@ -19,7 +19,7 @@ with sublime text 2 at the line `10`. To do that, you have to register a new
 
 When did it happend ? When a fatal error or an exception is throwed by php:
 
-![Xdebug]({{ relativeRoot}}/images/xdebug.png)
+![Xdebug](<{{ carew.relativeRoot }}/images/xdebug.png>)
 
 With this tip `/opt/dotefiles/www/fail.php` is clickable.
 

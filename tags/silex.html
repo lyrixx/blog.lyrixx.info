@@ -7,18 +7,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>What my sismo configuration looks like?</title>
+    <title>Tag #Silex</title>
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
     <meta name="viewport" content="width=device-width">
 
     
-    <link rel="canonical" href="http://blog.lyrixx.info/2013/02/07/what-is-look-like-my-sismo-config.html"/>
+    <link rel="canonical" href="http://blog.lyrixx.info/tags/silex.html"/>
               <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
       
-        <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
-    <script src="../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+        <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
+    <script src="../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
   <body>
@@ -36,7 +36,7 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="../../..">LyRiXx Blog</a>
+                  <a class="brand" href="..">LyRiXx Blog</a>
                   <div class="nav-collapse collapse">
                     <ul class="nav">
                                                                                           </ul>
@@ -71,84 +71,14 @@
                   <div class="row">
             <div class="span10 offset1 content">
                                                 <div class="page-header">
-                    <h1>What my sismo configuration looks like?</h1>
+                    <h1>Tag #Silex</h1>
                   </div>
                               
-                <article>
-    <div class="pull-right date">
-      <i class="icon-calendar"></i>
-      Feb 7th, 2013
-    </div>
-
-    <div class="body">
-      <p><a href="http://sismo.sensiolabs.org/">Sismo</a> is a Continuous Testing Server written in
-PHP. It builds all projects I'm working on with it.</p>
-<p>It's very fast to set up a newproject, but it's a little but boring. So I want
-to share my <code>~/.sismo/config.php</code> and a little script to set-up a new project.</p>
-<pre><code>&lt;?php
-
-// ~/.sismo/config.php
-
-Sismo\Project::setDefaultCommand('if [ -f composer.json ]; then composer install --dev; fi &amp;&amp; phpunit');
-
-$notifier = new Sismo\Notifier\DBusNotifier();
-
-$sfCommand = &lt;&lt;&lt;'EOL'
-cp app/config/parameters.yml-dist app/config/parameters.yml
-
-sed -i -e "s/database_user:.*/database_user: greg/" app/config/parameters.yml
-sed -i -e "s/database_password:.*/database_password: ~/" app/config/parameters.yml
-
-./bin/run-tests.sh
-EOL;
-
-$projects = array(
-    (new Sismo\Project(ucfirst('monolog'), '/home/greg/dev/labs/monolog', $notifier)),
-    (new Sismo\Project('Project FOO', '/home/greg/dev/project/foo', $notifier))-&gt;setCommand($sfCommand),
-    // ...
-);
-
-return $projects;</code></pre>
-<p>And then the little script to set up the <strong>post commit hook</strong> and <code>config.php</code>.</p>
-<ol><li>Put this command in your <code>$PATH</code> (like <code>/usr/local/bin/sismo-add</code>)</li>
-<li>Adapt the <code>SISMO_PATH</code></li>
-<li>Then call it from a git project that you want to test with sismo</li>
-</ol><p>The script:</p>
-<pre><code>#!/bin/bash
-
-SISMO_PATH=$HOME/dev/labs/sismo/sismo
-
-#/usr/local/bin/sismo-add
-
-######################################
-# Do not change code after this line #
-######################################
-
-BASE_PATH=`pwd`
-SLUG=`basename $BASE_PATH`
-
-cat &gt; $BASE_PATH/.git/hooks/post-commit &lt;&lt;EOL
-#!/bin/bash
-
-$SISMO_PATH build $SLUG \`git log -1 HEAD --pretty="%H"\` --force --quiet &amp;
-EOL
-
-chmod +x $BASE_PATH/.git/hooks/post-commit
-
-SISMO_PROJECT="    (new Sismo\\\\Project(ucfirst('$SLUG'), '$BASE_PATH', \$notifier)),"
-
-sed -ie "s#\(\$projects = array(\)#\1\n$SISMO_PROJECT#" $HOME/.sismo/config.php</code></pre>
-    </div>
-
-      </article>
-            </div>
+              <p><ul class="unstyled" style="padding-left:30px"><li class=""><h5><a href="../silex/silex-kitchen-edition.html"><i class="icon-book"></i>
+                                Silex kitchen edition
+                                <small>(2011-10-24)</small></a></h5></li></ul></p>            </div>
           </div>
         
-                  <div class="row comments">
-          <div class="span10 offset1 content">
-              <div id="disqus_thread"></div>
-          </div>
-      </div>
                   <footer>
             <p>
               &copy;
@@ -161,18 +91,8 @@ sed -ie "s#\(\$projects = array(\)#\1\n$SISMO_PROJECT#" $HOME/.sismo/config.php<
               </small>
             </p>
           </footer>
-        
-      </div>
+              </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
-            <script type="text/javascript">
-            var disqus_shortname = 'lyrixxblog';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-      </body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>  </body>
 </html>

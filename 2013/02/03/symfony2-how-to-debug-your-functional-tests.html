@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/2013/02/03/symfony2-how-to-debug-your-functional-tests.html"/>
-    <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/2013/02/03/symfony2-how-to-debug-your-functional-tests.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -83,10 +84,8 @@
       <p>When you write functional tests with <strong>symfony2</strong> and <strong>phpunit</strong>, it could be
 hard to debug them if an exception happened. You can try to <code>var_dump</code> the
 response, but since you ran tests from cli, the output is totally unreadable.</p>
-
 <p>So there is a very usefull way to view what happening. You should add
 <code>echo $this-&gt;client-&gt;getReponse()-&gt;getContent();die;</code>:</p>
-
 <pre><code>namespace MyBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -103,29 +102,21 @@ class UserControllerTest extends WebTestCase
         // $this-&gt;assertOk($this-&gt;client);
         // ...
     }
-}
-</code></pre>
-
+}</code></pre>
 <p>And then run your test:</p>
-
-<pre><code>phpunit --filter testRegister path/to/the/test/UserControllerTest.php &gt; web/debug.html
-</code></pre>
-
+<pre><code>phpunit --filter testRegister path/to/the/test/UserControllerTest.php &gt; web/debug.html</code></pre>
 <p>And now, you can browse <code>http://yourpoject.localhost/debug.html</code> with your favorite browser.</p>
-
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../../../tags/symfony2.html">Symfony2</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2013-02-03-symfony2-how-to-debug-your-functional-tests.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -139,7 +130,7 @@ class UserControllerTest extends WebTestCase
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -149,16 +140,7 @@ class UserControllerTest extends WebTestCase
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {

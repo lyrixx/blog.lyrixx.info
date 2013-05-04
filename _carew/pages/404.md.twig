@@ -1,0 +1,20 @@
+---
+title: 404 - Oups
+description: The page can not be found
+layout: 404
+---
+
+Hello
+-----
+
+**The page can not be found...**
+
+[Go to the homepage](/)
+
+But you can read the latests blog post:
+
+<ul>
+    {% for post in carew.posts|slice(-3) %}
+        <li><a href="/{{ post.path }}">{{ post.title }}</a></li>
+    {% endfor %}
+</ul>

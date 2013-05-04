@@ -14,9 +14,3 @@ engine:
     themes:
         - %dir%/vendor/lyrixx/my-theme-bootstrap
         - %dir%/vendor/carew/theme-bootstrap
-    extensions:
-        # - Carew\Plugin\Highlight\HighlightExtension
-        - Carew\Plugin\Pagination\PaginationExtension
-
-pagination:
-    max_per_page: 10

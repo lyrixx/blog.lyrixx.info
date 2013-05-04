@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/ubuntu/lister-ses-films.html"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/ubuntu/lister-ses-films.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -81,17 +82,13 @@
 
     <div class="body">
       <p>Un petit script bash (donc pour linux/mac) pour lister tous les films qui
-peuvent trainer dans plusieurs répertoires et sous répertoires…</p>
-
+peuvent trainer dans plusieurs r&eacute;pertoires et sous r&eacute;pertoires&hellip;</p>
 <pre><code>wget https://gist.github.com/raw/1008082/dc6cdb8ae50bd981ae9458cc270f96de41583718/movieList.sh
 chmod +x movieList.sh
 # Configure VIDEO_FOLDER
 ./movieList.sh
-cat movie_list.txt
-</code></pre>
-
+cat movie_list.txt</code></pre>
 <p>Script :</p>
-
 <pre><code>#!/bin/bash
 
 VIDEO_FOLDER=(
@@ -116,22 +113,18 @@ do
 done
 
 `cat $OUTPUT_TEMP | awk -F "/" '{print $NF;}' | sort | uniq &gt; $OUTPUT`
-`rm $OUTPUT_TEMP`
-</code></pre>
-
+`rm $OUTPUT_TEMP`</code></pre>
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../tags/bash.html">Bash</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2011-06-05-lister-ses-films.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -145,7 +138,7 @@ done
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -155,16 +148,7 @@ done
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {

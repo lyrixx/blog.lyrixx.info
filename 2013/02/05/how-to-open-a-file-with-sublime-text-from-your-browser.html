@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html"/>
-    <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/2013/02/05/how-to-open-a-file-with-sublime-text-from-your-browser.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -81,36 +82,24 @@
 
     <div class="body">
       <p><strong>Note:</strong> This work only with ubuntu.</p>
-
-<h2>Why?</h2>
-
+<h2 id="why">Why?<a href="#why" class="anchor">#</a></h2>
 <p>If you are doing some <strong>php with sublime text 2</strong>, this tips will enjoy your
 day. You can configure your system (ubuntu, may be other other distro too) to
 handle links like <code>subl:///tmp/file.txt?10</code> to open the file <code>/tmp/file.txt</code>
 with sublime text 2 at the line <code>10</code>. To do that, you have to register a new
 <strong>protocol handler</strong>, and to configure <strong>xdebug</strong>.</p>
-
 <p>When did it happend ? When a fatal error or an exception is throwed by php:</p>
-
-<p><img src="../../../images/xdebug.png" alt="Xdebug" /></p>
-
+<p><img alt="Xdebug" src="<../../../images/xdebug.png>"></p>
 <p>With this tip <code>/opt/dotefiles/www/fail.php</code> is clickable.</p>
-
 <p><strong>Note:</strong> If you are using symfony2 all files in an exception page, or the web
 developper toolbar will be clickable!!!</p>
-
-<h2>How?</h2>
-
+<h2 id="how">How?<a href="#how" class="anchor">#</a></h2>
 <p>Start by editing <code>~/.local/share/applications/mimeapps.list</code>:</p>
-
 <pre><code>[Added Associations]
 # ...
-x-scheme-handler/subl=subl-urlhandler.desktop
-</code></pre>
-
+x-scheme-handler/subl=subl-urlhandler.desktop</code></pre>
 <p>Then create the file <code>/usr/share/applications/subl-urlhandler.desktop</code>. (This is
 a fake application):</p>
-
 <pre><code>[Desktop Entry]
 Version=1.0
 Name=Sublime Text 2
@@ -121,48 +110,36 @@ Terminal=false
 Type=Application
 Categories=Development;
 StartupNotify=true
-MimeType=x-scheme-handler/subl;
-</code></pre>
-
+MimeType=x-scheme-handler/subl;</code></pre>
 <p>And then create the file <code>/usr/local/bin/xdebug-urlhandler</code>:</p>
-
 <pre><code>#!/bin/bash
 
 url=$1
 file=${url#subl*//}
 path=`echo $file | cut -d? -f 1`
 line=`echo $file | cut -d? -f 2`
-sublime-text $path:$line
-</code></pre>
-
+sublime-text $path:$line</code></pre>
 <p>You should run:</p>
-
-<pre><code>sudo chmod +x /usr/local/bin/xdebug-urlhandler
-</code></pre>
-
+<pre><code>sudo chmod +x /usr/local/bin/xdebug-urlhandler</code></pre>
 <p>And now you have to configure xdebug <code>/etc/php5/conf.d/90-my.ini</code>:</p>
-
 <pre><code>[PHP]
-xdebug.file_link_format=subl://%f?%l
-</code></pre>
-
+xdebug.file_link_format=subl://%f?%l</code></pre>
 <p>Thinks to restart <code>apache</code> or <code>php-fpm</code>. <strong>Enjoy</strong></p>
-
 <p><a href="https://gist.github.com/svizion/3654834">Source</a></p>
-
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../../../tags/sublime-text-2.html">Sublime Text 2</a>
+          </li>
+                  <li>
+            <a href="../../../tags/xdebug.html">Xdebug</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2013-02-05-how-to-open-a-file-with-sublime-text-from-your-browser.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -176,7 +153,7 @@ xdebug.file_link_format=subl://%f?%l
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -186,16 +163,7 @@ xdebug.file_link_format=subl://%f?%l
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {

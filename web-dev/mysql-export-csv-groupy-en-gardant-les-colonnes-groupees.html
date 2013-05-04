@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/web-dev/mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -80,57 +81,43 @@
     </div>
 
     <div class="body">
-      <p>Petit tips avec MySQL. Admettons que vous voulez faire un export en csv d’une
-table (A). Dans ce cas, c’est facile, il suffit d’utiliser « INTO OUTFILE ». Par
-contre, si vous avez une jointure (A -> B), c’est plus compliqué.</p>
-
+      <p>Petit tips avec MySQL. Admettons que vous voulez faire un export en csv d&rsquo;une
+table (A). Dans ce cas, c&rsquo;est facile, il suffit d&rsquo;utiliser &laquo;&nbsp;INTO OUTFILE&nbsp;&raquo;. Par
+contre, si vous avez une jointure (A -&gt; B), c&rsquo;est plus compliqu&eacute;.</p>
 <p>Il y a plusieurs solutions : soit on se retrouve avec plusieurs ligne de la
-table A en double, puis à « droite » de ces lignes , les colonnes de la table B.</p>
-
+table A en double, puis &agrave; &laquo;&nbsp;droite&nbsp;&raquo; de ces lignes , les colonnes de la table B.</p>
 <p>Soit on utilise la fonction <a href="dev.mysql.com/doc/refman/5.0/fr/group-by-functions.html#id441997">group_concat</a>; et un petit hack ;)</p>
-
 <p>Exemple :</p>
-
-<pre><code>SELECT c.id, c.first_name, c.last_name, GROUP_CONCAT(CONCAT(p.bar_code, '||', p.quantity, '||', p.date) SEPARATOR "||")
+<pre><code>SELECT c.id, c.first_name, c.last_name,&nbsp;GROUP_CONCAT(CONCAT(p.bar_code, '||', p.quantity, '||', p.date) SEPARATOR "||")
     FROM contact c
     LEFT JOIN product p on (c.id = p.contact_id)
     GROUP BY c.id
     INTO OUTFILE '/tmp/export.csv' FIELDS TERMINATED BY ';' OPTIONALLY ENCLOSED BY '"'
-;
-</code></pre>
-
-<p>On fait notre jointure normalement, on group by sur c.id, et c’est dans le
-select qu’il y a une peu de magie. On va d’abord concaténer les attributs de la
-table « product » avec comme séparateur deux pipes « || ». Et ensuite, on va
-concaténer toutes les valeurs résultantes de la fonction GROUP BY.</p>
-
+;</code></pre>
+<p>On fait notre jointure normalement, on group by sur c.id, et c&rsquo;est dans le
+select qu&rsquo;il y a une peu de magie. On va d&rsquo;abord concat&eacute;ner les attributs de la
+table &laquo;&nbsp;product&nbsp;&raquo; avec comme s&eacute;parateur deux pipes &laquo;&nbsp;||&nbsp;&raquo;. Et ensuite, on va
+concat&eacute;ner toutes les valeurs r&eacute;sultantes de la fonction GROUP BY.</p>
 <p>Enfin, il va falloir remplacer tous nos doubles pipes (<code>||</code>) par <code>;</code> qui
-correspond a nos délimiteurs de champs.</p>
-
-<pre><code>sed -i 's/||/";"/g' /tmp/export.csv
-</code></pre>
-
-<p>Et voila, vous avec un beau fichier CSV bien formaté ;) Ici le hack c’est de
-remplacer un délimiteur un peu spécial « || » par un vrai délimiteur, a
+correspond a nos d&eacute;limiteurs de champs.</p>
+<pre><code>sed -i 's/||/";"/g' /tmp/export.csv</code></pre>
+<p>Et voila, vous avec un beau fichier CSV bien format&eacute; ;) Ici le hack c&rsquo;est de
+remplacer un d&eacute;limiteur un peu sp&eacute;cial &laquo;&nbsp;||&nbsp;&raquo; par un vrai d&eacute;limiteur, a
 posteriori.</p>
-
-<p>P.S. : Il se peut que mysql exporte le fichier csv avec l’utilisateur mysql.
-Vous n’aurez donc pas les droits pour le lire et/ou le modifier. Il faut donc
+<p>P.S. : Il se peut que mysql exporte le fichier csv avec l&rsquo;utilisateur mysql.
+Vous n&rsquo;aurez donc pas les droits pour le lire et/ou le modifier. Il faut donc
 passer en root ;).</p>
-
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../tags/mysql.html">Mysql</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2012-02-01-mysql-export-csv-groupy-en-gardant-les-colonnes-groupees.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -144,7 +131,7 @@ passer en root ;).</p>
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -154,16 +141,7 @@ passer en root ;).</p>
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {

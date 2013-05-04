@@ -8,7 +8,7 @@ tags:
 ---
 
 <div class="pull-right">
-    <img src="{{ relativeRoot }}/images/silex.png" alt="Silex">
+    <img src="{{ carew.relativeRoot }}/images/silex.png" alt="Silex">
 </div>
 
 **Silex est un micro-framework** (en php) basé sur les **composants symfony2**.

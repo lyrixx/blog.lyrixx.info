@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/web-dev/sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -81,58 +82,44 @@
 
     <div class="body">
       <p>Salut,</p>
-
-<p>Si comme moi vous utilisez sublime text 2 pour développer, vous allez apprécier
+<p>Si comme moi vous utilisez sublime text 2 pour d&eacute;velopper, vous allez appr&eacute;cier
 ce petit tips. Par exemple quand vous avez une erreur 500 et / ou une fatal
-erreur, xdebug vous affiche la backtrace avec le nom des fichiers. Grâce a ce
-hacks, <strong>il est possible d’ouvrir directement dans sublimetext le fichier
+erreur, xdebug vous affiche la backtrace avec le nom des fichiers. Gr&acirc;ce a ce
+hacks, <strong>il est possible d&rsquo;ouvrir directement dans sublimetext le fichier
 correspondant</strong>.</p>
-
-<h2>Configuration de Xdebug :</h2>
-
+<h2 id="configuration-de-xdebug">Configuration de Xdebug :<a href="#configuration-de-xdebug" class="anchor">#</a></h2>
 <p>dans le fichier xdebug.ini (ou directement dans php.ini) il faut ajouter la
 ligne suivante :</p>
-
-<pre><code>xdebug.file_link_format=sblm://%f?%l
-</code></pre>
-
-<p>Puis redémarrer apache ou php-fpm …</p>
-
-<h2>Configuration de sublime text</h2>
-
+<pre><code>xdebug.file_link_format=sblm://%f?%l</code></pre>
+<p>Puis red&eacute;marrer apache ou php-fpm &hellip;</p>
+<h2 id="configuration-de-sublime-text">Configuration de sublime text<a href="#configuration-de-sublime-text" class="anchor">#</a></h2>
 <p>Il faut ajouter <a href="https://bitbucket.org/sublimator/sublimeprotocol/src/">ce
 package</a> dans la liste
-des packages. Il suffit de dézipper le contenue de l’archive dans le dossier
-package de sublime text 2, disponssible via le menu « Preference > Browse
-Package »</p>
-
-<p>Et voila le tours est joué ;)</p>
-
-<h2>Attention</h2>
-
-<p>Cela ne marche pour l’instant que sur windows. Je pense que c’est assez
+des packages. Il suffit de d&eacute;zipper le contenue de l&rsquo;archive dans le dossier
+package de sublime text 2, disponssible via le menu &laquo; Preference &gt; Browse
+Package&nbsp;&raquo;</p>
+<p>Et voila le tours est jou&eacute; ;)</p>
+<h2 id="attention">Attention<a href="#attention" class="anchor">#</a></h2>
+<p>Cela ne marche pour l&rsquo;instant que sur windows. Je pense que c&rsquo;est assez
 simple de faire la meme choses pour linux.</p>
-
-<h2>Source</h2>
-
-<ul>
-<li><a href="http://www.sublimetext.com/forum/viewtopic.php?f=4&amp;t=116&amp;start=10">Topic du forum</a></li>
+<h2 id="source">Source<a href="#source" class="anchor">#</a></h2>
+<ul><li><a href="http://www.sublimetext.com/forum/viewtopic.php?f=4&amp;t=116&amp;start=10">Topic du forum</a></li>
 <li><a href="http://www.koch.ro/blog/index.php?/archives/77-Firefox,-VIM,-Xdebug-Jumping-to-the-error-line.html">Astuce pour VIM</a></li>
 </ul>
-
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../tags/sublime-text-2.html">Sublime Text 2</a>
+          </li>
+                  <li>
+            <a href="../tags/xdebug.html">Xdebug</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2012-02-23-sublime-text-2-et-xdebug-liens-cliquables-sur-les-fichiers.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -146,7 +133,7 @@ simple de faire la meme choses pour linux.</p>
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -156,16 +143,7 @@ simple de faire la meme choses pour linux.</p>
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {

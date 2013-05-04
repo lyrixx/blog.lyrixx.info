@@ -4,6 +4,7 @@ title:  Symfony2: Snippet to render all form errors
 tags:
     - Symfony2
 ---
+{% verbatim %}
 
 With symfony 2, you can render all errors from a form with a little macro. You
 can use it for only one form, or for all your application
@@ -84,3 +85,5 @@ And override the `form_errors` block:
         {% endif %}
     {% endspaceless %}
     {% endblock %}
+
+{% endverbatim %}

@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/symfony/symfony2-en-video.html"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/symfony/symfony2-en-video.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../css/bootstrap.min.css"><link rel="stylesheet" href="../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -80,33 +81,28 @@
     </div>
 
     <div class="body">
-      <p>Voici l’évolution du code source de <a href="http://symfony.com/"
-target="_blank">symfony2</a> réalisé grâce à <a
-href="http://code.google.com/p/gource/" target="_blank">gource</a>, ffmpef,
+      <p>Voici l&rsquo;&eacute;volution du code source de &lt;a href="<a href="http://symfony.com">http://symfony.com</a>/"
+target="_blank"&gt;symfony2 r&eacute;alis&eacute; gr&acirc;ce &agrave; &lt;a
+href="<a href="http://code.google.com/p/gource">http://code.google.com/p/gource</a>/" target="_blank"&gt;gource, ffmpef,
 pitivi et ubuntu ;)</p>
-
 <iframe width="853" height="480" src="http://www.youtube.com/embed/164Z1gyqk6M" frameborder="0" allowfullscreen></iframe>
-
-<p>(Il est possible de voir la vidéo en HD)</p>
-
-<p>La ligne de commande qui a permit le résultat:</p>
-
-<pre><code>gource --title "Symfony2" -s .25 --file-idle-time 600  --auto-skip-seconds 1 -1920x1080 --output-framerate 30 --stop-at-end --max-files 1000000 --bloom- multiplier 1.1 --bloom-intensity .25 --background 101010  --highlight-dirs --highlight-users --hide filenames,date,progress --output-ppm-stream - | nice -n19 ffmpeg -y -b 3000k -r 30 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 22 -threads 0 symfony.avi
-</code></pre>
-
+<p>(Il est possible de voir la vid&eacute;o en HD)</p>
+<p>La ligne de commande qui a permit le r&eacute;sultat:</p>
+<pre><code>gource --title "Symfony2" -s .25 --file-idle-time 600&nbsp; --auto-skip-seconds 1 -1920x1080 --output-framerate 30 --stop-at-end --max-files 1000000 --bloom- multiplier 1.1 --bloom-intensity .25 --background 101010&nbsp; --highlight-dirs --highlight-users --hide filenames,date,progress --output-ppm-stream - | nice -n19 ffmpeg -y -b 3000k -r 30 -f image2pipe -vcodec ppm -i - -vcodec libx264 -vpre hq -crf 22 -threads 0 symfony.avi</code></pre>
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../tags/gource.html">Gource</a>
+          </li>
+                  <li>
+            <a href="../tags/symfony2.html">Symfony2</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2011-01-03-symfony2-en-video.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -120,7 +116,7 @@ pitivi et ubuntu ;)</p>
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -130,16 +126,7 @@ pitivi et ubuntu ;)</p>
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {

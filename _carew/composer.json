@@ -11,13 +11,8 @@
         }
     ],
     "require": {
-        "carew/carew"               : "dev-master",
-        "carew/theme-bootstrap"     : "dev-master",
-        "carew/plugin-highlight"    : "dev-master",
-        "carew/plugin-pagination"   : "dev-master",
-        "carew/plugin-sami"         : "dev-master",
-        "carew/plugin-toc"          : "dev-master",
-        "lyrixx/my-theme-bootstrap" : "dev-master"
-    },
-    "minimum-stability": "dev"
+        "carew/carew" : "~2.0@dev",
+        "carew/theme-bootstrap" : "~2.0@dev",
+        "lyrixx/my-theme-bootstrap" : "~2.0@dev"
+    }
 }

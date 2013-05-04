@@ -11,12 +11,13 @@
 
     <meta name="description" content="Web Dev, PHP, Symfony, Open Source">
     <meta name="author" content="Grégoire Pineau">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
 
     
-        <link rel="alternate" href="http://feeds.feedburner.com/lyrixblog" type="application/atom+xml" title="LyRiXx Blog"/>
-      <link rel="canonical" href="http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html"/>
-    <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">
+    <link rel="canonical" href="http://blog.lyrixx.info/2013/01/31/symfony2-snippet-to-render-all-form-error.html"/>
+              <link rel="alternate" href="http://blog.lyrixx.info/feed/atom.xml" type="application/atom+xml" title="LyRiXx Blog"/>
+      
+        <link rel="stylesheet" href="../../../css/bootstrap.min.css"><link rel="stylesheet" href="../../../css/bootstrap-responsive.min.css"><link rel="stylesheet" href="../../../css/main.css"><link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/pojoaque.min.css">    
     <script src="../../../js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   </head>
 
@@ -80,11 +81,10 @@
     </div>
 
     <div class="body">
-      <p>With symfony 2, you can render all errors from a form with a little macro. You
+      <p></p>
+<p>With symfony 2, you can render all errors from a form with a little macro. You
 can use it for only one form, or for all your application</p>
-
-<h3>The macro</h3>
-
+<h3 id="the-macro">The macro<a href="#the-macro" class="anchor">#</a></h3>
 <pre><code>{# MyBundle:form.html.twig #}
 
 {% macro display_error(form) %}
@@ -110,13 +110,9 @@ can use it for only one form, or for all your application</p>
             &lt;/li&gt;
         {% endfor %}
     &lt;/ul&gt;
-{% endmacro %}
-</code></pre>
-
-<h3>Usage</h3>
-
-<h4>Just for one form:</h4>
-
+{% endmacro %}</code></pre>
+<h3 id="usage">Usage<a href="#usage" class="anchor">#</a></h3>
+<h4 id="just-for-one-form">Just for one form:<a href="#just-for-one-form" class="anchor">#</a></h4>
 <pre><code>{# MyBundle:User:new.html.twig #}
 
 {% import "MyBundle:form.html.twig" as macros %}
@@ -129,21 +125,14 @@ can use it for only one form, or for all your application</p>
         &lt;p&gt;&lt;strong&gt;Change a few things up and try submitting again.&lt;/strong&gt;&lt;/p&gt;
         {{ macros.display_project_error(form) }}
     &lt;/div&gt;
-{% endif %}
-</code></pre>
-
-<h4>For all you application</h4>
-
+{% endif %}</code></pre>
+<h4 id="for-all-you-application">For all you application<a href="#for-all-you-application" class="anchor">#</a></h4>
 <p>Add the layout in your <code>config.yml</code>:</p>
-
 <pre><code>twig:
     form:
         resources:
-            - MyBundle::form_div_layout.html.twig
-</code></pre>
-
+            - MyBundle::form_div_layout.html.twig</code></pre>
 <p>And override the <code>form_errors</code> block:</p>
-
 <pre><code>{# form_div_layout.html.twig #}
 
 {% block form_errors %}
@@ -161,22 +150,19 @@ can use it for only one form, or for all your application</p>
         {{ parent() }}
     {% endif %}
 {% endspaceless %}
-{% endblock %}
-</code></pre>
-
+{% endblock %}</code></pre>
+<p></p>
     </div>
 
+          <hr>
+      <h4>Tags:</h4>
+      <ul class="tag_box inline">
+                  <li>
+            <a href="../../../tags/symfony2.html">Symfony2</a>
+          </li>
+              </ul>
       </article>
-
-                                                <br />
-                  <p>
-                    By the way, if you found a typo, please
-                      <a href="https://github.com/lyrixx/blog.lyrixx.info/edit/master/_carew/posts/2013-01-31-symfony2-snippet-to-render-all-form-error.md" target="_blank">
-                        edit this post
-                      </a>.
-                    Thank you so much!
-                  </p>
-                                          </div>
+            </div>
           </div>
         
                   <div class="row comments">
@@ -190,7 +176,7 @@ can use it for only one form, or for all your application</p>
                               <a href="http://gregoirepineau.fr">
                   Grégoire Pineau
                 </a>
-                            2013
+                            2014
               <small>
                 with help from <a href="http://carew.github.com/" target="_blank">Carew</a>
               </small>
@@ -200,16 +186,7 @@ can use it for only one form, or for all your application</p>
       </div>
     
     
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">
-                    var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-4212683-8']);
-                        _gaq.push(['_trackPageview']);
-                        (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-            </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script><script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.9.0.min.js"><\/script>')</script><script src="../../../js/vendor/bootstrap.min.js"></script><script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script>
             <script type="text/javascript">
             var disqus_shortname = 'lyrixxblog';
             (function() {
