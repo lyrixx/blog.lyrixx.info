@@ -51,7 +51,7 @@ can use it for only one form, or for all your application
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h3>Oh snap!</h3>
             <p><strong>Change a few things up and try submitting again.</strong></p>
-            {{ macros.display_project_error(form) }}
+            {{ macros.display_error(form) }}
         </div>
     {% endif %}
 
