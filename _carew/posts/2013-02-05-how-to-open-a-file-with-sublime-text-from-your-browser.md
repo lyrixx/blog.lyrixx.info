@@ -19,7 +19,7 @@ with sublime text 2 at the line `10`. To do that, you have to register a new
 
 When did it happend ? When a fatal error or an exception is throwed by php:
 
-![Xdebug](<{{ carew.relativeRoot }}/images/xdebug.png>)
+![Xdebug]({{ carew.relativeRoot }}/images/xdebug.png)
 
 With this tip `/opt/dotefiles/www/fail.php` is clickable.
 
@@ -52,13 +52,9 @@ a fake application):
 
 And then create the file `/usr/local/bin/xdebug-urlhandler`:
 
-    #!/bin/bash
-
-    url=$1
-    file=${url#subl*//}
-    path=`echo $file | cut -d? -f 1`
-    line=`echo $file | cut -d? -f 2`
-    sublime-text $path:$line
+    #!/usr/bin/env bash
+    request=${1:7}
+    sublime-text $request
 
 You should run:
 
@@ -67,7 +63,7 @@ You should run:
 And now you have to configure xdebug `/etc/php5/conf.d/90-my.ini`:
 
     [PHP]
-    xdebug.file_link_format=subl://%f?%l
+    xdebug.file_link_format=subl://%f:%l
 
 Thinks to restart `apache` or `php-fpm`. **Enjoy**
 
