@@ -179,7 +179,7 @@ handle links like <code>subl:///tmp/file.txt?10</code> to open the file <code>/t
 with sublime text 2 at the line <code>10</code>. To do that, you have to register a new
 <strong>protocol handler</strong>, and to configure <strong>xdebug</strong>.</p>
 <p>When did it happend ? When a fatal error or an exception is throwed by php:</p>
-<p><img alt="Xdebug" src="<../../../images/xdebug.png>"></p>
+<p><img alt="Xdebug" src="../../../images/xdebug.png"></p>
 <p>With this tip <code>/opt/dotefiles/www/fail.php</code> is clickable.</p>
 <p><strong>Note:</strong> If you are using symfony2 all files in an exception page, or the web
 developper toolbar will be clickable!!!</p>
@@ -202,18 +202,14 @@ Categories=Development;
 StartupNotify=true
 MimeType=x-scheme-handler/subl;</code></pre>
 <p>And then create the file <code>/usr/local/bin/xdebug-urlhandler</code>:</p>
-<pre><code>#!/bin/bash
-
-url=$1
-file=${url#subl*//}
-path=`echo $file | cut -d? -f 1`
-line=`echo $file | cut -d? -f 2`
-sublime-text $path:$line</code></pre>
+<pre><code>#!/usr/bin/env bash
+request=${1:7}
+sublime-text $request</code></pre>
 <p>You should run:</p>
 <pre><code>sudo chmod +x /usr/local/bin/xdebug-urlhandler</code></pre>
 <p>And now you have to configure xdebug <code>/etc/php5/conf.d/90-my.ini</code>:</p>
 <pre><code>[PHP]
-xdebug.file_link_format=subl://%f?%l</code></pre>
+xdebug.file_link_format=subl://%f:%l</code></pre>
 <p>Thinks to restart <code>apache</code> or <code>php-fpm</code>. <strong>Enjoy</strong></p>
 <p><a href="https://gist.github.com/svizion/3654834">Source</a></p>]]></content>
     </entry>
@@ -303,7 +299,7 @@ can use it for only one form, or for all your application</p>
         &lt;button type="button" class="close" data-dismiss="alert"&gt;&amp;times;&lt;/button&gt;
         &lt;h3&gt;Oh snap!&lt;/h3&gt;
         &lt;p&gt;&lt;strong&gt;Change a few things up and try submitting again.&lt;/strong&gt;&lt;/p&gt;
-        {{ macros.display_project_error(form) }}
+        {{ macros.display_error(form) }}
     &lt;/div&gt;
 {% endif %}</code></pre>
 <h4 id="for-all-you-application">For all you application<a href="#for-all-you-application" class="anchor">#</a></h4>
