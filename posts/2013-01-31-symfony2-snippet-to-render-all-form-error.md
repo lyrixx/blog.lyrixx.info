@@ -73,12 +73,11 @@ And override the `form_errors` block:
     {% spaceless %}
         {% import "MyBundle:form.html.twig" as macros %}
         {% if not form.parent and not form.vars.valid %}
-             {% import _self as forms %}
             <div class="alert alert-block alert-error">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <h3>Oh snap!</h3>
                 <p><strong>Change a few things up and try submitting again.</strong></p>
-                {{ macros.display_project_error(form) }}
+                {{ macros.display_error(form) }}
             </div>
         {% else %}
             {{ parent() }}
