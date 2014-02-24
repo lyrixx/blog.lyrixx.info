@@ -10,7 +10,7 @@ hard to debug them if an exception happened. You can try to `var_dump` the
 response, but since you ran tests from cli, the output is totally unreadable.
 
 So there is a very usefull way to view what happening. You should add
-`echo $this->client->getReponse()->getContent();die;`:
+`echo $this->client->getResponse()->getContent();die;`:
 
     namespace MyBundle\Tests\Controller;
 
@@ -22,7 +22,7 @@ So there is a very usefull way to view what happening. You should add
         {
             $this->client->request('GET', '/register');
 
-            echo $this->client->getReponse()->getContent();die;// Just add this line
+            echo $this->client->getResponse()->getContent();die;// Just add this line
 
             // Perform some test
             // $this->assertOk($this->client);
