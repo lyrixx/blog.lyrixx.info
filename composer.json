@@ -12,6 +12,7 @@
     ],
     "require": {
         "carew/carew" : "~2.0@dev",
+        "psr/log": "~1.0",
         "carew/theme-bootstrap" : "~2.0@dev",
         "lyrixx/my-theme-bootstrap" : "~2.0@dev"
     }
