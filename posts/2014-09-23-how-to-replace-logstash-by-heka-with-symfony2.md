@@ -5,7 +5,7 @@ title:  How to replace Logstash by Heka with Symfony2
 
 I guess everybody know Logstash, the _L_ letter in the ELK stack.
 
-But I SensioLabs (my company) we prefer [hekad](https://hekad.readthedocs.org/en/v0.7.1/)
+But at SensioLabs (my company) we prefer [hekad](https://hekad.readthedocs.org/en/v0.7.1/)
 See [this comment](https://blog.mozilla.org/services/2013/04/30/introducing-heka/comment-page-1/#comment-163))
 to understand why.
 
