@@ -76,8 +76,9 @@ article > aside { grid-column: 2; align-self: start; margin: 0; color: var(--pen
 article > .highlight, article > pre { grid-column: 1 / -1; }
 article > p:first-child { font-size: 22.5px; line-height: 1.52; }
 article a { color: var(--pencil); text-decoration-thickness: 1px; text-underline-offset: .15em; }
-article > p:has(> img:only-child) { grid-column: 1 / -1; }
+article > p:has(> img:only-child:not([src$=".svg"])) { grid-column: 1 / -1; }
 article img { display: block; max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(12, 43, 84, .2); }
+article img[src$=".svg"] { border-radius: 0; box-shadow: none; }
 article .end { margin-top: 26px; color: var(--pencil); font: 500 29px/1.1 Caveat, cursive; }
 
 p, ul, ol, blockquote { margin: 0 0 1.05em; }
