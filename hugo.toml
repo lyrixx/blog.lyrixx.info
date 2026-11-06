@@ -1,0 +1,25 @@
+baseURL = "https://blog.lyrixx.info/"
+disableKinds = ["taxonomy", "term"]
+enableRobotsTXT = true
+locale = "en"
+title = "Grégoire Pineau"
+
+[markup.goldmark.extensions.extras.mark]
+enable = true
+
+[markup.goldmark.renderHooks.image]
+useEmbedded = "fallback"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+noClasses = false
+
+[outputs]
+home = ["html", "rss"]
+section = ["html"]
+
+[params]
+description = "A geek’s herbarium."
+github = "https://github.com/lyrixx"

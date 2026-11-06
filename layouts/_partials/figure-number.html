@@ -1,0 +1,8 @@
+{{- /* Counted from the oldest article, so that a figure keeps its number when a new article comes out. */ -}}
+{{- $number := 0 -}}
+{{- range $i, $post := (where site.RegularPages "Section" "posts").ByDate -}}
+  {{- if eq $post.RelPermalink $.RelPermalink -}}
+    {{- $number = add $i 1 -}}
+  {{- end -}}
+{{- end -}}
+{{- return $number -}}

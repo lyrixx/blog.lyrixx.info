@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | plainify | strings.TrimSpace | truncate 160 }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{ with site.Home.OutputFormats.Get "rss" -}}
+<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">
+{{ end -}}
+{{ with resources.Get "css/main.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+{{ end -}}
+{{ partial "opengraph.html" . }}
+</head>
+<body>
+{{ block "main" . }}{{ end }}
+</body>
+</html>

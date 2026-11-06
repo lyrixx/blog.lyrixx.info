@@ -1,0 +1,9 @@
+{{ define "main" }}
+<header class="band band-fern"><div class="wrap">
+{{ partial "top.html" . }}
+<section class="hero">
+<h1>A geek’s <span class="fix"><s>blog</s><b>herbarium</b></span>.</h1>
+</section>
+</div></header>
+<main class="wrap">{{ partial "post-list.html" . }}</main>
+{{ end }}
