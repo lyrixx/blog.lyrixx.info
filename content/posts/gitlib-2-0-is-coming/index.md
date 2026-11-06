@@ -43,7 +43,7 @@ In 1.x, the objects started `git` processes and parsed their output themselves. 
 - `CliDriver`, the default one, runs the `git` binary, like before
 - `LibGit2Driver`, experimental, runs libgit2 1.9 inside your PHP process, through FFI
 
-And switching is just one argument:
+To switch, pass it to `Repository`:
 
 ```php
 use Gitonomy\Git\Driver\Ffi\LibGit2Driver;
@@ -54,7 +54,7 @@ $repository = new Repository('/path/to/repository', driver: new LibGit2Driver())
 
 Why would you do that? Because `CliDriver` starts a process for every operation, and it costs a few milliseconds each time. With libgit2, there is no process to start. On the gitlib repository (350 commits), reading a commit goes from 3.1 ms to 0.3 ms, and reading a file from 18.5 ms to 0.7 ms.
 
-Easy, isn't it? So `LibGit2Driver` should be the default driver…
+So `LibGit2Driver` should be the default driver…
 
 ## But wait
 

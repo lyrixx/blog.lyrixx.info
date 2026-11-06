@@ -58,7 +58,7 @@ public function __invoke(LogRecord $record): LogRecord
 }
 ```
 
-Easy, isn't it? But wait. Vector has to use the date of the record, instead of the time it received it:
+But wait. Vector has to use the date of the record, instead of the time it received it:
 
 ```yaml
 .timestamp = parse_timestamp(.datetime, format: "%+") ?? now()

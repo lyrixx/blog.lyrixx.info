@@ -34,7 +34,7 @@ $converter->fromEmoji('fr', 'Hello 👋 🐘'); // Hello signe de la main élép
 $converter->toEmoji('slack', 'Hello :wave: :elephant:'); // Hello 👋 🐘
 ```
 
-Easy, isn't it? But symfony/emoji only converts shortcodes back to emoji. Names are ordinary words, so a simple `strtr()` would also replace them inside other words. In French, "chat" (cat) is also in "achat" (purchase).
+But symfony/emoji only converts shortcodes back to emoji. Names are ordinary words, so a simple `strtr()` would also replace them inside other words. In French, "chat" (cat) is also in "achat" (purchase).
 
 So the converter replaces whole words only, and it prefers the longest name:
 

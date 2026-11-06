@@ -22,6 +22,7 @@ fabriqué.
 - Donner son avis en une phrase et une raison. Pas de diatribe.
 - Admettre sans détour ce qui a raté et ce qu'on ne sait pas.
 - Une ou deux touches d'humour par article, en aparté, jamais de numéro comique.
+- Ne jamais dire qu'une chose est facile : elle ne le sera pas pour tout le monde.
 - Finir simplement. Pas de grande conclusion.
 
 ## Structure d'un article
@@ -54,8 +55,8 @@ not cover the why".
 ### Déroulé
 
 Le schéma le plus typique part d'une version simple, la casse, puis la répare :
-"Easy, isn't it?" puis "but there is something wrong with this.", ou "But wait a minute, `libuuid`
-does not work exactly like that."
+"but there is something wrong with this.", ou "But wait a minute, `libuuid` does not work exactly
+like that."
 
 Les articles d'enquête gardent les fausses pistes, c'est leur intérêt : "Nothing was wrong here.
 Bad news! Or good news: **PHP does not leak**."
@@ -68,7 +69,7 @@ qu'une astuce et tenir en 300 mots.
 
 ### Code
 
-- Annoncer le bloc par une phrase courte finie par deux-points : "And the usage is even simpler:".
+- Annoncer le bloc par une phrase courte finie par deux-points : "We'll also create an interface:".
 - Expliquer ensuite uniquement ce qui surprend, jamais ligne à ligne : "Have you noticed the
   `ContainerInterface $definitions`?".
 - Pour un gros bloc, dire ce qu'il faut en retenir et renvoyer vers le code complet.
@@ -121,7 +122,7 @@ le sujet ne s'y prête pas, s'en passer.
   of HTML. OK, I think I found the culprit."
 - And, But et So en début de phrase, très souvent (26 articles anglais sur 30).
 - Une question, puis sa réponse : "How can we achieve that?".
-- Mots familiers à garder sans en abuser : really, a bit, however, obviously, unfortunately, anyway,
+- Mots familiers à garder sans en abuser : really, a bit, however, unfortunately, anyway,
   "That's why", "You may wonder", "And that's all!".
 - « very » revient beaucoup. En enlever quand il y en a deux dans un paragraphe.
 
@@ -143,8 +144,7 @@ aseptiser le ton.
 
 ### À garder
 
-"Et Voilà!", "Oups!", "Cherry on top", "Easy, isn't it?", et les titres de partie posés comme une
-vraie question.
+"Et Voilà!", "Oups!", "Cherry on top", et les titres de partie posés comme une vraie question.
 
 ### À corriger
 
@@ -182,6 +182,11 @@ récents :
 - le ton de communiqué : "This is the headline change", "you get the best of both worlds" ;
 - le rythme fabriqué : énumérations en trois temps, phrases nominales en série, accroches et chutes
   travaillées, « not X but Y ».
+
+Ne jamais présenter une chose comme facile : ce sera toujours difficile pour quelqu'un, et cette
+personne se sentira frustrée. Pas de « easy », « simple », « simply », « obviously », « of course »,
+ni de « just » au sens de « il suffit de ». Les anciens articles écrivaient souvent "Easy, isn't
+it?" : ne plus le reprendre.
 
 Hérité de JoliCode, à ne pas reprendre : « nous » d'équipe, mentions de l'entreprise, invitations
 à recruter ou à acheter un service.

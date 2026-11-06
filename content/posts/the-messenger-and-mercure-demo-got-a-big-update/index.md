@@ -50,13 +50,13 @@ It also got a PHPUnit test suite and a CI. And I fixed two bugs along the way: s
 
 {{< note >}}Yes, deabug.{{< /note >}}
 
-Cherry on top: `castor media` drives a real headless Chromium, with Playwright PHP, to regenerate the screenshot and the GIF of this article.
+Cherry on top: `castor media` drives a real headless Chromium, with [Playwright PHP](https://github.com/playwright-php/playwright), to regenerate the screenshot and the GIF of this article.
 
 ## What about Mercure 1.0?
 
 FrankenPHP 1.13 embeds the Mercure 1.0 hub, and mercure-bundle 0.6 speaks protocol 1.0 by default. So both sides must move together.
 
-The hub now binds the JWT keys to a trusted issuer:
+The main change is about the JWT tokens: the hub now only trusts the tokens of a known issuer. So the `Caddyfile`, which configures the hub, looks like this:
 
 ```caddyfile
 issuer {$MERCURE_JWT_ISSUER} {
@@ -69,7 +69,13 @@ issuer {$MERCURE_JWT_ISSUER} {
 }
 ```
 
-And this issuer must match the `iss` claim of the tokens:
+These are environment variables, set in the `docker-compose.yml` of the demo:
+
+- `MERCURE_JWT_ISSUER` is a name you choose for the issuer of your tokens. The demo uses its own URL, `https://async-messenger-mercure.test`
+- `MERCURE_PUBLISHER_JWT_KEY` and `MERCURE_SUBSCRIBER_JWT_KEY` are the secrets used to sign the tokens. Use your own secrets, not the ones of the demo
+- `MERCURE_PUBLISHER_JWT_ALG` and `MERCURE_SUBSCRIBER_JWT_ALG` are the signing algorithms. The demo doesn't set them, so the hub uses its default, `HS256`
+
+Symfony signs the tokens, so it needs the same issuer, in the `iss` claim:
 
 ```yaml
 mercure:
@@ -80,9 +86,11 @@ mercure:
                     iss: '%env(MERCURE_JWT_ISSUER)%'
 ```
 
-Easy, isn't it? But wait. The `ui` and `demo` options are gone, so I moved to `playground`. And the playground redirects the root of the site to the debug UI. The hub shares its site with the application, so my home page disappeared 😅.
+But wait, there is a trap. The `demo` and `ui` options of the `Caddyfile`, which enabled the debug interface of the hub, are gone. So I replaced them with `playground`.
 
-The fix is a single word: `debugger`, which serves the debug UI at `/.well-known/mercure/debug/`.
+The problem is that FrankenPHP serves the hub and the application on the same site. And the playground redirects `/` to the debug interface. So when I opened the demo, I no longer saw the home page of the application, but the debug interface of Mercure 😅.
+
+The fix is to use `debugger` instead. It serves the debug interface at `/.well-known/mercure/debug/`, and it leaves `/` to the application.
 
 ## Conclusion
 
