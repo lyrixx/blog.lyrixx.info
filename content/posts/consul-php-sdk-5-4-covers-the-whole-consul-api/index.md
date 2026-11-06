@@ -2,7 +2,7 @@
 title: 'consul-php-sdk 5.4 covers the whole Consul API'
 date: '2026-09-29'
 latin: 'Consul universalis'
-style: umbel
+style: branch
 signoff: "And that's all!"
 ---
 

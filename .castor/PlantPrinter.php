@@ -10,7 +10,8 @@ use Random\Randomizer;
  */
 final readonly class PlantPrinter
 {
-    public const array STYLES = ['algae', 'branch', 'fern', 'ginkgo', 'sprig', 'umbel'];
+    // New articles cycle through this list: neighbours must look different, so it is not sorted.
+    public const array STYLES = ['sprig', 'algae', 'branch', 'umbel', 'ginkgo', 'fern'];
 
     private const int HEIGHT = 380;
     private const int MARGIN = 7;

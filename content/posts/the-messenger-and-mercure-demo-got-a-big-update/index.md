@@ -2,7 +2,7 @@
 title: 'The Messenger and Mercure demo got a big update'
 date: '2026-10-21'
 latin: 'Nuntius asynchronus'
-style: fern
+style: sprig
 signoff: "Done!"
 ---
 

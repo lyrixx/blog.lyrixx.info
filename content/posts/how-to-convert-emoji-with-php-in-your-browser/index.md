@@ -2,7 +2,7 @@
 title: 'How to convert emoji with PHP, in your browser'
 date: '2026-10-21'
 latin: 'Elephas emoticus'
-style: ginkgo
+style: fern
 signoff: "Because I could."
 ---
 

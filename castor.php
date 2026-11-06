@@ -28,7 +28,7 @@ function post_new(
     string $title,
     #[AsArgument(description: 'The fake Latin name of the plant')]
     string $latin,
-    #[AsOption(description: 'The style of the plant, picked at random by default', autocomplete: PlantPrinter::STYLES)]
+    #[AsOption(description: 'The style of the plant, the next one of the cycle by default', autocomplete: PlantPrinter::STYLES)]
     ?string $style = null,
     #[AsOption(description: 'The date of the article, today by default')]
     string $date = 'now',
@@ -42,7 +42,7 @@ function post_new(
         throw new RuntimeException(\sprintf('The article "%s" already exists.', $slug));
     }
 
-    $style ??= PlantPrinter::STYLES[array_rand(PlantPrinter::STYLES)];
+    $style ??= PlantPrinter::STYLES[\count(iterator_to_array(post_files())) % \count(PlantPrinter::STYLES)];
     print_plant($directory, $slug, $style);
 
     $frontMatter = yaml_dump([

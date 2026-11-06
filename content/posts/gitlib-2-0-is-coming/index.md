@@ -3,7 +3,7 @@ title: 'gitlib 2.0 is coming'
 date: '2026-11-06'
 draft: true
 latin: 'Historia ramosa'
-style: algae
+style: umbel
 signoff: "Et voilà!"
 ---
 
