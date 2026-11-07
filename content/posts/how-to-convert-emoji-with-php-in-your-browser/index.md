@@ -24,6 +24,8 @@ But it works. And it's fast: a few milliseconds per conversion, PHP boot include
 
 It converts emoji to shortcodes (GitHub, GitLab, Slack, text), to their names in 136 languages, or to nothing at all. And it converts them back. There is no server, so your text never leaves the tab.
 
+{{< note >}}100% serverless: the server is your browser.{{< /note >}}
+
 The PHP part is a thin layer over symfony/emoji:
 
 ```php
@@ -67,6 +69,8 @@ Not the emoji. The hard part was the intl extension, because symfony/emoji needs
 You can't just load an `intl.so`: `dlopen()` compiles WebAssembly synchronously, and Chrome refuses that on the main thread. So ICU is statically linked in the binary.
 
 Then there is the size. The ICU data weighs about 30 MB, and the catalogs of symfony/emoji about 37 MB. So I don't ship the ICU data at all: everything else that needs it (`Collator`, `NumberFormatter`…) fails. And the page only fetches the catalogs it needs.
+
+{{< note >}}The 30 MB of ICU data stayed home.{{< /note >}}
 
 Note: Fibers and `proc_open()` don't work either. Emscripten does not provide the functions they rely on.
 

@@ -75,6 +75,8 @@ These are environment variables, set in the `docker-compose.yml` of the demo:
 - `MERCURE_PUBLISHER_JWT_KEY` and `MERCURE_SUBSCRIBER_JWT_KEY` are the secrets used to sign the tokens. Use your own secrets, not the ones of the demo
 - `MERCURE_PUBLISHER_JWT_ALG` and `MERCURE_SUBSCRIBER_JWT_ALG` are the signing algorithms. The demo doesn't set them, so the hub uses its default, `HS256`
 
+{{< note >}}In the demo, the key starts with !ChangeThis.{{< /note >}}
+
 Symfony signs the tokens, so it needs the same issuer, in the `iss` claim:
 
 ```yaml
@@ -91,6 +93,8 @@ But wait, there is a trap. The `demo` and `ui` options of the `Caddyfile`, which
 The problem is that FrankenPHP serves the hub and the application on the same site. And the playground redirects `/` to the debug interface. So when I opened the demo, I no longer saw the home page of the application, but the debug interface of Mercure 😅.
 
 The fix is to use `debugger` instead. It serves the debug interface at `/.well-known/mercure/debug/`, and it leaves `/` to the application.
+
+{{< note >}}And unlike playground, it's safe in production.{{< /note >}}
 
 ## Conclusion
 

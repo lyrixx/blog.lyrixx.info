@@ -28,6 +28,8 @@ Applying a transition doesn't reload the page anymore. Turbo morphs it and keeps
 
 But Turbo prefetches the links you hover. And in this demo, logging in and out are GET requests. So just hovering a link would log you in 😅. That's why Turbo doesn't prefetch these two links.
 
+{{< note >}}Logged out by your mouse.{{< /note >}}
+
 The show pages now list the transitions with the guards that block them. And the history shows the last 5 transitions, instead of the first 5.
 
 ## What about Symfony 8.2?

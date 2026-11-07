@@ -7,6 +7,8 @@ style: algae
 
 If I lose my phone while traveling, I still need my 2FA recovery codes, my documents and my contacts. That's why I built [private-stuff](https://github.com/lyrixx/private-stuff) in 2024: a static website with everything I may need in an emergency.
 
+{{< note >}}Passport, driving license, bank, insurance…{{< /note >}}
+
 It got a big update this autumn: a new theme, a safer deployment, and above all a way to share a secret with people you trust.
 
 The whole site sits behind a password, and the recovery codes are also encrypted with [staticrypt](https://github.com/robinmoisson/staticrypt). You can see [a demo](https://lyrixx.github.io/private-stuff/) with dummy data.
@@ -25,6 +27,8 @@ The `encrypt` and `decrypt` tasks now use the native functions of Castor, instea
 
 The real site is on Cloudflare Pages, with a password in front of it. But deploying from another git branch created a *preview* deployment, which doesn't get the production secrets. So the password was empty, and the middleware let everyone in.
 
+{{< note >}}Oups!{{< /note >}}
+
 Now `castor deploy` always deploys to the production branch. And after the deployment, it checks that the site really asks for a password. If not, the task fails.
 
 The password itself was also sent with a shell `echo`, which exposed it on the command line and in the error output of Castor. It now goes on stdin.
@@ -37,11 +41,15 @@ You could give the password to one person. But then you trust one person, and ev
 
 That's what [Shamir's secret sharing](https://en.wikipedia.org/wiki/Shamir%27s_secret_sharing) solves. You split a secret into N pieces, and you choose a threshold K. Any K pieces give the secret, and fewer give nothing.
 
+{{< note >}}Adi Shamir, the S of RSA. "How to Share a Secret" is the title of his 1979 paper.{{< /note >}}
+
 ### How can a piece reveal nothing?
 
 Let's take a threshold of 2. Draw a line on a graph, and put your secret where the line crosses the vertical axis. Then give each person a different point of this line.
 
 ![A line crossing the vertical axis at the secret, with three points on it for John, Jane and Bob](shamir-line.svg)
+
+{{< note >}}John + Jane, John + Bob or Jane + Bob: any pair works.{{< /note >}}
 
 Two points define a line. So two people can draw it, and read the secret. But one point is not enough: an infinity of lines go through it, and they can cross the axis anywhere. So one piece says nothing about the secret. Not "almost nothing": nothing.
 
@@ -50,6 +58,8 @@ Two points define a line. So two people can draw it, and read the secret. But on
 With a threshold of 3, you use a parabola, which needs three points. And so on.
 
 ![A parabola crossing the vertical axis at the secret, with three points on it](shamir-parabola.svg)
+
+{{< note >}}A threshold of K: a curve of degree K − 1.{{< /note >}}
 
 Note: the real implementation works on bytes, in a finite field (GF(2⁸)), not on a graph. But the idea is the same.
 
@@ -110,6 +120,8 @@ I ran a security audit of ReMemory, with [the security audit skill from Cloudfla
 There was nothing serious. But one finding is a nice illustration of the line above. The secret is the point at x = 0, so nobody ever gets a piece there. And the recovery didn't check it. With a fake piece at x = 0, the line goes through this point, whatever the other pieces are, so whoever wrote the fake piece chooses the result. They can't learn your real secret, but they could make someone open their files instead of yours.
 
 ![A fake piece on the vertical axis and the real piece of Jane give a line that crosses the axis at the fake value, instead of the real secret](shamir-fake-piece.svg)
+
+{{< note >}}The real piece changes nothing.{{< /note >}}
 
 ReMemory now refuses these pieces, and the existing bundles keep working.
 

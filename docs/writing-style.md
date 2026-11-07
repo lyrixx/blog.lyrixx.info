@@ -133,6 +133,9 @@ le sujet ne s'y prête pas, s'en passer.
 - Gras rare, pour l'idée à retenir ou un avertissement : "**you don't need JWT**". Jamais de gras en
   tête de paragraphe ni de phrases entières à répétition.
 - « Note: » pour une remarque annexe.
+- Notes de marge (`{{< note >}}`) : en mettre dans les passages de texte, à côté des dessins aussi,
+  environ une tous les quatre ou cinq paragraphes. Pas dans les passages de code, qui prennent toute
+  la largeur. Une note tient en une ou deux lignes : un aparté, une précision ou un chiffre.
 - Emoji possibles en fin de phrase, jamais dans les titres. Quelques-uns par article au maximum.
 - Pas de tableau, de note de bas de page, de TL;DR ni de sommaire.
 - Pas de tiret cadratin. La virgule, les deux-points et les parenthèses suffisent.

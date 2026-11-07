@@ -34,6 +34,8 @@ Un modèle d'embeddings fait un seul passage sur la phrase, là où un LLM gén�
 
 Le modèle d'embeddings ne sait rien de la politique, il représente seulement le sens d'un texte. Ensuite, une régression logistique, entraînée sur 972 exemples étiquetés, trouve quelle direction veut dire gauche, et laquelle veut dire droite.
 
+{{< note >}}768 poids et un biais, dans un JSON de quelques Ko.{{< /note >}}
+
 ## Est-ce que plus d'exemples, ça aide ?
 
 Pas vraiment. Je suis passé de 253 exemples à 952, et la précision n'est passée que de 66-68 % à 68,7 %. J'ai tout mesuré avec une validation croisée : on cache 1/5 des exemples, on entraîne sur le reste, et on mesure sur la partie cachée.
@@ -47,6 +49,8 @@ Le vrai goulot d'étranglement, c'était le modèle. J'ai donc monté un banc d'
 Le résultat le plus drôle vient de Qwen3-Embedding. Son vecteur est calculé à partir du dernier mot de la phrase. Si le texte se termine par « votent pour », la précision passe donc de 80 % à 89 %. Du prompt engineering, pour un embedding ! Mais il pèse 614 Mo.
 
 Et le zero-shot, qui compare le texte à « de gauche » et « de droite » sans aucun entraînement, donne 48 à 60 %. Pas mieux que le hasard. Il faut dire que « de droite », c'est aussi… le côté droit.
+
+{{< note >}}Une pièce de monnaie fait 50 %.{{< /note >}}
 
 ## Quel classifieur choisir ?
 
@@ -69,6 +73,8 @@ Et le site ? Il garde sa régression logistique, avec λ = 0,01. Pourquoi ? Flem
 La version q4 standard du modèle fonctionne dans Node, mais pas dans le navigateur. Elle utilise une opération (`GatherBlockQuantized`) que le moteur WebAssembly d'onnxruntime ne sait pas exécuter. L'entraînement et le site utilisent donc la variante `model_no_gather_q4`, pour obtenir les mêmes vecteurs des deux côtés.
 
 Ensuite, la page gelait. Avec EmbeddingGemma, un calcul prend environ 1 seconde dans le navigateur, parce que GitHub Pages ne peut pas envoyer les en-têtes COOP/COEP qui autorisent plusieurs cœurs. Une option déplace ce calcul dans un Web Worker :
+
+{{< note >}}1 seconde, contre 10 ms avec le premier modèle.{{< /note >}}
 
 ```js
 env.backends.onnx.wasm.proxy = true;

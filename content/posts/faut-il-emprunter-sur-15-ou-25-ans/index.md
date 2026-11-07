@@ -10,6 +10,8 @@ Avec un pote, on a le même débat à chaque fois : pour acheter un logement en 
 
 Pour être honnête, cette étude sert à 90 % à ce débat, et à 10 % à jouer avec Claude, pour montrer qu'il sait bien compter. C'est Claude qui a tout construit.
 
+{{< note >}}Oui, même les 34 sources.{{< /note >}}
+
 ![Le haut de l'étude : allonger un prêt de 15 à 25 ans coûte réellement 4,7 % par an](screenshot.jpg)
 
 Note : ce n'est pas un conseil financier personnalisé. Les chiffres utilisent les taux moyens d'octobre 2026.
@@ -19,6 +21,8 @@ Note : ce n'est pas un conseil financier personnalisé. Les chiffres utilisent l
 Prenons 250 000 € sur 15 ou 25 ans, à 3,50 % et 3,75 %, avec une assurance à 0,30 % sur le capital initial.
 
 Le prêt sur 25 ans affiche 3,75 %. Mais passer de 15 à 25 ans, c'est comme recevoir 502 € par mois pendant 15 ans, puis rembourser 1 348 € par mois pendant 10 ans de plus. Et ce prêt caché a un vrai taux : **4,68 % par an**.
+
+{{< note >}}Emprunter à son futur soi, à 4,7 %.{{< /note >}}
 
 C'est plus que 3,75 %, pour deux raisons. Le taux sur 25 ans s'applique à tout le capital, et l'assurance court dix ans de plus.
 
@@ -30,9 +34,13 @@ Vous avez sûrement déjà entendu cet argument : « Avec un prêt long, on gard
 
 Avec 8 % garantis dans un PEA, le prêt long gagne : après 25 ans, vous avez 70 408 € de plus, frais et prélèvements sociaux compris.
 
+{{< note >}}Garantis. Bien sûr.{{< /note >}}
+
 Mais 8 %, ce n'est qu'une moyenne. L'étude simule donc 4 000 marchés, avec une volatilité de 15 %. Le prêt long gagne dans 74 % des cas. Dans 1 cas sur 10, il perd plus de 48 000 €. Dans 1 cas sur 10, il gagne plus de 366 000 €.
 
 Et ça ne marche que si vous gardez le logement. Si vous revendez au bout de 8 ans, c'est presque pile ou face : 52 %. Et avec le rendement du MSCI World en euros depuis 2000 (6,67 % par an), le prêt long ne gagne que dans 62 % des cas après 25 ans.
+
+{{< note >}}Les logements anciens revendus en 2021 avaient été détenus 12,2 ans en moyenne.{{< /note >}}
 
 ## Alors, court ou long ?
 
