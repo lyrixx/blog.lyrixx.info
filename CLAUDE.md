@@ -3,7 +3,8 @@
 Blog personnel, titré « Grégoire Pineau », avec des articles en anglais. Il est généré avec Hugo,
 dont la version est épinglée dans `mise.toml`.
 
-Pour écrire ou relire un article, suivre `docs/writing-style.md`.
+Pour écrire ou relire un article, suivre `docs/writing-style.md`. Pour un dessin, suivre
+`docs/drawing-style.md`.
 
 ## Articles
 
@@ -13,6 +14,7 @@ ne doit pas changer.
 
 - `castor post:new "Title" "Latin name"` crée un brouillon et sa plante (`--style` pour la choisir, `--date` pour l'antidater).
 - `castor plant:generate umbel [seed] > plant.svg` écrit une plante sur STDOUT, sans toucher aux articles.
+- `castor drawing:build <slug>` dessine les figures d'un article, depuis le `drawings.py` de son dossier.
 - `castor site:preview` affiche le site avec les brouillons, sur le port 1313 ou un autre s'il est pris.
 - `castor site:build` construit le site dans `public/`, sans les brouillons.
 

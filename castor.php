@@ -19,6 +19,9 @@ use function Castor\yaml_parse;
 
 import(__DIR__.'/.castor/PlantPrinter.php');
 
+// fontTools writes the paths of the handwritten text: another version could change published drawings.
+const DRAWING_PYTHON = ['mise', 'exec', '--', 'uv', 'run', '--quiet', '--no-project', '--with', 'brotli==1.2.1', '--with', 'fonttools==4.68.0', 'python3'];
+const DRAWINGS_DIRECTORY = __DIR__.'/drawings';
 const HUGO = ['mise', 'exec', '--', 'hugo'];
 const POSTS_DIRECTORY = __DIR__.'/content/posts';
 
@@ -91,6 +94,27 @@ function plant_generate(
 
     $io->writeln(\sprintf('Style <info>%s</info>, seed <info>%s</info>', $style, $seed));
     echo $svg, \PHP_EOL;
+}
+
+#[AsTask(name: 'build', namespace: 'drawing', description: 'Draws the SVG drawings of an article, from its drawings.py')]
+function drawing_build(
+    #[AsArgument(description: 'The slug of the article')]
+    string $slug,
+): void {
+    io()->title('Drawing the figures of an article');
+
+    $script = POSTS_DIRECTORY.'/'.$slug.'/drawings.py';
+    if (!is_file($script)) {
+        throw new RuntimeException(\sprintf('The article "%s" has no drawings.py.', $slug));
+    }
+
+    run([...DRAWING_PYTHON, $script], context()->withEnvironment([
+        // Keeps drawings/ free of __pycache__.
+        'PYTHONDONTWRITEBYTECODE' => '1',
+        'PYTHONPATH' => DRAWINGS_DIRECTORY,
+    ]));
+
+    io()->success(\sprintf('Drew the figures of "%s". A published drawing should not change: check "git diff".', $slug));
 }
 
 #[AsTask(name: 'build', namespace: 'site', description: 'Builds the site in public/, without the drafts')]

@@ -1,6 +1,8 @@
 baseURL = "https://blog.lyrixx.info/"
 disableKinds = ["taxonomy", "term"]
 enableRobotsTXT = true
+# The scripts drawing the figures of an article live next to them, but are not published.
+ignoreFiles = ['\.py$']
 locale = "en"
 title = "Grégoire Pineau"
 
