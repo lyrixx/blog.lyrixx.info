@@ -64,7 +64,21 @@ On symfony/symfony (80,000 commits), it's another story. Counting the commits of
 
 WTF! This makes no sense! There must be a mistake somewhere.
 
-That's what I said the first time I saw it. But there is no mistake, and there are two reasons. libgit2 doesn't use git's commit-graph, so walking a long history is slow. And its blame diffs trees for every commit it goes through, where git only compares the hash of the file ([libgit2#3027](https://github.com/libgit2/libgit2/issues/3027)).
+That's what I said the first time I saw it. But there is no mistake, and there are two reasons.
+
+First, git writes a summary of the history in a file, the commit-graph: for each commit, its parents and its date. To count the commits, git reads this file. Without it, you have to open every commit, one by one.
+
+libgit2 can read this file too. But git now writes a section in it that libgit2 1.9 doesn't know yet, `GDA2` ([libgit2#7272](https://github.com/libgit2/libgit2/issues/7272)). And when libgit2 finds a section it doesn't know, it ignores the whole file:
+
+![The commit-graph file, with three sections: commit hashes, parents and dates, and GDA2, circled. libgit2 1.9 doesn't know GDA2, so it ignores the whole file, and opens the 80,000 commits one by one](commit-graph.svg)
+
+{{< note >}}Without this section, libgit2 counts the commits of symfony 7 times faster.{{< /note >}}
+
+Then, the blame. To find who wrote each line of `Process.php`, blame goes back in time, commit after commit. When the file changed in a commit, git takes the previous version in the parent commit, under the same name. libgit2 compares every file the commit changed, in case `Process.php` was renamed. Even when it's right there, with the same name ([libgit2#3027](https://github.com/libgit2/libgit2/issues/3027)):
+
+![Going back in time, from a commit to its parent. git finds Process.php under the same name in the parent. libgit2 compares every file the commit changed, looking for a rename](blame.svg)
+
+Comparing files takes time, and libgit2 does it every time the file changed. git looks for a rename only when the file isn't in the parent under the same name.
 
 So `CliDriver` stays the default. Use `LibGit2Driver` only if your application runs many small reads in a long-running process. And don't trust my numbers, try it on your own repository:
 
@@ -81,7 +95,7 @@ Note: with php-fpm, you have to call `LibGit2Driver::preload()` from your `opcac
 
 The API is typed now: hashes, enums, value objects. Dates are `\DateTimeImmutable`, and a failing operation always throws.
 
-The array of options is deprecated, so you configure the driver instead:
+The array of options is removed, so you configure the driver instead:
 
 ```php
 // Before
@@ -99,7 +113,7 @@ $repository = new Repository($path, driver: new CliDriver(
 ));
 ```
 
-`Admin` is deprecated too. Can you tell what the `false` means here?
+`Admin` is removed too. Can you tell what the `false` means here?
 
 ```php
 // Before
@@ -113,7 +127,7 @@ It was the `$bare` argument. And the default was a bare repository…
 
 ## What about security?
 
-What happens if you give a user input to `getRevision()`? With 1.x, git could read it as an option. So `--output=/path` could write a file on your server.
+What happens if you give a user input to `getRevision()`? Before 1.7.1, git could read it as an option. So `--output=/path` could write a file on your server.
 
 In 2.0, it throws:
 
@@ -122,16 +136,14 @@ $repository->getRevision('--output=/path')->getCommit();
 // InvalidArgumentException: "--output=/path" starts with a dash, which git would read as an option.
 ```
 
-**These fixes are only in 2.0**, not in 1.7. There are others: `ext::` URLs are refused, the credentials of URLs don't leak in exceptions and logs anymore, and a hook name can't leave the hooks directory. The full list is in the `CHANGELOG.md`.
-
-==[TODO Greg: backport to a 1.7.1, or keep this sentence? Today, these fixes are not in 1.7.]==
+**Most of these fixes are also in 1.7.1.** 2.0 goes further: it refuses every option, where 1.7.1 only refuses the ones reading or writing a file, because 1.7 can't break 1.6. 2.0 also refuses `ext::` URLs, and ignores `git replace`. There are others, in both versions: the credentials of URLs don't leak in exceptions and logs anymore, and a hook name can't leave the hooks directory. The full list is in the `CHANGELOG.md`.
 
 ## How to upgrade?
 
-gitlib 2.0 requires PHP 8.4 and git 1.8.4. But most of the 1.x API keeps working, deprecated until 3.0. So you can do it in two steps:
+gitlib 2.0 requires PHP 8.4 and git 1.8.4, and it removes the API that 1.7 deprecates. So you can do it in two steps:
 
-1. Upgrade to 1.7, released in October. It requires PHP 8.1, it has most of the new API, and it triggers the deprecations
-2. Fix them, then require `^1.7 || ^2.0`
+1. Upgrade to 1.7.1, released in November. It requires PHP 8.1, it has most of the new API, and it triggers the deprecations
+2. Fix them, then require `^1.7.1 || ^2.0`
 
 If your library supports PHP 8.1 to 8.3, Composer picks 1.7 there, and 2.0 from PHP 8.4, with the same code.
 
