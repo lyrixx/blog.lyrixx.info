@@ -79,8 +79,10 @@ Trois couleurs, pas une de plus :
 - C'est un PNG, car ces aperçus n'affichent pas les SVG. Il se commite, et ne doit plus changer une
   fois l'article publié.
 - `drawings/cover.py` le dessine, avec `sheet()` de `drawings/blueprint.py`, et `castor post:covers`
-  le lance. Hugo le trouve grâce à son nom : ne pas laisser d'autre fichier `*cover*` dans le dossier
-  de l'article.
+  le lance. Hugo le trouve grâce à son nom.
+- Une image choisie à la main s'appelle `cover-custom.png` (ou `.jpg`), et se déclare toujours avec
+  `images` et `imageAlt` dans le front matter : sans `images`, Hugo choisirait lui-même entre les
+  deux fichiers `*cover*`. Ne pas ajouter d'autre fichier `*cover*` dans le dossier de l'article.
 - Les pages sans image propre, comme l'accueil, utilisent `static/img/cover.png`, déclaré par
   `images` dans `hugo.toml`.
 

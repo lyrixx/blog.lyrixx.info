@@ -1,6 +1,8 @@
 ---
 title: 'La raclette est-elle de gauche ou de droite ?'
 description: 'Une IA vous dit si la raclette ou le vélo sont de gauche ou de droite. Le modèle a appris des clichés, et il tourne entièrement dans votre navigateur.'
+images: ['cover-custom.png']
+imageAlt: "De gauche ou de droite ? Pour la raclette, l'aiguille de l'hémicycle penche à droite : 20 % gauche, 80 % droite."
 date: '2026-10-08'
 latin: 'Dextera aut sinistra'
 style: ginkgo

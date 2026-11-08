@@ -24,6 +24,7 @@ Dans le Markdown :
 - `{{< note >}}Text{{< /note >}}`, après un paragraphe, écrit une note à la main dans la marge.
 - `==text==` souligne au crayon.
 - `signoff` dans le front matter ajoute une dernière ligne écrite à la main.
+- `images: ['cover-custom.png']` dans le front matter remplace `cover.png` dans les aperçus de liens, avec `imageAlt` pour son texte alternatif. Le fichier va dans le dossier de l'article, en PNG ou JPG (`cover-custom.jpg`). `cover.png` reste généré à côté.
 
 ## Déploiement
 
