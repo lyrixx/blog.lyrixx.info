@@ -1,6 +1,8 @@
 ---
 title: 'The Messenger and Mercure demo got a big update'
 description: 'My async demo moved to Symfony 8.1, FrankenPHP and Mercure 1.0. And for a while, the debug interface of Mercure replaced its home page.'
+images: ['cover-custom.png']
+imageAlt: 'Long imports, live progress: a Messenger worker publishes to the Mercure hub, which streams the progress to the browser'
 date: '2026-10-21'
 latin: 'Nuntius asynchronus'
 style: sprig
@@ -21,7 +23,7 @@ You upload a CSV of first names, and you compare three ways to import it:
 - Async, no feedback: a worker does the job, the response is instant, but you have no clue about the progress
 - Async, with feedback: same thing, but the worker publishes its progress on Mercure, and the page is updated in real time
 
-![The progress bar of an import, updated in real time up to Done!](demo.gif)
+![From the home page to an import in real time: the progress bar and the log of events, up to 100% Done!](demo.gif)
 
 No polling involved. The worker renders a Twig block, and it publishes the result:
 
@@ -45,17 +47,17 @@ Note: a Messenger worker keeps the code it started with. So restart it after a `
 
 ## What changed?
 
-The demo now has a home page, with the three modes, and it runs on Symfony 8.1. The Docker stack comes from docker-starter, with FrankenPHP, which embeds the Mercure hub.
+The demo now has a home page, with the three modes, and a new theme inspired by [mercure.rocks](https://mercure.rocks/). It runs on Symfony 8.1. The Docker stack comes from docker-starter, with FrankenPHP, which embeds the Mercure hub.
 
 It also got a PHPUnit test suite and a CI. And I fixed two bugs along the way: submitting the form without a file was a 500 error, and a service was named `deabug.log_processor`.
 
 {{< note >}}Yes, deabug.{{< /note >}}
 
-Cherry on top: `castor media` drives a real headless Chromium, with [Playwright PHP](https://github.com/playwright-php/playwright), to regenerate the screenshot and the GIF of this article.
+Cherry on top: `castor media` drives a real headless Chromium, with [Playwright PHP](https://github.com/playwright-php/playwright), to regenerate the screenshot, the GIF and the sharing image of this article.
 
 ## What about Mercure 1.0?
 
-FrankenPHP 1.13 embeds the Mercure 1.0 hub, and mercure-bundle 0.6 speaks protocol 1.0 by default. So both sides must move together.
+FrankenPHP 1.13 embeds the Mercure 1.0 hub, and mercure-bundle speaks protocol 1.0 by default since 0.6. So both sides must move together.
 
 The main change is about the JWT tokens: the hub now only trusts the tokens of a known issuer. So the `Caddyfile`, which configures the hub, looks like this:
 
