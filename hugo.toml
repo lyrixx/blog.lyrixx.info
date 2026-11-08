@@ -18,6 +18,9 @@ unsafe = true
 [markup.highlight]
 noClasses = false
 
+[minify.tdewolff.html]
+keepQuotes = true
+
 [outputs]
 home = ["html", "rss"]
 
