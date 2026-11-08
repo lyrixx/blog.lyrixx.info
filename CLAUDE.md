@@ -8,11 +8,12 @@ Pour écrire ou relire un article, suivre `docs/writing-style.md`. Pour un dessi
 
 ## Articles
 
-Un article vit dans `content/posts/<slug>/`, avec son `index.md` et sa plante (`print.svg` pour la
-liste, `plant.svg` pour le bandeau). Ces deux fichiers se commitent : la plante d'un article publié
-ne doit pas changer.
+Un article vit dans `content/posts/<slug>/`, avec son `index.md`, sa plante (`print.svg` pour la
+liste, `plant.svg` pour le bandeau) et son image de partage (`cover.png`). Ces fichiers se
+commitent : la plante d'un article publié ne doit pas changer.
 
 - `castor post:new "Title" "Latin name"` crée un brouillon et sa plante (`--style` pour la choisir, `--date` pour l'antidater).
+- `castor post:covers` dessine les images de partage qui manquent, et redessine celles des brouillons.
 - `castor plant:generate umbel [seed] > plant.svg` écrit une plante sur STDOUT, sans toucher aux articles.
 - `castor drawing:build <slug>` dessine les figures d'un article, depuis le `drawings.py` de son dossier.
 - `castor site:preview` affiche le site avec les brouillons, sur le port 1313 ou un autre s'il est pris.

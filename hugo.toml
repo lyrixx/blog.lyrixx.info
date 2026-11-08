@@ -23,5 +23,7 @@ home = ["html", "rss"]
 section = ["html"]
 
 [params]
+bluesky = "https://bsky.app/profile/lyrixx.bsky.social"
 description = "A geek’s herbarium."
 github = "https://github.com/lyrixx"
+x = "https://x.com/lyrixx"

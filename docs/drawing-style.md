@@ -72,8 +72,18 @@ Trois couleurs, pas une de plus :
 - Vérifier le rendu en PNG avant de l'intégrer, par exemple avec Chrome sans interface :
   `google-chrome --headless=new --window-size=780,440 --screenshot=out.png file://…/nom.svg`.
 
+## Image de partage
+
+- Chaque article a un `cover.png` de 1200 × 630, affiché dans les aperçus de liens : la feuille
+  bleue, le nom latin, le titre écrit à la main, l'auteur et la plante.
+- C'est un PNG, car ces aperçus n'affichent pas les SVG. Il se commite, et ne doit plus changer une
+  fois l'article publié.
+- `drawings/cover.py` le dessine, avec `sheet()` de `drawings/blueprint.py`, et `castor post:covers`
+  le lance. Hugo le trouve grâce à son nom : ne pas laisser d'autre fichier `*cover*` dans le dossier
+  de l'article.
+
 ## Exemples
 
 - `what-s-new-in-private-stuff-my-emergency-website/drawings.py` : des courbes sur des axes.
-- `gitlib-2-0-is-coming/drawings.py` : des fichiers, des commits, une comparaison sur deux
-  lignes.
+- `why-libgit2-takes-10-minutes-to-blame-a-file-when-git-takes-0-6-s/drawings.py` : des fichiers,
+  des commits, une comparaison sur deux lignes.

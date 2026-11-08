@@ -19,8 +19,8 @@ use function Castor\yaml_parse;
 
 import(__DIR__.'/.castor/PlantPrinter.php');
 
-// fontTools writes the paths of the handwritten text: another version could change published drawings.
-const DRAWING_PYTHON = ['mise', 'exec', '--', 'uv', 'run', '--quiet', '--no-project', '--with', 'brotli==1.2.1', '--with', 'fonttools==4.68.0', 'python3'];
+// fontTools writes the paths of the handwritten text, and resvg renders the covers: another version could change what is published.
+const DRAWING_PYTHON = ['mise', 'exec', '--', 'uv', 'run', '--quiet', '--no-project', '--with', 'brotli==1.2.1', '--with', 'fonttools==4.68.0', '--with', 'resvg-py==0.5.0', 'python3'];
 const DRAWINGS_DIRECTORY = __DIR__.'/drawings';
 const HUGO = ['mise', 'exec', '--', 'hugo'];
 const POSTS_DIRECTORY = __DIR__.'/content/posts';
@@ -56,6 +56,7 @@ function post_new(
         'style' => $style,
     ]);
     fs()->dumpFile($directory.'/index.md', "---\n{$frontMatter}---\n\n");
+    draw_cover($directory, $title, $latin);
 
     io()->success([
         \sprintf('Created content/posts/%s/index.md, with a plant of style "%s".', $slug, $style),
@@ -73,6 +74,18 @@ function post_prints(
     $printed = print_plants($force);
 
     io()->success(0 === $printed ? 'All the plants are already printed.' : \sprintf('Printed %s.', plural($printed, 'plant')));
+}
+
+#[AsTask(name: 'covers', namespace: 'post', description: 'Draws the sharing images that are missing, and the ones of the drafts')]
+function post_covers(
+    #[AsOption(description: 'Also redraws the existing covers of published articles. They should not change')]
+    bool $force = false,
+): void {
+    io()->title('Drawing the covers');
+
+    $drawn = draw_published_covers($force) + draw_draft_covers();
+
+    io()->success(0 === $drawn ? 'All the covers are already drawn.' : \sprintf('Drew %s.', plural($drawn, 'cover')));
 }
 
 #[AsTask(name: 'generate', namespace: 'plant', description: 'Writes the SVG of a plant on STDOUT')]
@@ -108,11 +121,7 @@ function drawing_build(
         throw new RuntimeException(\sprintf('The article "%s" has no drawings.py.', $slug));
     }
 
-    run([...DRAWING_PYTHON, $script], context()->withEnvironment([
-        // Keeps drawings/ free of __pycache__.
-        'PYTHONDONTWRITEBYTECODE' => '1',
-        'PYTHONPATH' => DRAWINGS_DIRECTORY,
-    ]));
+    run_drawing_python($script);
 
     io()->success(\sprintf('Drew the figures of "%s". A published drawing should not change: check "git diff".', $slug));
 }
@@ -123,6 +132,7 @@ function site_build(): int
     io()->title('Building the site');
 
     print_plants();
+    draw_published_covers();
 
     io()->writeln('Running Hugo...');
     // Not "hugo --quiet", which also hides the errors.
@@ -148,6 +158,8 @@ function site_preview(
     io()->title('Previewing the site');
 
     print_plants();
+    draw_published_covers();
+    draw_draft_covers();
 
     if (!is_port_free($port)) {
         $freePort = $port + 1;
@@ -236,6 +248,52 @@ function print_plant(string $directory, string $slug, string $style): void
     fs()->dumpFile($directory.'/plant.svg', $printer->plant($style, $slug));
 }
 
+function draw_published_covers(bool $force = false): int
+{
+    $drawn = 0;
+    foreach (post_files() as $file) {
+        $frontMatter = read_front_matter($file->getPathname());
+        if (($frontMatter['draft'] ?? false) || (!$force && is_file($file->getPath().'/cover.png'))) {
+            continue;
+        }
+
+        draw_cover($file->getPath(), $frontMatter['title'], $frontMatter['latin']);
+        ++$drawn;
+    }
+
+    return $drawn;
+}
+
+// A draft can still change its title, so its cover is always redrawn.
+function draw_draft_covers(): int
+{
+    $drawn = 0;
+    foreach (post_files() as $file) {
+        $frontMatter = read_front_matter($file->getPathname());
+        if ($frontMatter['draft'] ?? false) {
+            draw_cover($file->getPath(), $frontMatter['title'], $frontMatter['latin']);
+            ++$drawn;
+        }
+    }
+
+    return $drawn;
+}
+
+function draw_cover(string $directory, string $title, string $latin): void
+{
+    run_drawing_python(DRAWINGS_DIRECTORY.'/cover.py', $directory, $title, $latin);
+    io()->writeln(\sprintf('Drew the cover of %s', basename($directory)));
+}
+
+function run_drawing_python(string ...$arguments): void
+{
+    run([...DRAWING_PYTHON, ...$arguments], context()->withEnvironment([
+        // Keeps drawings/ free of __pycache__.
+        'PYTHONDONTWRITEBYTECODE' => '1',
+        'PYTHONPATH' => DRAWINGS_DIRECTORY,
+    ]));
+}
+
 function count_drafts(): int
 {
     $drafts = 0;
@@ -262,7 +320,7 @@ function plural(int $count, string $noun): string
 }
 
 /**
- * @return array{draft?: bool, latin: string, style: string}
+ * @return array{draft?: bool, latin: string, style: string, title: string}
  */
 function read_front_matter(string $path): array
 {
@@ -271,7 +329,7 @@ function read_front_matter(string $path): array
     }
 
     $frontMatter = yaml_parse($matches[1]);
-    foreach (['latin', 'style'] as $field) {
+    foreach (['latin', 'style', 'title'] as $field) {
         if (!isset($frontMatter[$field])) {
             throw new RuntimeException(\sprintf('"%s" has no "%s" in its front matter.', $path, $field));
         }

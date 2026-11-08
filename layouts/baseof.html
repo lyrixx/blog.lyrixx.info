@@ -14,8 +14,10 @@
 <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
 {{ end -}}
 {{ partial "opengraph.html" . }}
+{{ partial "twitter_cards.html" . }}
 </head>
 <body>
 {{ block "main" . }}{{ end }}
+{{ partial "footer.html" . }}
 </body>
 </html>

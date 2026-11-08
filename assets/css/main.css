@@ -32,6 +32,9 @@ a { color: inherit; }
 .top nav { display: flex; gap: 22px; }
 .top nav a { color: var(--on-blue-soft); text-decoration: none; }
 .top nav a:hover { color: #fff; }
+.bottom { display: flex; justify-content: flex-end; gap: 22px; padding: 22px 0 40px; border-top: 1px solid var(--rule); font-size: 15px; }
+.bottom a { color: var(--muted); text-decoration: none; }
+.bottom a:hover { color: var(--pencil); }
 
 /* Blue band */
 

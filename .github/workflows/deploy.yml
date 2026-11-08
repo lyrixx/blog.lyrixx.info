@@ -33,7 +33,7 @@ jobs:
       - name: Setup Castor
         uses: castor-php/setup-castor@v1.1.0
 
-      # Installs the version of Hugo pinned in mise.toml.
+      # Installs the versions of Hugo and uv pinned in mise.toml.
       - name: Setup mise
         uses: jdx/mise-action@v5
 

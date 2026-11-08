@@ -21,6 +21,12 @@ _glyphs, _cmap, _upm = _font.getGlyphSet(), _font.getBestCmap(), _font['head'].u
 def draw(script, name, seed, content):
     """Writes <name>.svg next to the script, in the directory of its article."""
     directory = Path(script).resolve().parent
+    (directory / f'{name}.svg').write_text(sheet(seed, content), encoding='utf-8')
+    print(f'Drew {directory.name}/{name}.svg')
+
+
+def sheet(seed, content, width=W, height=H):
+    """The SVG of a sheet of paper, with the content drawn on it."""
     rng = random.Random(seed)
     m = 6
 
@@ -29,22 +35,20 @@ def draw(script, name, seed, content):
         return [1.5 * math.sin(i * .21 + p[0]) + math.sin(i * .57 + p[1]) + .6 * math.sin(i * 1.4 + p[2]) + rng.uniform(-.4, .4) for i in range(count)]
 
     across, down = 130, 74
-    pts = [(m + (W - 2 * m) * i / across, m + d) for i, d in enumerate(wobble(across))]
-    pts += [(W - m + d, m + (H - 2 * m) * i / down) for i, d in enumerate(wobble(down))]
-    pts += [(W - m - (W - 2 * m) * i / across, H - m + d) for i, d in enumerate(wobble(across))]
-    pts += [(m + d, H - m - (H - 2 * m) * i / down) for i, d in enumerate(wobble(down))]
+    pts = [(m + (width - 2 * m) * i / across, m + d) for i, d in enumerate(wobble(across))]
+    pts += [(width - m + d, m + (height - 2 * m) * i / down) for i, d in enumerate(wobble(down))]
+    pts += [(width - m - (width - 2 * m) * i / across, height - m + d) for i, d in enumerate(wobble(across))]
+    pts += [(m + d, height - m - (height - 2 * m) * i / down) for i, d in enumerate(wobble(down))]
     edge = 'M' + 'L'.join(f'{n(x)} {n(y)}' for x, y in pts) + 'Z'
-    grid = ''.join(f'M{x} 0V{H}' for x in range(55, W, 65)) + ''.join(f'M0 {y}H{W}' for y in range(60, H, 65))
-    svg = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}"><defs>'
+    grid = ''.join(f'M{x} 0V{height}' for x in range(55, width, 65)) + ''.join(f'M0 {y}H{width}' for y in range(60, height, 65))
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}"><defs>'
         '<radialGradient id="g" cx=".2" cy=".1" r="1.1"><stop offset="0" stop-color="#1f5592"/>'
         '<stop offset=".5" stop-color="#143f74"/><stop offset="1" stop-color="#0c2b54"/></radialGradient>'
         f'<clipPath id="c"><path d="{edge}"/></clipPath></defs>'
         f'<path d="{edge}" fill="url(#g)"/>'
         f'<g clip-path="url(#c)"><path d="{grid}" fill="none" stroke="{PALE}" stroke-width="1" opacity=".07"/>{content(rng)}</g></svg>\n'
     )
-    (directory / f'{name}.svg').write_text(svg, encoding='utf-8')
-    print(f'Drew {directory.name}/{name}.svg')
 
 
 def n(v):
