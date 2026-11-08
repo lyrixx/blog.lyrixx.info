@@ -1,0 +1,22 @@
+{{ define "main" }}
+<header class="band band-fern"><div class="wrap">
+{{ partial "top.html" . }}
+<div class="head"><h1>{{ .Title }}</h1></div>
+</div></header>
+<main class="wrap"><div class="gallery">
+{{- range .Params.groups }}
+{{- with .title }}<h2>{{ . }}</h2>{{ end }}
+<ul class="cards">
+{{- range .cards }}
+{{- $image := $.Resources.Get .image }}
+{{- if not $image }}{{ errorf "%s lists %s, which is not in its folder." $.File.Path .image }}{{ end }}
+{{- $thumbnail := $image.Resize "800x webp" }}
+<li class="card{{ if .highlight }} card-highlight{{ end }}">
+<img src="{{ $thumbnail.RelPermalink }}" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" alt="Cover of {{ .title }}" loading="lazy" style="background: {{ index $thumbnail.Colors 0 }}">
+<a href="{{ .url }}">{{ .title }}</a>
+</li>
+{{- end }}
+</ul>
+{{- end }}
+</div></main>
+{{ end }}

@@ -26,6 +26,10 @@ Dans le Markdown :
 - `signoff` dans le front matter ajoute une dernière ligne écrite à la main.
 - `images: ['cover-custom.png']` dans le front matter remplace `cover.png` dans les aperçus de liens, avec `imageAlt` pour son texte alternatif. Le fichier va dans le dossier de l'article, en PNG ou JPG (`cover-custom.jpg`). `cover.png` reste généré à côté.
 
+## Talks et Projects
+
+`content/talks/index.md` et `content/projects/index.md` listent leurs cartes dans le front matter : des `groups`, avec un `title` facultatif et des `cards` (`image`, `title`, `url`, et `highlight: true` pour faire ressortir une carte), affichés dans l'ordre du fichier. L'image va à côté de `index.md`, de préférence en 16:9 et sans transparence : le vide autour d'une image d'un autre format prend sa couleur dominante.
+
 ## Déploiement
 
 Chaque push sur `main` construit le site avec `castor site:build` et le publie sur GitHub Pages
