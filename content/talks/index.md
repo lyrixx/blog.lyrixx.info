@@ -4,6 +4,9 @@ description: 'Slides of the talks I gave at conferences and meetups, about Symfo
 layout: cards
 groups:
   - cards:
+      - image: de-gauche-ou-de-droite.jpg
+        title: 'De gauche ou de droite ?'
+        url: https://lyrixx.github.io/gauche-ou-droite/media/slides/
       - image: embeddings-symfony-ai-en-pratique.jpg
         title: 'Embeddings : Symfony AI en pratique'
         url: https://speakerdeck.com/lyrixx/embeddings-symfony-ai-en-pratique
@@ -81,7 +84,16 @@ groups:
       - image: symfony-live-2015-paris-monitorer-sa-prod.jpg
         title: 'Symfony Live 2015 Paris - Monitorer sa prod'
         url: https://speakerdeck.com/lyrixx/symfony-live-2015-paris-monitorer-sa-prod
+      - image: a-la-decouverte-de-twig.jpg
+        title: 'A la découverte de Twig - AFUP Paris 2015'
+        url: https://lyrixx.github.io/Afup-Paris-2015-Twig/
       - image: comment-grapher-et-visualiser-vos-datas-at-phptourlyon-2014.jpg
         title: 'Comment Grapher et visualiser vos datas @ PHPTourLyon 2014'
         url: https://speakerdeck.com/lyrixx/comment-grapher-et-visualiser-vos-datas-at-phptourlyon-2014
+      - image: making-asynchronous-tasks-in-php.jpg
+        title: 'Making asynchronous tasks in PHP - Symfony Live 2014'
+        url: https://speakerdeck.com/odolbeau/making-asynchronous-tasks-in-php
+      - image: comment-organiser-ses-templates-twig.jpg
+        title: 'Comment organiser ses templates Twig ? - Symfony Live Paris 2013'
+        url: https://lyrixx.github.io/SFLive-Paris2013-Twig/
 ---
