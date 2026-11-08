@@ -1,5 +1,6 @@
 ---
 title: 'The Symfony observability demo got a refresh'
+description: 'A little refresh of my observability demo ended up with 84 files changed. And its Kibana, Grafana and Redash dashboards now show backdated logs.'
 date: '2026-08-30'
 latin: 'Acta observata'
 style: algae

@@ -1,5 +1,6 @@
 ---
 title: 'The Symfony Workflow demo got a new look'
+description: 'Ten years later, my Symfony Workflow demo is still online. It got a new look, diagrams that look like Petri nets, and the new features of Symfony 8.2.'
 date: '2026-11-05'
 latin: 'Transitio viridis'
 style: branch

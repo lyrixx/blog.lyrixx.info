@@ -1,5 +1,6 @@
 ---
 title: 'The Messenger and Mercure demo got a big update'
+description: 'My async demo moved to Symfony 8.1, FrankenPHP and Mercure 1.0. And for a while, the debug interface of Mercure replaced its home page.'
 date: '2026-10-21'
 latin: 'Nuntius asynchronus'
 style: sprig

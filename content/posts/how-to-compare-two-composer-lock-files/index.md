@@ -1,5 +1,6 @@
 ---
 title: 'How to compare two composer.lock files'
+description: 'A raw JSON diff is not the best way to see what changed. So I built a page that compares two composer.lock files, with PHP running in your browser.'
 date: '2025-04-09'
 latin: 'Compositor differens'
 style: sprig

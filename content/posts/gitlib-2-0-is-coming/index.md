@@ -1,5 +1,6 @@
 ---
 title: 'gitlib 2.0 is coming'
+description: 'gitlib 2.0 can talk to libgit2 through FFI. Reading a commit gets 10 times faster on a small repository. But on symfony/symfony, blame takes 10 minutes.'
 date: '2026-11-06'
 draft: true
 latin: 'Historia ramosa'
@@ -64,21 +65,7 @@ On symfony/symfony (80,000 commits), it's another story. Counting the commits of
 
 WTF! This makes no sense! There must be a mistake somewhere.
 
-That's what I said the first time I saw it. But there is no mistake, and there are two reasons.
-
-First, git writes a summary of the history in a file, the commit-graph: for each commit, its parents and its date. To count the commits, git reads this file. Without it, you have to open every commit, one by one.
-
-libgit2 can read this file too. But git now writes a section in it that libgit2 1.9 doesn't know yet, `GDA2` ([libgit2#7272](https://github.com/libgit2/libgit2/issues/7272)). And when libgit2 finds a section it doesn't know, it ignores the whole file:
-
-![The commit-graph file, with three sections: commit hashes, parents and dates, and GDA2, circled. libgit2 1.9 doesn't know GDA2, so it ignores the whole file, and opens the 80,000 commits one by one](commit-graph.svg)
-
-{{< note >}}Without this section, libgit2 counts the commits of symfony 7 times faster.{{< /note >}}
-
-Then, the blame. To find who wrote each line of `Process.php`, blame goes back in time, commit after commit. When the file changed in a commit, git takes the previous version in the parent commit, under the same name. libgit2 compares every file the commit changed, in case `Process.php` was renamed. Even when it's right there, with the same name ([libgit2#3027](https://github.com/libgit2/libgit2/issues/3027)):
-
-![Going back in time, from a commit to its parent. git finds Process.php under the same name in the parent. libgit2 compares every file the commit changed, looking for a rename](blame.svg)
-
-Comparing files takes time, and libgit2 does it every time the file changed. git looks for a rename only when the file isn't in the parent under the same name.
+That's what I said the first time I saw it. But there is no mistake. Spoiler: libgit2 finds one section it doesn't know in a file written by git, ignores the whole file, and opens the 80,000 commits one by one. And blame has its own problem, even worse. The whole story deserves its own article, coming soon.
 
 So `CliDriver` stays the default. Use `LibGit2Driver` only if your application runs many small reads in a long-running process. And don't trust my numbers, try it on your own repository:
 

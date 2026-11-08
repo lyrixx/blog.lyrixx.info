@@ -1,5 +1,6 @@
 ---
 title: 'consul-php-sdk 5.4 covers the whole Consul API'
+description: 'Almost twelve years after I started it, consul-php-sdk covers the whole Consul CE HTTP API: from 6 services to 17, and from 34 public methods to 141.'
 date: '2026-09-29'
 latin: 'Consul universalis'
 style: branch

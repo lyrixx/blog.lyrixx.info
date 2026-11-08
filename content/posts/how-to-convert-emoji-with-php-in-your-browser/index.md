@@ -1,5 +1,6 @@
 ---
 title: 'How to convert emoji with PHP, in your browser'
+description: 'Emoji Converter turns emoji into shortcodes and back, with a whole PHP interpreter in your browser. Yes, 8 MB of WebAssembly to call strtr().'
 date: '2026-10-21'
 latin: 'Elephas emoticus'
 style: fern
