@@ -1,0 +1,10 @@
+{{- $data := dict -}}
+{{- if .IsHome -}}
+  {{- $data = dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" .Permalink -}}
+{{- else if eq .Section "posts" -}}
+  {{- $author := dict "@type" "Person" "name" site.Title "url" site.Home.Permalink -}}
+  {{- $data = dict "@context" "https://schema.org" "@type" "BlogPosting" "author" $author "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00") "headline" .Title "inLanguage" (or .Params.locale site.Language.Locale) "mainEntityOfPage" .Permalink -}}
+  {{- with .Description }}{{ $data = merge $data (dict "description" .) }}{{ end -}}
+  {{- with .Resources.Get "cover.png" }}{{ $data = merge $data (dict "image" .Permalink) }}{{ end -}}
+{{- end -}}
+{{- with $data }}<script type="application/ld+json">{{ . | jsonify | safeJS }}</script>{{ end -}}

@@ -1,5 +1,5 @@
 baseURL = "https://blog.lyrixx.info/"
-disableKinds = ["taxonomy", "term"]
+disableKinds = ["section", "taxonomy", "term"]
 enableRobotsTXT = true
 # The scripts drawing the figures of an article live next to them, but are not published.
 ignoreFiles = ['\.py$']
@@ -20,10 +20,10 @@ noClasses = false
 
 [outputs]
 home = ["html", "rss"]
-section = ["html"]
 
 [params]
 bluesky = "https://bsky.app/profile/lyrixx.bsky.social"
-description = "A geek’s herbarium."
+description = "A geek’s herbarium: articles about PHP, Symfony, open source and ops, by Grégoire Pineau."
 github = "https://github.com/lyrixx"
+images = ["img/cover.png"]
 x = "https://x.com/lyrixx"

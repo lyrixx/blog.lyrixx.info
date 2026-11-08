@@ -1,4 +1,4 @@
-"""Draws the image shown when an article is shared: cover.py <directory of the article> <title> <latin name>."""
+"""Draws the image shown when a page is shared: cover.py <plant.svg> <cover.png> <title> <latin name>."""
 import re
 import sys
 import tomllib
@@ -17,22 +17,22 @@ TITLE_MAX_WIDTH = 640
 TITLE_SIZES = (104, 92, 80, 70, 62)
 
 
-def main(directory, title, latin):
-    directory = Path(directory)
+def main(plant_path, cover_path, title, latin):
+    cover_path = Path(cover_path)
     author = tomllib.loads((REPOSITORY / 'hugo.toml').read_text(encoding='utf-8'))['title']
     size, lines = fit(title)
     leading = size * TITLE_LEADING
     first = TITLE_CENTER - (len(lines) - 1) * leading / 2 + size * .3
 
     def content(rng):
-        out = plant(directory / 'plant.svg')
+        out = plant(Path(plant_path))
         out += text(latin, LEFT, 104, 44, fill=CREAM, rot=-1)
         for i, line in enumerate(lines):
             out += text(line, LEFT, first + i * leading, size, rot=-1)
         return out + text(author, LEFT, 572, 38, fill=SOFT, rot=0)
 
-    svg = sheet(directory.name, content, WIDTH, HEIGHT)
-    (directory / 'cover.png').write_bytes(bytes(resvg_py.svg_to_bytes(svg_string=svg)))
+    svg = sheet(cover_path.parent.name, content, WIDTH, HEIGHT)
+    cover_path.write_bytes(bytes(resvg_py.svg_to_bytes(svg_string=svg)))
 
 
 def fit(title):

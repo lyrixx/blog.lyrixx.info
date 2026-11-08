@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | plainify | strings.TrimSpace | truncate 160 }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 160 }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 {{ with site.Home.OutputFormats.Get "rss" -}}
@@ -15,6 +15,10 @@
 {{ end -}}
 {{ partial "opengraph.html" . }}
 {{ partial "twitter_cards.html" . }}
+{{ $imageAlt := site.Params.description }}{{ if .Resources.Get "cover.png" }}{{ $imageAlt = .Title }}{{ end -}}
+<meta property="og:image:alt" content="{{ $imageAlt }}">
+<meta name="twitter:image:alt" content="{{ $imageAlt }}">
+{{ partial "structured-data.html" . }}
 </head>
 <body>
 {{ block "main" . }}{{ end }}

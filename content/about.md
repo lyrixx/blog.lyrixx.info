@@ -1,5 +1,6 @@
 ---
 title: About
+description: "I'm Grégoire Pineau, a web tinkerer with ops tendencies, based near Paris. I'm a member of the Symfony Core Team, and I work at JoliCode and redirection.io."
 ---
 
 I'm Grégoire Pineau, a web tinkerer with ops tendencies, based near Paris. On the internet, I'm [lyrixx](https://github.com/lyrixx).

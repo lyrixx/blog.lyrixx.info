@@ -81,6 +81,8 @@ Trois couleurs, pas une de plus :
 - `drawings/cover.py` le dessine, avec `sheet()` de `drawings/blueprint.py`, et `castor post:covers`
   le lance. Hugo le trouve grâce à son nom : ne pas laisser d'autre fichier `*cover*` dans le dossier
   de l'article.
+- Les pages sans image propre, comme l'accueil, utilisent `static/img/cover.png`, déclaré par
+  `images` dans `hugo.toml`.
 
 ## Exemples
 

@@ -24,6 +24,7 @@ const DRAWING_PYTHON = ['mise', 'exec', '--', 'uv', 'run', '--quiet', '--no-proj
 const DRAWINGS_DIRECTORY = __DIR__.'/drawings';
 const HUGO = ['mise', 'exec', '--', 'hugo'];
 const POSTS_DIRECTORY = __DIR__.'/content/posts';
+const SITE_COVER = __DIR__.'/static/img/cover.png';
 
 #[AsTask(name: 'new', namespace: 'post', description: 'Creates a draft article with its plant')]
 function post_new(
@@ -251,6 +252,11 @@ function print_plant(string $directory, string $slug, string $style): void
 function draw_published_covers(bool $force = false): int
 {
     $drawn = 0;
+    if ($force || !is_file(SITE_COVER)) {
+        draw_site_cover();
+        ++$drawn;
+    }
+
     foreach (post_files() as $file) {
         $frontMatter = read_front_matter($file->getPathname());
         if (($frontMatter['draft'] ?? false) || (!$force && is_file($file->getPath().'/cover.png'))) {
@@ -281,8 +287,14 @@ function draw_draft_covers(): int
 
 function draw_cover(string $directory, string $title, string $latin): void
 {
-    run_drawing_python(DRAWINGS_DIRECTORY.'/cover.py', $directory, $title, $latin);
+    run_drawing_python(DRAWINGS_DIRECTORY.'/cover.py', $directory.'/plant.svg', $directory.'/cover.png', $title, $latin);
     io()->writeln(\sprintf('Drew the cover of %s', basename($directory)));
+}
+
+function draw_site_cover(): void
+{
+    run_drawing_python(DRAWINGS_DIRECTORY.'/cover.py', __DIR__.'/static/img/fern.svg', SITE_COVER, 'A geek’s herbarium', 'Filix lyrixxi');
+    io()->writeln('Drew the cover of the site');
 }
 
 function run_drawing_python(string ...$arguments): void
