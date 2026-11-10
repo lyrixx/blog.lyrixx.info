@@ -1,8 +1,7 @@
 ---
-title: 'gitlib 2.0 is coming'
+title: 'gitlib 2.0 is out'
 description: 'gitlib 2.0 can talk to libgit2 through FFI. Reading a commit gets 10 times faster on a small repository. But on symfony/symfony, blame takes 10 minutes.'
-date: '2026-11-06'
-draft: true
+date: '2026-11-10'
 latin: 'Historia ramosa'
 style: umbel
 signoff: "Et voilà!"
@@ -14,11 +13,11 @@ In November 2019, I wrote [an article about FFI in PHP 7.4](https://jolicode.com
 
 {{< note >}}Seven years. I take my time.{{< /note >}}
 
-Well, it does now 😅. gitlib 2.0 is coming, and it can talk to libgit2 through FFI. It's also a big rewrite: since 1.6.0, `src` and `tests` got 15,276 new lines, and lost 3,865.
+Well, it does now 😅. gitlib 2.0 is out, and it can talk to libgit2 through FFI. It's also a big rewrite: since 1.6.0, `src` and `tests` got 16,186 new lines, and lost 4,197.
 
 Why now? Because I had a bit of time. And Claude Code (yes, I can say it).
 
-Note: 2.0 is not tagged yet. If you want to try it today, everything is on the `main` branch.
+It's on Packagist: `composer require gitonomy/gitlib:^2.0`.
 
 ## What is gitlib?
 
@@ -129,8 +128,8 @@ $repository->getRevision('--output=/path')->getCommit();
 
 gitlib 2.0 requires PHP 8.4 and git 1.8.4, and it removes the API that 1.7 deprecates. So you can do it in two steps:
 
-1. Upgrade to 1.7.1, released in November. It requires PHP 8.1, it has most of the new API, and it triggers the deprecations
-2. Fix them, then require `^1.7.1 || ^2.0`
+1. Upgrade to 1.7.2, released in November. It requires PHP 8.1, it has most of the new API, and it triggers the deprecations
+2. Fix them, then require `^1.7.2 || ^2.0`
 
 If your library supports PHP 8.1 to 8.3, Composer picks 1.7 there, and 2.0 from PHP 8.4, with the same code.
 

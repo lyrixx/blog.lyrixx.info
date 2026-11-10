@@ -7,7 +7,7 @@ latin: 'Culpa lenta'
 style: ginkgo
 ---
 
-In [gitlib 2.0](/posts/gitlib-2-0-is-coming/), a PHP library to read git repositories, I added a driver that runs [libgit2](https://libgit2.org/) inside the PHP process, through FFI. It should be faster than starting `git` for every operation. On a small repository, it is. On symfony/symfony, blaming one file went from 0.6 s to… about 10 minutes.
+In [gitlib 2.0](/posts/gitlib-2-0-is-out/), a PHP library to read git repositories, I added a driver that runs [libgit2](https://libgit2.org/) inside the PHP process, through FFI. It should be faster than starting `git` for every operation. On a small repository, it is. On symfony/symfony, blaming one file went from 0.6 s to… about 10 minutes.
 
 {{< note >}}Yes, minutes.{{< /note >}}
 
