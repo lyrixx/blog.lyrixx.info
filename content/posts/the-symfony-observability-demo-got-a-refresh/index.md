@@ -4,6 +4,7 @@ description: 'A little refresh of my observability demo ended up with 95 files c
 images: ['cover-custom.png']
 imageAlt: 'Symfony Observability: a log goes from Monolog through Vector to Elasticsearch, Loki and ClickHouse, then to Kibana, Grafana and Redash'
 date: '2026-08-30'
+habitat: [Symfony, Logs]
 latin: 'Acta observata'
 style: algae
 ---

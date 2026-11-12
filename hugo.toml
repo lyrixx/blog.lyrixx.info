@@ -19,6 +19,8 @@ unsafe = true
 noClasses = false
 
 [minify.tdewolff.html]
+# The source of each page starts with a drawing in a comment.
+keepComments = true
 keepQuotes = true
 
 [outputs]
@@ -29,4 +31,6 @@ bluesky = "https://bsky.app/profile/lyrixx.bsky.social"
 description = "A geek’s herbarium: articles about PHP, Symfony, open source and ops, by Grégoire Pineau."
 github = "https://github.com/lyrixx"
 images = ["img/cover.png"]
+# "commit" is not here: Castor gives it to Hugo with HUGO_PARAMS_COMMIT.
+repository = "https://github.com/lyrixx/blog.lyrixx.info"
 x = "https://x.com/lyrixx"

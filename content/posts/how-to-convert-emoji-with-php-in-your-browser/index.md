@@ -4,6 +4,7 @@ description: 'Emoji Converter turns emoji into shortcodes and back, with a whole
 images: ['cover-custom.png']
 imageAlt: 'Emoji Converter: an elephant emoji turned into :elephant: and back, with a whole PHP interpreter running in your browser'
 date: '2026-10-21'
+habitat: [PHP, WebAssembly]
 latin: 'Elephas emoticus'
 style: fern
 signoff: "Because I could."

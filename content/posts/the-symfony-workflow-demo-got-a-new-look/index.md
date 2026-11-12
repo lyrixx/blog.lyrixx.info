@@ -4,6 +4,7 @@ description: 'Ten years later, my Symfony Workflow demo is still online. It got 
 images: ['cover-custom.png']
 imageAlt: 'Symfony Workflow live demo: a Petri net going from draft to published, with two marked places in lime'
 date: '2026-11-05'
+habitat: [Symfony, Workflow]
 latin: 'Transitio viridis'
 style: branch
 signoff: "Have fun!"

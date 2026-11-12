@@ -4,6 +4,7 @@ description: 'Une IA vous dit si la raclette ou le vélo sont de gauche ou de dr
 images: ['cover-custom.png']
 imageAlt: "De gauche ou de droite ? Pour la raclette, l'aiguille de l'hémicycle penche à droite : 20 % gauche, 80 % droite."
 date: '2026-10-08'
+habitat: [Data, Politique]
 latin: 'Dextera aut sinistra'
 style: ginkgo
 locale: fr

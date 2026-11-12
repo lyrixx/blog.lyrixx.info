@@ -1,0 +1,3 @@
+{{- $language := or .Type "text" -}}
+<div class="code code-{{ $language }}"><div class="code-bar"><span>{{ or .Attributes.title $language }}</span><button class="copy" type="button" hidden>copy</button></div>
+{{ transform.Highlight .Inner $language .Options }}</div>

@@ -6,8 +6,11 @@ use Blog\PlantPrinter;
 use Castor\Attribute\AsArgument;
 use Castor\Attribute\AsOption;
 use Castor\Attribute\AsTask;
+use Castor\Context;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Yaml;
 
+use function Castor\capture;
 use function Castor\context;
 use function Castor\finder;
 use function Castor\fs;
@@ -53,9 +56,10 @@ function post_new(
         'title' => $title,
         'date' => $date,
         'draft' => true,
+        'habitat' => [],
         'latin' => $latin,
         'style' => $style,
-    ]);
+    ], flags: Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
     fs()->dumpFile($directory.'/index.md', "---\n{$frontMatter}---\n\n");
     draw_cover($directory, $title, $latin);
 
@@ -137,7 +141,7 @@ function site_build(): int
 
     io()->writeln('Running Hugo...');
     // Not "hugo --quiet", which also hides the errors.
-    $process = run([...HUGO, '--cleanDestinationDir', '--gc', '--minify'], context()->withAllowFailure()->withPty(false)->withQuiet());
+    $process = run([...HUGO, '--cleanDestinationDir', '--gc', '--minify'], hugo_context()->withAllowFailure()->withPty(false)->withQuiet());
     if (!$process->isSuccessful()) {
         io()->write($process->getErrorOutput());
         io()->error('Hugo could not build the site.');
@@ -199,7 +203,7 @@ function site_preview(
     // Rendered in memory, so that a draft can never end up in public/.
     run(
         [...HUGO, 'server', '--buildDrafts', '--port', (string) $port, '--renderToMemory'],
-        context()->withAllowFailure()->withPty(false)->withTimeout(null),
+        hugo_context()->withAllowFailure()->withPty(false)->withTimeout(null),
         $showHugoOutput,
     );
 
@@ -210,6 +214,12 @@ function site_preview(
     }
 
     return 0;
+}
+
+// The footer of the site links to the commit it was built from.
+function hugo_context(): Context
+{
+    return context()->withEnvironment(['HUGO_PARAMS_COMMIT' => capture(['git', 'rev-parse', '--short', 'HEAD'])]);
 }
 
 function is_port_free(int $port): bool

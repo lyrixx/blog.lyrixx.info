@@ -4,9 +4,9 @@
 {{- if not $print }}{{ errorf "%s has no print.svg. Run castor post:prints." .File.Path }}{{ end }}
 <li class="entry">
 <img src="{{ $print.RelPermalink }}" alt="Cyanotype of {{ .Params.latin }}">
-<div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "Jan 2, 2006" }}{{ if eq $i 0 }}<span class="fresh">fresh out of the oven</span>{{ end }}</time>
+<div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}{{ if eq $i 0 }}<span class="fresh">fresh out of the oven</span>{{ end }}</time>
 <a href="{{ .RelPermalink }}">{{ .Title }}</a></div>
-<p class="fig"><span>Fig. {{ partial "figure-number.html" . }}</span><b>{{ .Params.latin }}</b></p>
+<p class="fig"><code>&lt;fig n="{{ partial "figure-number.html" . }}"&gt;</code><b>{{ .Params.latin }}</b><code>&lt;/fig&gt;</code></p>
 </li>
 {{- end }}
 </ul>

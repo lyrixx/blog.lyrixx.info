@@ -1,0 +1,8 @@
+{{- /* The status line of vim, stuck to the bottom of the window. assets/js/main.js keeps the position up to date. */ -}}
+<div class="status-line" aria-hidden="true"><b>NORMAL</b>
+{{- if .IsHome -}}
+<span class="file">content/posts/</span><i></i><span>{{ len (where site.RegularPages "Section" "posts") }} articles</span>
+{{- else -}}
+<span class="file">{{ with .File }}content/{{ .Path }}{{ else }}404{{ end }}</span><i></i><span>markdown</span><span>utf-8</span>
+{{- end -}}
+<span id="position">Top</span></div>

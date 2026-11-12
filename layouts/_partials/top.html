@@ -1,2 +1,2 @@
 <div class="top"><a class="home" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
-<nav>{{ range slice "/about" "/projects" "/talks" }}{{ with site.GetPage . }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}{{ end }}{{ with site.Home.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">RSS</a>{{ end }}<a href="{{ site.Params.github }}">GitHub</a></nav></div>
+<nav>{{ range slice "/about" "/projects" "/talks" }}{{ with site.GetPage . }}<a href="{{ .RelPermalink }}">~{{ strings.TrimSuffix "/" .RelPermalink }}</a>{{ end }}{{ end }}{{ with site.Home.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">~{{ .RelPermalink }}</a>{{ end }}<a class="external" href="{{ site.Params.github }}">GitHub</a></nav></div>

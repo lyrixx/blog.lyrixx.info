@@ -2,6 +2,7 @@
 title: 'gitlib 2.0 is out'
 description: 'gitlib 2.0 can talk to libgit2 through FFI. Reading a commit gets 10 times faster on a small repository. But on symfony/symfony, blame takes 10 minutes.'
 date: '2026-11-10'
+habitat: [PHP, Git, FFI]
 latin: 'Historia ramosa'
 style: umbel
 signoff: "Et voilà!"

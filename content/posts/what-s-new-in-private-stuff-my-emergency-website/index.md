@@ -2,6 +2,7 @@
 title: "What's new in private-stuff, my emergency website"
 description: "My emergency website got a new theme, a safer deployment, and a way to share a secret with people you trust, with Shamir's secret sharing."
 date: '2026-10-28'
+habitat: [Security, Shamir]
 latin: 'Secretum divisum'
 style: algae
 ---

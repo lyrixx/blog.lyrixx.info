@@ -2,6 +2,7 @@
 title: 'Why libgit2 takes 10 minutes to blame a file when git takes 0.6 s'
 description: 'Through libgit2, reading a commit is 10 times faster than running git. But on symfony/symfony, blaming one file takes 10 minutes instead of 0.6 s. Here is why.'
 date: '2026-11-12'
+habitat: [Git, C, Performance]
 latin: 'Culpa lenta'
 style: ginkgo
 ---

@@ -4,6 +4,7 @@ description: 'My async demo moved to Symfony 8.1, FrankenPHP and Mercure 1.0. An
 images: ['cover-custom.png']
 imageAlt: 'Long imports, live progress: a Messenger worker publishes to the Mercure hub, which streams the progress to the browser'
 date: '2026-10-21'
+habitat: [Symfony, Messenger, Mercure]
 latin: 'Nuntius asynchronus'
 style: sprig
 signoff: "Done!"

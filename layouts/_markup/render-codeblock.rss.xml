@@ -1,0 +1,1 @@
+{{ transform.Highlight .Inner (or .Type "text") .Options }}

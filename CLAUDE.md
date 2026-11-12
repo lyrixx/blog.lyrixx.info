@@ -24,11 +24,21 @@ Dans le Markdown :
 - `{{< note >}}Text{{< /note >}}`, après un paragraphe, écrit une note à la main dans la marge.
 - `==text==` souligne au crayon.
 - `signoff` dans le front matter ajoute une dernière ligne écrite à la main.
+- `habitat: [PHP, Git]` dans le front matter remplit la ligne « habitat » de l'étiquette de spécimen, dans le bandeau de l'article.
+- Un bloc de code affiche son langage dans sa barre, ou son `title` s'il en a un : ` ```php {title="src/Kernel.php"} `. Dans un bloc `bash`, chaque ligne est une commande et reçoit un `$`.
 - `images: ['cover-custom.png']` dans le front matter remplace `cover.png` dans les aperçus de liens, avec `imageAlt` pour son texte alternatif. Le fichier va dans le dossier de l'article, en PNG ou JPG (`cover-custom.jpg`). `cover.png` reste généré à côté.
 
 ## Talks et Projects
 
 `content/talks/index.md` et `content/projects/index.md` listent leurs cartes dans le front matter : des `groups`, avec un `title` facultatif et des `cards` (`image`, `title`, `url`, et `highlight: true` pour faire ressortir une carte), affichés dans l'ordre du fichier. L'image va à côté de `index.md`, de préférence en 16:9 et sans transparence : le vide autour d'une image d'un autre format prend sa couleur dominante.
+
+## Thème
+
+- Le pied de page affiche le commit du build : Castor le passe à Hugo avec `HUGO_PARAMS_COMMIT`, donc il manque si Hugo est lancé à la main.
+- Les raccourcis clavier et le Konami code sont dans `assets/js/main.js`, et l'aide des raccourcis (`?`) dans `layouts/_partials/footer.html`.
+- La plante de la page 404 est `static/img/404.svg`, écrite par `castor plant:generate sprig 404 --alone`.
+- La ligne d'état en bas de la fenêtre est `layouts/_partials/status-line.html`.
+- Le flux RSS a ses propres gabarits de titre et de bloc de code (`layouts/_markup/*.rss.xml`), sans ancre ni bouton.
 
 ## Déploiement
 

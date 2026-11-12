@@ -5,5 +5,8 @@
 <h1>A geek’s <span class="fix"><s>blog</s><b>herbarium</b></span>.</h1>
 </section>
 </div></header>
-<main class="wrap">{{ partial "post-list.html" . }}</main>
+<main class="wrap">
+<p class="plants-note">one article, one plant, grown by a script ↓</p>
+{{ partial "post-list.html" . }}
+</main>
 {{ end }}

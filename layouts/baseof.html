@@ -2,6 +2,17 @@
 <html lang="{{ or .Params.locale site.Language.Locale }}">
 <head>
 <meta charset="utf-8">
+{{ printf `<!--
+       \ | /
+     '-. \|/ .-'        Hello, you who read the source.
+    --==  (@)  ==--     This herbarium is built with Hugo, Castor and a plant generator:
+     .-' /|\ '-.        %s
+        / | \
+          |             Try the Konami code.
+       \  |  /
+        \ | /
+     ~~~~\|/~~~~
+-->` site.Params.repository | safeHTML }}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary | plainify | htmlUnescape | strings.TrimSpace | truncate 160 }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
@@ -13,6 +24,15 @@
 {{ with resources.Get "css/main.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
 {{ end -}}
+{{ if eq .Section "posts" -}}
+{{ with .PrevInSection }}<link rel="next" href="{{ .RelPermalink }}">
+{{ end -}}
+{{ with .NextInSection }}<link rel="prev" href="{{ .RelPermalink }}">
+{{ end -}}
+{{ end -}}
+{{ with resources.Get "js/main.js" | resources.ExecuteAsTemplate "js/main.js" . | minify | fingerprint -}}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{ end -}}
 {{ partial "opengraph.html" . }}
 {{ partial "twitter_cards.html" . }}
 {{ $imageAlt := site.Params.description }}{{ if .Resources.Get "cover.png" }}{{ $imageAlt = .Title }}{{ end }}{{ with .Params.imageAlt }}{{ $imageAlt = . }}{{ end -}}
@@ -23,5 +43,6 @@
 <body>
 {{ block "main" . }}{{ end }}
 {{ partial "footer.html" . }}
+{{ partial "status-line.html" . }}
 </body>
 </html>

@@ -1,1 +1,17 @@
-<footer class="wrap"><nav class="bottom"><a href="{{ site.Params.github }}">GitHub</a><a href="{{ site.Params.x }}">X</a><a href="{{ site.Params.bluesky }}">Bluesky</a></nav></footer>
+<footer class="wrap"><div class="bottom">
+<p class="build">{{ with site.Params.commit }}built from <a href="{{ site.Params.repository }}/commit/{{ . }}">{{ . }}</a><span class="keys-hint"> · </span>{{ end }}<span class="keys-hint">press <kbd>?</kbd> for the shortcuts</span></p>
+<nav><a href="{{ site.Params.github }}">GitHub</a><a href="{{ site.Params.x }}">X</a><a href="{{ site.Params.bluesky }}">Bluesky</a></nav>
+</div></footer>
+<dialog class="keys" id="keys">
+<h2>Keyboard shortcuts</h2>
+<dl>
+<div><dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>next and previous article of the list</dd></div>
+<div><dt><kbd>n</kbd> <kbd>p</kbd></dt><dd>older and newer article</dd></div>
+<div><dt><kbd>g</kbd> <kbd>h</kbd></dt><dd>home</dd></div>
+<div><dt><kbd>g</kbd> <kbd>a</kbd></dt><dd>about</dd></div>
+<div><dt><kbd>g</kbd> <kbd>p</kbd></dt><dd>projects</dd></div>
+<div><dt><kbd>g</kbd> <kbd>t</kbd></dt><dd>talks</dd></div>
+<div><dt><kbd>?</kbd></dt><dd>this help</dd></div>
+</dl>
+<form method="dialog"><button>:q</button></form>
+</dialog>

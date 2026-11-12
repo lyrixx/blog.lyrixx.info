@@ -1,7 +1,18 @@
 {{ define "main" }}
-<header class="band band-fern"><div class="wrap">
+<header class="band">
+<img class="plant plant-dried" src="/img/404.svg" alt="">
+<div class="wrap">
 {{ partial "top.html" . }}
-<div class="head"><h1>Page not found</h1></div>
+<div class="head"><h1>Specimen not found</h1><p>Fig. 404: Pagina absens</p></div>
 </div></header>
-<main class="wrap"><div class="sheet"><article><p><a href="{{ site.Home.RelPermalink }}">Back to the articles</a></p></article></div></main>
+<main class="wrap"><div class="sheet"><article>
+<p>This page is not in the herbarium. It moved, or it never grew.</p>
+<div class="code code-bash"><div class="code-bar"><span>bash</span></div>
+<pre><code><span class="line">herbarium show <span id="missing">/this/page</span></span>
+fatal: no such specimen
+<span class="line">echo $?</span>
+148</code></pre></div>
+<aside>404 % 256 = 148. An exit code is only one byte.</aside>
+<p><a href="{{ site.Home.RelPermalink }}">Back to the articles</a></p>
+</article></div></main>
 {{ end }}

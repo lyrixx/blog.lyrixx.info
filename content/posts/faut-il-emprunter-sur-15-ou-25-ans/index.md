@@ -2,6 +2,7 @@
 title: 'Faut-il emprunter sur 15 ou 25 ans ?'
 description: "Allonger un prêt de 15 à 25 ans, c'est emprunter à 4,68 % par an. J'ai demandé à Claude de trancher avec de vrais chiffres et un simulateur."
 date: '2026-10-06'
+habitat: [Finance]
 latin: 'Mutuum longum'
 style: umbel
 locale: fr

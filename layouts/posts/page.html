@@ -3,16 +3,25 @@
 {{ if not $plant }}{{ errorf "%s has no plant.svg. Run castor post:prints." .File.Path }}{{ end -}}
 <header class="band">
 <img class="plant" src="{{ $plant.RelPermalink }}" alt="">
+<div class="dimension" aria-hidden="true"><span>h = 334</span></div>
 <div class="wrap">
 {{ partial "top.html" . }}
 <div class="head">
-<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format "Jan 2, 2006" }}</time>
 <h1>{{ .Title }}</h1>
-<p>Fig. {{ partial "figure-number.html" . }}: {{ .Params.latin }}</p>
+<p><code>&lt;figcaption&gt;</code>Fig. {{ partial "figure-number.html" . }}: {{ .Params.latin }}<code>&lt;/figcaption&gt;</code></p>
+<samp class="grown"><span>$</span> castor plant:generate {{ .Params.style }} {{ .File.ContentBaseName }} --alone</samp>
 </div>
 </div>
 </header>
-<main class="wrap"><div class="sheet"><article>
+<div class="specimen-anchor">
+<dl class="specimen">
+<div><dt>collected</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></dd></div>
+{{ with .Params.habitat }}<div><dt>habitat</dt><dd>{{ delimit . ", " }}</dd></div>{{ end }}
+<div><dt>reading</dt><dd>{{ .ReadingTime }} min, {{ .WordCount }} words</dd></div>
+</dl>
+</div>
+<main class="wrap">
+<div class="sheet"><article>
 {{ .Content }}
 {{ with .Params.signoff }}<footer class="end">{{ . }}</footer>{{ end }}
 </article></div></main>
