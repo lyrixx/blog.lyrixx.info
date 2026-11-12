@@ -1,8 +1,7 @@
 ---
 title: 'Why libgit2 takes 10 minutes to blame a file when git takes 0.6 s'
 description: 'Through libgit2, reading a commit is 10 times faster than running git. But on symfony/symfony, blaming one file takes 10 minutes instead of 0.6 s. Here is why.'
-date: '2026-11-08'
-draft: true
+date: '2026-11-12'
 latin: 'Culpa lenta'
 style: ginkgo
 ---
@@ -27,7 +26,7 @@ On symfony/symfony (80,000 commits), it's another story:
 
 WTF! This makes no sense! There must be a mistake somewhere.
 
-That's what I said the first time I saw it. But there is no mistake, and there are two reasons.
+That's what I said the first time I saw it. But there is no mistake.
 
 ## Why is counting the commits slow?
 

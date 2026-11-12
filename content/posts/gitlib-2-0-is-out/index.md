@@ -64,7 +64,7 @@ On symfony/symfony (80,000 commits), it's another story. Counting the commits of
 
 WTF! This makes no sense! There must be a mistake somewhere.
 
-That's what I said the first time I saw it. But there is no mistake. Spoiler: libgit2 finds one section it doesn't know in a file written by git, ignores the whole file, and opens the 80,000 commits one by one. And blame has its own problem, even worse. The whole story deserves its own article, coming soon.
+That's what I said the first time I saw it. But there is no mistake. Spoiler: libgit2 finds one section it doesn't know in a file written by git, ignores the whole file, and opens the 80,000 commits one by one. And blame has its own problem, even worse. The whole story deserves [its own article](/posts/why-libgit2-takes-10-minutes-to-blame-a-file-when-git-takes-0-6-s/).
 
 So `CliDriver` stays the default. Use `LibGit2Driver` only if your application runs many small reads in a long-running process. And don't trust my numbers, try it on your own repository:
 
