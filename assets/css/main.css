@@ -214,6 +214,7 @@ body { padding-bottom: 27px; }
     .specimen::before { content: none; }
     .specimen div { gap: 8px; }
     .specimen dt { width: auto; }
+    .specimen { color: var(--muted); }
     .sheet { display: block; max-width: 860px; margin: 0 auto; }
     article { display: block; }
     article > aside { margin: -6px 0 18px; padding-left: 14px; border-left: 2px solid var(--pencil); transform: none; }
@@ -236,6 +237,7 @@ body { padding-bottom: 27px; }
     .grown, .head p code, .status-line span:not(.file, #position) { display: none; }
     .plants-note { font-size: 19px; }
     .specimen-anchor, .wrap { padding: 0 20px; }
+    .specimen { gap: 0 16px; margin-bottom: -14px; font-size: 11px; }
     .band-fern::before { width: 70%; background-position: left -90px top -60px; background-size: auto 160%; opacity: .32; }
     .hero { padding: 72px 0 44px; }
     .head { padding: 44px 0 24px; }
