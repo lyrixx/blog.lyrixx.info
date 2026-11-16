@@ -33,6 +33,12 @@
 {{ with resources.Get "js/main.js" | resources.ExecuteAsTemplate "js/main.js" . | minify | fingerprint -}}
 <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
 {{ end -}}
+{{/* The square image comes first: Slack takes the first og:image and crops it to a square thumbnail. X reads twitter:image, which stays the wide cover. Its size is the SIZE of drawings/square.py. */ -}}
+{{ $squareURL := absURL "img/square.png" }}{{ $squareAlt := site.Params.description }}{{ with .Resources.Get "square.png" }}{{ $squareURL = .Permalink }}{{ $squareAlt = $.Title }}{{ end -}}
+<meta property="og:image" content="{{ $squareURL }}">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:image:alt" content="{{ $squareAlt }}">
 {{ partial "opengraph.html" . }}
 {{ partial "twitter_cards.html" . }}
 {{ $imageAlt := site.Params.description }}{{ if .Resources.Get "cover.png" }}{{ $imageAlt = .Title }}{{ end }}{{ with .Params.imageAlt }}{{ $imageAlt = . }}{{ end -}}
@@ -42,12 +48,6 @@
 <meta property="og:image:width" content="{{ .Width }}">
 <meta property="og:image:height" content="{{ .Height }}">
 {{ end }}{{ end -}}
-{{/* A second image, square, for the apps that show the link with a square thumbnail. Its size is the SIZE of drawings/square.py. */ -}}
-{{ $squareURL := absURL "img/square.png" }}{{ $squareAlt := site.Params.description }}{{ with .Resources.Get "square.png" }}{{ $squareURL = .Permalink }}{{ $squareAlt = $.Title }}{{ end -}}
-<meta property="og:image" content="{{ $squareURL }}">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:image:alt" content="{{ $squareAlt }}">
 {{ partial "structured-data.html" . }}
 </head>
 <body>
