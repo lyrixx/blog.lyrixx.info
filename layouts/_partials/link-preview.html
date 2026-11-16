@@ -1,0 +1,32 @@
+{{- /* The tags read by the link previews, instead of Hugo's opengraph.html, to choose their order. Slack, Mastodon and Bluesky take the first og:image, X reads twitter:image. */ -}}
+{{ if .IsPage -}}
+{{ $ISO8601 := "2006-01-02T15:04:05-07:00" -}}
+{{ with .Section }}<meta property="article:section" content="{{ . }}">
+{{ end -}}
+{{ with .PublishDate }}<meta property="article:published_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }}>
+{{ end -}}
+{{ with .Lastmod }}<meta property="article:modified_time" {{ .Format $ISO8601 | printf "content=%q" | safeHTMLAttr }}>
+{{ end -}}
+{{ end -}}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ or .Title site.Title | plainify }}">
+<meta property="og:description" content="{{ trim (or .Description .Summary site.Params.description | plainify | htmlUnescape) "\n\r\t " }}">
+<meta property="og:locale" content="{{ replace (or .Params.locale site.Language.Locale) `-` `_` }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+{{- /* The square image comes first, for Slack, which crops it to a square thumbnail. Its size is the SIZE of drawings/square.py. */}}
+{{ $squareURL := absURL "img/square.png" }}{{ $squareAlt := site.Params.description }}{{ with .Resources.Get "square.png" }}{{ $squareURL = .Permalink }}{{ $squareAlt = $.Title }}{{ end -}}
+<meta property="og:image" content="{{ $squareURL }}">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:image:alt" content="{{ $squareAlt }}">
+{{ $imageAlt := site.Params.description }}{{ if .Resources.Get "cover.png" }}{{ $imageAlt = .Title }}{{ end }}{{ with .Params.imageAlt }}{{ $imageAlt = . }}{{ end -}}
+{{ with index (partial "_funcs/get-page-images" .) 0 -}}
+<meta property="og:image" content="{{ .Permalink }}">
+<meta property="og:image:alt" content="{{ $imageAlt }}">
+{{ with .Image }}<meta property="og:image:width" content="{{ .Width }}">
+<meta property="og:image:height" content="{{ .Height }}">
+{{ end -}}
+{{ end -}}
+{{ partial "twitter_cards.html" . }}
+<meta name="twitter:image:alt" content="{{ $imageAlt }}">

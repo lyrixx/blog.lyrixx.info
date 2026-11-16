@@ -10,7 +10,7 @@ import resvg_py
 from blueprint import sheet, text
 from cover import TITLE_LEADING, fit, plant
 
-# Keep in sync with og:image:width and og:image:height of the square in layouts/baseof.html.
+# Keep in sync with og:image:width and og:image:height of the square in layouts/_partials/link-preview.html.
 SIZE = 800
 TITLE_MAX_HEIGHT = 280
 TITLE_MAX_WIDTH = 680
