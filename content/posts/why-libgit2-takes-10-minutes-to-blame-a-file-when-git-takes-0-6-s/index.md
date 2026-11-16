@@ -39,6 +39,8 @@ libgit2 can read this file too. But git now writes a section in it that libgit2 
 
 {{< note >}}Without this section, libgit2 counts the commits of symfony 7 times faster.{{< /note >}}
 
+Update: libgit2 2.0.0-rc.1, released in October, skips `GDA2` instead of ignoring the whole file ([libgit2#7271](https://github.com/libgit2/libgit2/pull/7271)). Measured in C, without PHP, it counts the commits of symfony in 25 ms, against 767 ms for libgit2 1.9 and about 40 ms for git. But `LibGit2Driver` only loads libgit2 1.9, so it doesn't get the fix.
+
 ## Why is blame slow?
 
 To find who wrote each line of `Process.php`, blame goes back in time, commit after commit. When the file changed in a commit, git takes the previous version in the parent commit, under the same name. libgit2 compares every file the commit changed, in case `Process.php` was renamed. Even when it's right there, with the same name ([libgit2#3027](https://github.com/libgit2/libgit2/issues/3027)):
@@ -46,6 +48,8 @@ To find who wrote each line of `Process.php`, blame goes back in time, commit af
 ![Going back in time, from a commit to its parent. git finds Process.php under the same name in the parent. libgit2 compares every file the commit changed, looking for a rename](blame.svg)
 
 Comparing files takes time, and libgit2 does it every time the file changed. git looks for a rename only when the file isn't in the parent under the same name.
+
+libgit2 2.0.0-rc.1 doesn't fix this one: blame takes as long as with 1.9.
 
 ## Conclusion
 
