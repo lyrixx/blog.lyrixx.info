@@ -1,4 +1,4 @@
-{{- /* The tags read by the link previews, instead of Hugo's opengraph.html, to choose their order. Slack, Mastodon and Bluesky take the first og:image, X reads twitter:image. */ -}}
+{{- /* The tags read by the link previews, instead of Hugo's opengraph.html, to choose their order. Bluesky takes the first og:image, the wide one, and X reads twitter:image. Slack and Mastodon read the oEmbed first, which gives them the square image. */ -}}
 {{ if .IsPage -}}
 {{ $ISO8601 := "2006-01-02T15:04:05-07:00" -}}
 {{ with .Section }}<meta property="article:section" content="{{ . }}">
@@ -14,12 +14,6 @@
 <meta property="og:description" content="{{ trim (or .Description .Summary site.Params.description | plainify | htmlUnescape) "\n\r\t " }}">
 <meta property="og:locale" content="{{ replace (or .Params.locale site.Language.Locale) `-` `_` }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-{{- /* The square image comes first, for Slack, which crops it to a square thumbnail. Its size is the SIZE of drawings/square.py. */}}
-{{ $squareURL := absURL "img/square.png" }}{{ $squareAlt := site.Params.description }}{{ with .Resources.Get "square.png" }}{{ $squareURL = .Permalink }}{{ $squareAlt = $.Title }}{{ end -}}
-<meta property="og:image" content="{{ $squareURL }}">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:image:alt" content="{{ $squareAlt }}">
 {{ $imageAlt := site.Params.description }}{{ if .Resources.Get "cover.png" }}{{ $imageAlt = .Title }}{{ end }}{{ with .Params.imageAlt }}{{ $imageAlt = . }}{{ end -}}
 {{ with index (partial "_funcs/get-page-images" .) 0 -}}
 <meta property="og:image" content="{{ .Permalink }}">
@@ -28,5 +22,14 @@
 <meta property="og:image:height" content="{{ .Height }}">
 {{ end -}}
 {{ end -}}
+{{ with partial "square-image.html" . -}}
+<meta property="og:image" content="{{ .Permalink }}">
+<meta property="og:image:width" content="{{ .Width }}">
+<meta property="og:image:height" content="{{ .Height }}">
+<meta property="og:image:alt" content="{{ .Alt }}">
+{{ end -}}
 {{ partial "twitter_cards.html" . }}
 <meta name="twitter:image:alt" content="{{ $imageAlt }}">
+{{ with .OutputFormats.Get "oembed" -}}
+<link rel="alternate" type="application/json+oembed" href="{{ .Permalink }}" title="{{ $.Title }}">
+{{ end -}}

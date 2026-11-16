@@ -39,7 +39,7 @@ Dans le Markdown :
 - La plante de la page 404 est `static/img/404.svg`, écrite par `castor plant:generate sprig 404 --alone`.
 - La ligne d'état en bas de la fenêtre est `layouts/_partials/status-line.html`.
 - Le flux RSS a ses propres gabarits de titre et de bloc de code (`layouts/_markup/*.rss.xml`), sans ancre ni bouton.
-- Les balises des aperçus de liens sont dans `layouts/_partials/link-preview.html`, et non dans le `opengraph.html` de Hugo, pour en choisir l'ordre : `article:*`, `og:*`, le carré puis l'image large, et enfin `twitter:*`. Slack, Mastodon et Bluesky prennent la première `og:image`.
+- Les balises des aperçus de liens sont dans `layouts/_partials/link-preview.html`, et non dans le `opengraph.html` de Hugo, pour en choisir l'ordre : `article:*`, `og:*`, l'image large puis le carré, `twitter:*`, et le lien vers le oEmbed de la page (`layouts/all.oembed.json`). Bluesky prend la première `og:image`, X `twitter:image`, Slack et Mastodon le carré du oEmbed.
 
 ## Déploiement
 
