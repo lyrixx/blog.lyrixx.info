@@ -23,16 +23,8 @@ noClasses = false
 keepComments = true
 keepQuotes = true
 
-# The oEmbed of each page, which gives Slack the square sharing image: see layouts/_partials/link-preview.html.
-[outputFormats.oembed]
-baseName = "oembed"
-isPlainText = true
-mediaType = "application/json"
-notAlternative = true
-
 [outputs]
-home = ["html", "oembed", "rss"]
-page = ["html", "oembed"]
+home = ["html", "rss"]
 
 [params]
 bluesky = "https://bsky.app/profile/lyrixx.bsky.social"

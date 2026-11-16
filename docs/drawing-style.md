@@ -85,17 +85,20 @@ Trois couleurs, pas une de plus :
   deux fichiers `*cover*`. Ne pas ajouter d'autre fichier `*cover*` dans le dossier de l'article.
 - Les pages sans image propre, comme l'accueil, utilisent `static/img/cover.png`, déclaré par
   `images` dans `hugo.toml`.
-- Chaque article a aussi un `square.png` de 800 × 800 (la plante, le titre dessous), pour les
-  applications qui montrent le lien avec une vignette carrée : un recadrage de `cover.png` au centre
-  couperait le titre. `drawings/square.py` le dessine, `castor post:covers` le lance, et
-  `layouts/_partials/link-preview.html` le déclare en deuxième `og:image`, après `cover.png`.
-  Le carré garde la plante même quand l'article a un `cover-custom`. Les pages sans image propre
-  utilisent `static/img/square.png`.
-- Chaque plateforme prend son image ailleurs :
-  - Bluesky prend la première `og:image` et la recadre en 1200/630 : ce doit être l'image large.
-  - Slack et Mastodon lisent d'abord le oEmbed de la page (`oembed.json`, écrit par
-    `layouts/all.oembed.json`), qui leur donne le carré. Mastodon n'y trouve pas de description.
-  - X lit `twitter:image`, qui reste l'image large.
+- Chaque article a aussi un `square.png` de 800 × 800, déclaré en première `og:image` par
+  `layouts/_partials/link-preview.html`, avant `cover.png`. `drawings/square.py` le dessine, et
+  `castor post:covers` le lance. Les pages sans image propre utilisent `static/img/square.png`.
+- Slack, Mastodon et Bluesky prennent la première `og:image`, mais ne la recadrent pas pareil :
+  - Slack la montre en vignette carrée : il voit le carré entier.
+  - Bluesky la recadre au centre en 1200/630 : il garde la bande du milieu, de 800 × 420.
+  - Mastodon la montre en petite carte, à gauche du titre.
+- Le carré met donc le titre, en grand, dans la bande du milieu, sur la plante en filigrane à
+  droite, et le nom latin et l'auteur au-dessus et au-dessous. Il garde la plante même quand
+  l'article a un `cover-custom`.
+- X lit `twitter:image`, qui reste l'image large.
+- Testé en novembre 2026, et qui ne marche pas : mettre l'image large en premier (Slack la recadre
+  au centre et coupe le titre), compter sur les dimensions déclarées (Slack et Bluesky les
+  ignorent) ou donner le carré par oEmbed (Slack ne le lit pas sur ce site).
 - Il ne s'appelle pas `cover-square.png` : Hugo le prendrait pour un fichier `*cover*`.
 
 ## Exemples

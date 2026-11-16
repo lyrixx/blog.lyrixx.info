@@ -1,5 +1,0 @@
-{{- /* The square sharing image of the page, drawn by drawings/square.py, or the one of the site. */ -}}
-{{- /* 800 is the size of static/img/square.png, the SIZE of drawings/square.py. */ -}}
-{{- $square := dict "Alt" site.Params.description "Height" 800 "Permalink" (absURL "img/square.png") "Width" 800 -}}
-{{- with .Resources.Get "square.png" }}{{ $square = dict "Alt" $.Title "Height" .Height "Permalink" .Permalink "Width" .Width }}{{ end -}}
-{{- return $square -}}
