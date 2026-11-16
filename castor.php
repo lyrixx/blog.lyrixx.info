@@ -28,6 +28,8 @@ const DRAWINGS_DIRECTORY = __DIR__.'/drawings';
 const HUGO = ['mise', 'exec', '--', 'hugo'];
 const POSTS_DIRECTORY = __DIR__.'/content/posts';
 const SITE_COVER = __DIR__.'/static/img/cover.png';
+const SITE_COVER_TITLE = 'A geek’s herbarium';
+const SITE_SQUARE = __DIR__.'/static/img/square.png';
 
 #[AsTask(name: 'new', namespace: 'post', description: 'Creates a draft article with its plant')]
 function post_new(
@@ -62,6 +64,7 @@ function post_new(
     ], flags: Yaml::DUMP_EMPTY_ARRAY_AS_SEQUENCE);
     fs()->dumpFile($directory.'/index.md', "---\n{$frontMatter}---\n\n");
     draw_cover($directory, $title, $latin);
+    draw_square($directory, $title);
 
     io()->success([
         \sprintf('Created content/posts/%s/index.md, with a plant of style "%s".', $slug, $style),
@@ -266,15 +269,27 @@ function draw_published_covers(bool $force = false): int
         draw_site_cover();
         ++$drawn;
     }
+    if ($force || !is_file(SITE_SQUARE)) {
+        draw_site_square();
+        ++$drawn;
+    }
 
     foreach (post_files() as $file) {
         $frontMatter = read_front_matter($file->getPathname());
-        if (($frontMatter['draft'] ?? false) || (!$force && is_file($file->getPath().'/cover.png'))) {
+        if ($frontMatter['draft'] ?? false) {
             continue;
         }
 
-        draw_cover($file->getPath(), $frontMatter['title'], $frontMatter['latin']);
-        ++$drawn;
+        // Each image is checked on its own: drawing a missing square must not redraw a published cover.
+        $directory = $file->getPath();
+        if ($force || !is_file($directory.'/cover.png')) {
+            draw_cover($directory, $frontMatter['title'], $frontMatter['latin']);
+            ++$drawn;
+        }
+        if ($force || !is_file($directory.'/square.png')) {
+            draw_square($directory, $frontMatter['title']);
+            ++$drawn;
+        }
     }
 
     return $drawn;
@@ -288,7 +303,8 @@ function draw_draft_covers(): int
         $frontMatter = read_front_matter($file->getPathname());
         if ($frontMatter['draft'] ?? false) {
             draw_cover($file->getPath(), $frontMatter['title'], $frontMatter['latin']);
-            ++$drawn;
+            draw_square($file->getPath(), $frontMatter['title']);
+            $drawn += 2;
         }
     }
 
@@ -303,8 +319,20 @@ function draw_cover(string $directory, string $title, string $latin): void
 
 function draw_site_cover(): void
 {
-    run_drawing_python(DRAWINGS_DIRECTORY.'/cover.py', __DIR__.'/static/img/fern.svg', SITE_COVER, 'A geek’s herbarium', 'Filix lyrixxi');
+    run_drawing_python(DRAWINGS_DIRECTORY.'/cover.py', __DIR__.'/static/img/fern.svg', SITE_COVER, SITE_COVER_TITLE, 'Filix lyrixxi');
     io()->writeln('Drew the cover of the site');
+}
+
+function draw_square(string $directory, string $title): void
+{
+    run_drawing_python(DRAWINGS_DIRECTORY.'/square.py', $directory.'/plant.svg', $directory.'/square.png', $title);
+    io()->writeln(\sprintf('Drew the square cover of %s', basename($directory)));
+}
+
+function draw_site_square(): void
+{
+    run_drawing_python(DRAWINGS_DIRECTORY.'/square.py', __DIR__.'/static/img/fern.svg', SITE_SQUARE, SITE_COVER_TITLE);
+    io()->writeln('Drew the square cover of the site');
 }
 
 function run_drawing_python(string ...$arguments): void

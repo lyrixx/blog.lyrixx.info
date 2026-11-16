@@ -9,8 +9,8 @@ Pour écrire ou relire un article, suivre `docs/writing-style.md`. Pour un dessi
 ## Articles
 
 Un article vit dans `content/posts/<slug>/`, avec son `index.md`, sa plante (`print.svg` pour la
-liste, `plant.svg` pour le bandeau) et son image de partage (`cover.png`). Ces fichiers se
-commitent : la plante d'un article publié ne doit pas changer.
+liste, `plant.svg` pour le bandeau) et ses images de partage (`cover.png`, et `square.png` pour les
+vignettes carrées). Ces fichiers se commitent : la plante d'un article publié ne doit pas changer.
 
 - `castor post:new "Title" "Latin name"` crée un brouillon et sa plante (`--style` pour la choisir, `--date` pour l'antidater).
 - `castor post:covers` dessine les images de partage qui manquent, et redessine celles des brouillons.

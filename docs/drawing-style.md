@@ -85,6 +85,13 @@ Trois couleurs, pas une de plus :
   deux fichiers `*cover*`. Ne pas ajouter d'autre fichier `*cover*` dans le dossier de l'article.
 - Les pages sans image propre, comme l'accueil, utilisent `static/img/cover.png`, déclaré par
   `images` dans `hugo.toml`.
+- Chaque article a aussi un `square.png` de 800 × 800 (la plante, le titre dessous), pour les
+  applications qui montrent le lien avec une vignette carrée : un recadrage de `cover.png` au centre
+  couperait le titre. `drawings/square.py` le dessine, `castor post:covers` le lance, et
+  `layouts/baseof.html` le déclare en deuxième `og:image`, après `cover.png`. Il garde la plante
+  même quand l'article a un `cover-custom`. Les pages sans image propre utilisent
+  `static/img/square.png`.
+- Il ne s'appelle pas `cover-square.png` : Hugo le prendrait pour un fichier `*cover*`.
 
 ## Exemples
 

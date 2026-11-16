@@ -20,12 +20,12 @@ TITLE_SIZES = (104, 92, 80, 70, 62)
 def main(plant_path, cover_path, title, latin):
     cover_path = Path(cover_path)
     author = tomllib.loads((REPOSITORY / 'hugo.toml').read_text(encoding='utf-8'))['title']
-    size, lines = fit(title)
+    size, lines = fit(title, TITLE_SIZES, TITLE_MAX_WIDTH, TITLE_MAX_HEIGHT)
     leading = size * TITLE_LEADING
     first = TITLE_CENTER - (len(lines) - 1) * leading / 2 + size * .3
 
     def content(rng):
-        out = plant(Path(plant_path))
+        out = plant(Path(plant_path), 730, 58, 450, 514)
         out += text(latin, LEFT, 104, 44, fill=CREAM, rot=-1)
         for i, line in enumerate(lines):
             out += text(line, LEFT, first + i * leading, size, rot=-1)
@@ -35,20 +35,20 @@ def main(plant_path, cover_path, title, latin):
     cover_path.write_bytes(bytes(resvg_py.svg_to_bytes(svg_string=svg)))
 
 
-def fit(title):
-    """The largest size at which the title fits on the left of the sheet, and its lines at this size."""
-    for size in TITLE_SIZES:
-        lines = wrap(title, size)
-        if len(lines) * size * TITLE_LEADING <= TITLE_MAX_HEIGHT:
+def fit(title, sizes, max_width, max_height):
+    """The largest of the sizes at which the title fits in the box, and its lines at this size."""
+    for size in sizes:
+        lines = wrap(title, size, max_width)
+        if len(lines) * size * TITLE_LEADING <= max_height:
             return size, lines
     raise ValueError(f'The title "{title}" is too long for a cover.')
 
 
-def wrap(title, size):
+def wrap(title, size, max_width):
     lines, line = [], ''
     for word in title.split():
         candidate = f'{line} {word}'.strip()
-        if line and text_width(candidate, size) > TITLE_MAX_WIDTH:
+        if line and text_width(candidate, size) > max_width:
             lines.append(line)
             line = word
         else:
@@ -56,11 +56,13 @@ def wrap(title, size):
     return [*lines, line]
 
 
-def plant(path):
+def plant(path, x, y, width, height):
     svg = path.read_text(encoding='utf-8')
     view_box = re.search(r'viewBox="([^"]+)"', svg)[1]
     drawing = svg[svg.index('>') + 1:svg.rindex('</svg>')]
-    return f'<svg x="730" y="58" width="450" height="514" viewBox="{view_box}" preserveAspectRatio="xMidYMid meet" opacity=".92">{drawing}</svg>'
+    return f'<svg x="{x}" y="{y}" width="{width}" height="{height}" viewBox="{view_box}" preserveAspectRatio="xMidYMid meet" opacity=".92">{drawing}</svg>'
 
 
-main(*sys.argv[1:])
+# square.py imports its helpers.
+if __name__ == '__main__':
+    main(*sys.argv[1:])
