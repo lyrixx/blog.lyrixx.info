@@ -1,8 +1,7 @@
 ---
 title: 'How to control Spotify on a Raspberry Pi from Home Assistant'
 description: 'raspotify turns a Raspberry Pi into a Spotify speaker, but nothing can control it locally. Here is how I plugged it into Home Assistant, with MQTT, MPRIS, and three pull requests to librespot.'
-date: '2026-11-13'
-draft: true
+date: '2026-11-16'
 habitat: [Home Assistant, Spotify, MQTT]
 latin: 'Musica domestica'
 style: fern
