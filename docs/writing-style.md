@@ -64,6 +64,12 @@ Bad news! Or good news: **PHP does not leak**."
 Donner de vrais chiffres dès qu'il y en a. Dire clairement les limites de la solution proposée :
 "So use it only in a dev environment."
 
+Définir un terme peu connu avant de s'en servir, en une phrase et avec un exemple connu : une SAPI,
+c'est `cli` dans le terminal ou `fpm` derrière nginx. De même, présenter un outil ou un fichier
+avant d'en parler : « That's what the Dockerfile does. », sans que Docker ait été cité avant, sort
+de nulle part. Et chaque sujet se rattache au précédent par une transition : « That's PHP alone. But
+you also want extensions ».
+
 La longueur médiane tourne autour de 700 mots de prose, hors code. Un article peut ne contenir
 qu'une astuce et tenir en 300 mots.
 
