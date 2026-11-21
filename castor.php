@@ -204,9 +204,10 @@ function site_preview(
         }
     };
 
-    // Rendered in memory, so that a draft can never end up in public/.
+    // Rendered in memory, so that a draft can never end up in public/. With
+    // the future articles: a draft is often dated from its publication day.
     run(
-        [...HUGO, 'server', '--buildDrafts', '--port', (string) $port, '--renderToMemory'],
+        [...HUGO, 'server', '--buildDrafts', '--buildFuture', '--port', (string) $port, '--renderToMemory'],
         hugo_context()->withAllowFailure()->withPty(false)->withTimeout(null),
         $showHugoOutput,
     );
