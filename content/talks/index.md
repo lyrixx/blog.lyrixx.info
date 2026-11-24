@@ -4,6 +4,10 @@ description: 'Slides of the talks I gave at conferences and meetups, about Symfo
 layout: cards
 groups:
   - cards:
+      - image: php-in-the-browser.jpg
+        title: 'PHP in the browser'
+        url: https://lyrixx.github.io/php-in-the-browser/
+        highlight: true
       - image: de-gauche-ou-de-droite.jpg
         title: 'De gauche ou de droite ?'
         url: https://lyrixx.github.io/gauche-ou-droite/media/slides/
