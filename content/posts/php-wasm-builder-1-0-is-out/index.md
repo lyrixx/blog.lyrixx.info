@@ -29,7 +29,7 @@ Here is a page that runs PHP:
 
 It prints `Hello from PHP 8.6.0`. PHP 8.3, 8.4 and 8.5 work too.
 
-Printing the version is not very useful. But you can reuse PHP code that already exists, without porting it to JavaScript. [JoliTypo](https://jolitypo.jolicode.com/) fixes the microtypography of a text, and [structured-data](https://jolicode.github.io/structured-data/) validates the schema.org data of a page. Both are PHP libraries, and both run in your browser.
+Printing the version is not very useful. But you can reuse PHP code that already exists, without porting it to JavaScript. [JoliTypo](https://jolitypo.jolicode.com/) fixes the microtypography of a text, [JoliMarkdown](https://jolimarkdown.jolicode.com/) fixes Markdown, and [structured-data](https://structured-data-validator.jolicode.com/) validates the schema.org data of a page. All three are PHP libraries, and all three run in your browser.
 
 And it goes further: whole Symfony applications run too. The [Symfony Demo](https://lyrixx.github.io/php-wasm-demo/symfony-demo/) runs as it is, with its admin, Doctrine, SQLite and 30 languages. And [an EasyAdmin back office](https://lyrixx.github.io/php-wasm-demo/easyadmin/) runs for a record shop that never existed.
 
@@ -158,7 +158,9 @@ There are no processes either: `proc_open()`, `exec()` and Symfony Process fail 
 
 0.1.0 was released on 2026-10-20, and 0.14.0 on 2026-11-20. That's 14 minor versions in a month, and half of them broke something.
 
-1.0.0 brings no new feature. It's a promise: from now on, it follows Semantic Versioning. The build arguments, the default extensions, the files that are built, the JavaScript API and `Stack` don't break in a minor version. The versions of PHP, Emscripten and the libraries still move, and the sizes too. The [backward compatibility page](https://lyrixx.github.io/php-wasm-builder/reference/backward-compatibility/) lists it all.
+1.0.0 is a promise: from now on, it follows Semantic Versioning. The build arguments, the default extensions, the files that are built, the JavaScript API and `Stack` don't break in a minor version. The versions of PHP, Emscripten and the libraries still move, and the sizes too. The [backward compatibility page](https://lyrixx.github.io/php-wasm-builder/reference/backward-compatibility/) lists it all.
+
+Before making this promise, I went through the whole library once more, to break now what would have been stuck afterwards. `php.request()` behaves like a web server in production: a fatal error is a 500, and the errors go to the console instead of the page. It runs the `index.php` of a directory, and fills `PATH_INFO`. The Dockerfile checks what it downloads. And the examples run in a real Chrome in the CI, with their service workers and IndexedDB, which node does not have.
 
 ## Why a fork?
 
